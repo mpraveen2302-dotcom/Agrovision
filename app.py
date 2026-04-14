@@ -1,15 +1,15 @@
 import streamlit as st
 import numpy as np
 from PIL import Image
-from tensorflow.keras.models import load_model
+import tflite_runtime.interpreter as tflite
 import json
 
-# Load model
-@st.cache_resource
-def load_my_model():
-    return load_model("best_model.h5")
+# Load TFLite model
+interpreter = tflite.Interpreter(model_path="model.tflite")
+interpreter.allocate_tensors()
 
-model = load_my_model()
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
 
 # Load class names
 with open("class_names.json", "r") as f:
@@ -17,19 +17,20 @@ with open("class_names.json", "r") as f:
 
 st.title("🌱 AgroVision - Plant Disease Detection")
 
-uploaded_file = st.file_uploader("Upload a leaf image", type=["jpg", "png", "jpeg"])
+uploaded_file = st.file_uploader("Upload image", type=["jpg", "png", "jpeg"])
 
-if uploaded_file is not None:
+if uploaded_file:
     image = Image.open(uploaded_file).convert("RGB")
-    st.image(image, caption="Uploaded Image", use_column_width=True)
+    st.image(image)
 
-    # Preprocess
     img = image.resize((224, 224))
-    img_array = np.array(img) / 255.0
-    img_array = np.expand_dims(img_array, axis=0)
+    img = np.array(img) / 255.0
+    img = np.expand_dims(img, axis=0).astype(np.float32)
 
-    # Prediction
-    prediction = model.predict(img_array)
+    interpreter.set_tensor(input_details[0]['index'], img)
+    interpreter.invoke()
+    prediction = interpreter.get_tensor(output_details[0]['index'])
+
     predicted_class = class_names[np.argmax(prediction)]
     confidence = np.max(prediction) * 100
 
