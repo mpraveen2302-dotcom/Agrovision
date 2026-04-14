@@ -2,12 +2,12 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 import json
-import tflite_runtime.interpreter as tflite
+from tflite_runtime.interpreter import Interpreter
 
 # -------------------------
 # Load model
 # -------------------------
-interpreter = tflite.Interpreter(model_path="model.tflite")
+interpreter = Interpreter(model_path="model.tflite")
 interpreter.allocate_tensors()
 
 input_details = interpreter.get_input_details()
