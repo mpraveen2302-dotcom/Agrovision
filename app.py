@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 import json
-from tensorflow.keras.models import load_model
+from keras.models import load_model
 
 # Load model
 model = load_model("agrovision_model_final.h5")
