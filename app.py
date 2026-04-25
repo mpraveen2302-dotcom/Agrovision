@@ -4,7 +4,7 @@ from PIL import Image
 import json
 import requests
 import plotly.graph_objects as go
-import tensorflow as tf
+import tflite_runtime.interpreter as tflite
 import time
 
 # -----------------------
@@ -43,7 +43,7 @@ st.title("🌱 AgroVision AI — Smart Agriculture System")
 # -----------------------
 @st.cache_resource
 def load_model():
-    interpreter = tf.lite.Interpreter(model_path="model.tflite")
+    interpreter = tflite.Interpreter(model_path="model.tflite")
     interpreter.allocate_tensors()
     return interpreter
 
