@@ -3,4 +3,4 @@ numpy
 pillow
 requests
 plotly
-tensorflow-cpu
+tflite-runtime
