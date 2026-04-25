@@ -4,7 +4,7 @@ from PIL import Image
 import json
 import requests
 import plotly.graph_objects as go
-import tflite_runtime.interpreter as tflite
+import tensorflow as tf
 import time
 
 # -----------------------
@@ -12,14 +12,13 @@ import time
 # -----------------------
 st.set_page_config(page_title="AgroVision AI", layout="wide")
 
+st.title("🌱 AgroVision AI — Smart Agriculture System")
+
 # -----------------------
-# CUSTOM CSS (PREMIUM UI)
+# CSS (CARDS)
 # -----------------------
 st.markdown("""
 <style>
-.main {
-    background-color: #f5fff5;
-}
 .card {
     padding: 15px;
     border-radius: 12px;
@@ -34,16 +33,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # -----------------------
-# TITLE
-# -----------------------
-st.title("🌱 AgroVision AI — Smart Agriculture System")
-
-# -----------------------
 # LOAD MODEL
 # -----------------------
 @st.cache_resource
 def load_model():
-    interpreter = tflite.Interpreter(model_path="model.tflite")
+    interpreter = tf.lite.Interpreter(model_path="model.tflite")
     interpreter.allocate_tensors()
     return interpreter
 
@@ -71,33 +65,33 @@ def preprocess(image):
 
 
 # -----------------------
-# ADVANCED KNOWLEDGE BASE (FIXED)
+# KNOWLEDGE BASE (DETAILED FARMER ADVICE)
 # -----------------------
 knowledge_base = {
     "Leaf Blight": {
-        "Symptoms": "Yellowing of leaf edges, brown necrotic patches, drying of leaves.",
-        "Causes": "Fungal infection promoted by high humidity and poor air circulation.",
-        "Prevention": "Avoid overwatering, ensure proper spacing, use resistant varieties.",
-        "Cure": "Apply copper-based fungicide or mancozeb spray every 7 days.",
-        "Impact": "Can reduce crop yield by up to 40% if untreated.",
-        "Best Practices": "Remove infected leaves, avoid overhead irrigation."
+        "Symptoms": "Yellowing of leaf edges, brown patches, drying of leaves.",
+        "Causes": "Fungal infection due to high humidity and poor airflow.",
+        "Prevention": "Avoid overwatering, maintain spacing, use resistant seeds.",
+        "Cure": "Apply fungicide like mancozeb every 7 days.",
+        "Impact": "Can reduce yield significantly if untreated.",
+        "Best Practices": "Remove infected leaves, improve field drainage."
     },
 
     "Healthy": {
-        "Symptoms": "Leaves are green, no visible lesions or discoloration.",
-        "Causes": "Healthy growth conditions.",
-        "Prevention": "Maintain proper irrigation and nutrient levels.",
+        "Symptoms": "Green and healthy leaves with no visible damage.",
+        "Causes": "Proper growth conditions.",
+        "Prevention": "Maintain regular irrigation and fertilization.",
         "Cure": "No treatment required.",
-        "Impact": "Optimal yield.",
-        "Best Practices": "Continue good agricultural practices."
+        "Impact": "Optimal crop yield.",
+        "Best Practices": "Continue standard farming practices."
     }
 }
 
 
 # -----------------------
-# FULL MULTILINGUAL SYSTEM
+# SAFE TRANSLATION (HEADINGS ONLY)
 # -----------------------
-LANG_FULL = {
+LANG = {
     "Tamil": {
         "Prediction Result": "முன்கணிப்பு முடிவு",
         "Disease": "நோய்",
@@ -143,31 +137,20 @@ LANG_FULL = {
 def t(key, lang):
     if lang == "English":
         return key
-    return LANG_FULL.get(lang, {}).get(key, key)
-
-
-def translate_full(text, lang):
-    if lang == "English":
-        return text
-
-    mapping = LANG_FULL.get(lang, {})
-    for key, val in mapping.items():
-        text = text.replace(key, val)
-
-    return text
+    return LANG.get(lang, {}).get(key, key)
 
 
 # -----------------------
-# FIXED FARMER ADVICE FUNCTION
+# FARMER ADVICE FUNCTION (FIXED)
 # -----------------------
 def get_advice(label, language):
 
-    info = knowledge_base.get(label, None)
+    info = knowledge_base.get(label)
 
     if not info:
-        return "No detailed farmer advice available."
+        return "No detailed advice available."
 
-    advice = f"""
+    return f"""
 ### {t("Farmer Advice", language)}
 
 🔍 {t("Symptoms", language)}:
@@ -188,10 +171,8 @@ def get_advice(label, language):
 🌱 {t("Best Practices", language)}:
 {info['Best Practices']}
 """
-
-    return translate_full(advice, language)
 # -----------------------
-# WEATHER FETCH
+# WEATHER API
 # -----------------------
 def get_weather(city):
     try:
@@ -205,9 +186,10 @@ def get_weather(city):
 
 
 # -----------------------
-# WEATHER UI PANEL
+# WEATHER UI (CARDS)
 # -----------------------
 def show_weather_ui(temp, humidity):
+
     col1, col2 = st.columns(2)
 
     with col1:
@@ -232,40 +214,44 @@ def show_weather_ui(temp, humidity):
 # -----------------------
 def scientific_rules(humidity, temp):
     notes = []
+
     if humidity > 80:
         notes.append("High humidity → fungal disease risk")
+
     if temp > 35:
         notes.append("High temperature → plant stress")
+
     if temp < 15:
         notes.append("Low temperature → slow recovery")
+
     return notes
 
 
 # -----------------------
-# DYNAMIC SEVERITY
+# SEVERITY SYSTEM
 # -----------------------
 def get_severity(conf, humidity, temp):
 
     if conf >= 0.7 or humidity > 80:
         level = "HIGH"
         color = "high"
-        msg = "Immediate action required!"
+        message = "Immediate action required!"
     elif conf >= 0.4 or humidity > 65:
         level = "MEDIUM"
         color = "medium"
-        msg = "Monitor closely"
+        message = "Monitor closely"
     else:
         level = "LOW"
         color = "low"
-        msg = "Safe condition"
+        message = "Safe condition"
 
     notes = scientific_rules(humidity, temp)
 
-    return level, color, msg, notes
+    return level, color, message, notes
 
 
 # -----------------------
-# SEVERITY CARD UI
+# SEVERITY CARD
 # -----------------------
 def show_severity_card(level, color, message):
 
@@ -278,14 +264,16 @@ def show_severity_card(level, color, message):
 
 
 # -----------------------
-# RISK ALERT SYSTEM
+# RISK ALERT
 # -----------------------
 def show_risk_alert(level, confidence):
 
     if level == "HIGH":
-        st.error(f"🚨 High Risk Detected! Confidence: {confidence:.2f}")
+        st.error(f"🚨 High Risk! Confidence: {confidence:.2f}")
+
     elif level == "MEDIUM":
         st.warning(f"⚠️ Moderate Risk! Confidence: {confidence:.2f}")
+
     else:
         st.success(f"✅ Low Risk. Confidence: {confidence:.2f}")
 
@@ -304,7 +292,7 @@ def spray_schedule(humidity, level):
     else:
         return 14
 # -----------------------
-# SESSION TRACKING (STREAMLIT)
+# SESSION TRACKING
 # -----------------------
 if "session_conf" not in st.session_state:
     st.session_state.session_conf = []
@@ -370,7 +358,7 @@ def plot_top_predictions(output, labels):
 
 
 # -----------------------
-# FORMAT TEXT
+# FORMAT TOP TEXT
 # -----------------------
 def format_top_predictions(output, labels, top_idx):
     return "\n".join([
@@ -454,13 +442,14 @@ def predict(image, city, area, language):
     # Advice
     advice = get_advice(label, language)
 
-    # Farm
+    # Farm plan
     farm_info = farm_calculator(area, humidity, temp)
 
     # Charts
     fig_bar, top_idx = plot_top_predictions(output, safe_classes)
     fig_trend = plot_trend()
 
+    # Update session
     update_session(confidence)
 
     return {
@@ -481,7 +470,7 @@ def predict(image, city, area, language):
 
 
 # -----------------------
-# UI INPUT SECTION
+# SIDEBAR CONTROLS
 # -----------------------
 st.sidebar.header("⚙️ Controls")
 
@@ -491,11 +480,15 @@ area = st.sidebar.number_input("🌾 Farm Area (acres)", value=1.0)
 
 farmer_mode = st.sidebar.checkbox("👨‍🌾 Farmer Mode", True)
 
-uploaded_file = st.file_uploader("📷 Upload Leaf Image", type=["jpg","png","jpeg"])
+
+# -----------------------
+# IMAGE UPLOAD
+# -----------------------
+uploaded_file = st.file_uploader("📷 Upload Leaf Image", type=["jpg", "png", "jpeg"])
 
 
 # -----------------------
-# MAIN EXECUTION
+# MAIN BUTTON
 # -----------------------
 if st.button("🚀 Analyze Crop"):
 
@@ -530,7 +523,7 @@ if st.button("🚀 Analyze Crop"):
         show_weather_ui(result["temp"], result["humidity"])
 
         # -----------------------
-        # ALERT SYSTEM
+        # ALERT
         # -----------------------
         show_risk_alert(result["level"], result["confidence"])
 
@@ -544,9 +537,7 @@ if st.button("🚀 Analyze Crop"):
             "🧮 Farm Tools"
         ])
 
-        # -----------------------
-        # TAB 1 — PREDICTION
-        # -----------------------
+        # TAB 1
         with tab1:
             show_severity_card(result["level"], result["color"], result["message"])
 
@@ -555,32 +546,24 @@ if st.button("🚀 Analyze Crop"):
 
             st.write(f"💊 Spray Interval: {result['spray']} days")
 
-        # -----------------------
-        # TAB 2 — FARMER ADVICE
-        # -----------------------
+        # TAB 2
         with tab2:
             st.markdown(result["advice"])
 
-        # -----------------------
-        # TAB 3 — ANALYTICS
-        # -----------------------
+        # TAB 3
         with tab3:
             st.plotly_chart(result["fig_bar"], use_container_width=True)
 
             if result["fig_trend"] is not None:
                 st.plotly_chart(result["fig_trend"], use_container_width=True)
 
-        # -----------------------
-        # TAB 4 — FARM TOOLS
-        # -----------------------
+        # TAB 4
         with tab4:
             st.markdown(result["farm"])
 
-        # -----------------------
-        # FARMER MODE
-        # -----------------------
+        # Farmer mode
         if farmer_mode:
-            st.success("👨‍🌾 Farmer Mode Enabled: Simplified Guidance Active")
+            st.success("👨‍🌾 Farmer Mode Enabled")
 
     else:
         st.error("Please upload an image")
