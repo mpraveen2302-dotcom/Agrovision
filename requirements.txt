@@ -1,4 +1,6 @@
 streamlit
 numpy
 pillow
-tensorflow==2.12.0
+requests
+plotly
+tensorflow-cpu
