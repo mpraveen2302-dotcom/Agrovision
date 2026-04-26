@@ -585,36 +585,50 @@ if uploaded_file is not None:
     if st.button("🚀 Analyze Crop"):
 
         with st.spinner("Analyzing crop..."):
-
             result = predict(uploaded_file, city, area, language)
 
         if result:
+
+            # 🔥 Extract values from your result
+            prediction_label = result["disease"]
+            confidence = result["confidence"]
+            severity = result["severity"]
+
+            st.markdown("<br>", unsafe_allow_html=True)
+
+            # 🎨 CARDS UI
             col1, col2, col3 = st.columns(3)
 
-with col1:
-    st.markdown(f"""
-    <div class="card card1">
-        <h2>{prediction_label}</h2>
-        <p>Disease</p>
-    </div>
-    """, unsafe_allow_html=True)
+            with col1:
+                st.markdown(f"""
+                <div class="card card1">
+                    <h2>{prediction_label}</h2>
+                    <p>Disease</p>
+                </div>
+                """, unsafe_allow_html=True)
 
-with col2:
-    st.markdown(f"""
-    <div class="card card2">
-        <h2>{confidence:.2f}</h2>
-        <p>Confidence</p>
-    </div>
-    """, unsafe_allow_html=True)
+            with col2:
+                st.markdown(f"""
+                <div class="card card2">
+                    <h2>{confidence:.2f}</h2>
+                    <p>Confidence</p>
+                </div>
+                """, unsafe_allow_html=True)
 
-with col3:
-    st.markdown(f"""
-    <div class="card card3">
-        <h2>{severity}</h2>
-        <p>Severity</p>
-    </div>
-    """, unsafe_allow_html=True)
+            with col3:
+                st.markdown(f"""
+                <div class="card card3">
+                    <h2>{severity}</h2>
+                    <p>Severity</p>
+                </div>
+                """, unsafe_allow_html=True)
 
+            st.markdown("<br>", unsafe_allow_html=True)
+
+            # 📊 Progress bar
+            st.subheader("📊 Confidence Level")
+            st.progress(float(confidence))
+          
             # =========================
             # DASHBOARD CARDS
             # =========================
