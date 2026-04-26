@@ -16,7 +16,7 @@ import time
 from deep_translator import GoogleTranslator
 
 st.write("Files:", os.listdir())
-
+st.write("Model size:", os.path.getsize("model.tflite"))
 # =========================
 # PAGE CONFIG
 # =========================
