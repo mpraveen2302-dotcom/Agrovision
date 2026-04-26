@@ -425,12 +425,12 @@ def predict(image, city, area, language):
 
     try:
         if image is None:
-            return "❌ No image uploaded", None, None, None, None, None
+            return "❌ No image uploaded", None
 
-        # 👇 ADD THIS LINE HERE
+        # Reset file pointer
         image.seek(0)
 
-        # 👇 THEN THIS
+        # Preprocess
         img = preprocess(image)
 
         # MODEL INFERENCE
@@ -438,57 +438,70 @@ def predict(image, city, area, language):
         interpreter.invoke()
         output = interpreter.get_tensor(output_details[0]['index'])
 
-        # rest of your code...
+        if len(output.shape) == 2:
+            output = output[0]
 
-    if len(output.shape) == 2:
-        output = output[0]
+        safe_classes = class_names[:len(output)]
 
-    safe_classes = class_names[:len(output)]
+        # Prediction
+        top_idx_main = int(np.argmax(output))
+        confidence = float(output[top_idx_main])
+        label = safe_classes[top_idx_main]
 
-    # Prediction
-    top_idx_main = int(np.argmax(output))
-    confidence = float(output[top_idx_main])
-    label = safe_classes[top_idx_main]
+        # Weather
+        humidity, temp = get_weather(city)
 
-    # Weather
-    humidity, temp = get_weather(city)
+        # Severity
+        level, color, message, notes = get_severity(confidence, humidity, temp)
 
-    # Severity
-    level, color, message, notes = get_severity(confidence, humidity, temp)
+        # Spray
+        spray_days = spray_schedule(humidity, level)
 
-    # Spray
-    spray_days = spray_schedule(humidity, level)
+        # Advice
+        advice = get_advice(label, language)
 
-    # Advice
-    advice = get_advice(label, language)
+        # Farm plan
+        farm_info = farm_calculator(area, humidity, temp)
 
-    # Farm plan
-    farm_info = farm_calculator(area, humidity, temp)
+        # Charts
+        fig_bar, top_idx = plot_top_predictions(output, safe_classes)
+        fig_trend = plot_trend()
 
-    # Charts
-    fig_bar, top_idx = plot_top_predictions(output, safe_classes)
-    fig_trend = plot_trend()
+        # Update session
+        update_session(confidence)
 
-    # Update session
-    update_session(confidence)
+        return {
+            "label": label,
+            "confidence": confidence,
+            "level": level,
+            "color": color,
+            "message": message,
+            "notes": notes,
+            "spray": spray_days,
+            "humidity": humidity,
+            "temp": temp,
+            "advice": advice,
+            "farm": farm_info,
+            "fig_bar": fig_bar,
+            "fig_trend": fig_trend
+        }
 
-    return {
-        "label": label,
-        "confidence": confidence,
-        "level": level,
-        "color": color,
-        "message": message,
-        "notes": notes,
-        "spray": spray_days,
-        "humidity": humidity,
-        "temp": temp,
-        "advice": advice,
-        "farm": farm_info,
-        "fig_bar": fig_bar,
-        "fig_trend": fig_trend
-    }
-
-
+    except Exception as e:
+        return {
+            "label": "Error",
+            "confidence": 0,
+            "level": "Unknown",
+            "color": "gray",
+            "message": str(e),
+            "notes": [],
+            "spray": "-",
+            "humidity": "-",
+            "temp": "-",
+            "advice": "Something went wrong",
+            "farm": "",
+            "fig_bar": None,
+            "fig_trend": None
+        }
 # -----------------------
 # SIDEBAR CONTROLS
 # -----------------------
