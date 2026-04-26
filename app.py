@@ -63,7 +63,7 @@ section[data-testid="stSidebar"] * {
 
 /* ===== SLIDER ===== */
 .stSlider {
-    color: green;
+    color: brown;
 }
 
 st.markdown("""
