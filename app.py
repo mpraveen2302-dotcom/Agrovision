@@ -49,13 +49,13 @@ st.markdown("""
 # =========================
 @st.cache_resource
 def load_model():
-    interpreter = tflite.Interpreter(model_path="model.tflite")
-    interpreter.allocate_tensors()
-    return interpreter
-
-interpreter = load_model()
-input_details = interpreter.get_input_details()
-output_details = interpreter.get_output_details()
+    try:
+        interpreter = tflite.Interpreter(model_path="model.tflite")
+        interpreter.allocate_tensors()
+        return interpreter
+    except Exception as e:
+        st.error(f"Model loading failed: {e}")
+        return None
 
 # =========================
 # LOAD CLASSES
