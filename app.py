@@ -15,6 +15,8 @@ import tflite_runtime.interpreter as tflite
 import time
 from deep_translator import GoogleTranslator
 
+st.write("Files:", os.listdir())
+
 # =========================
 # PAGE CONFIG
 # =========================
