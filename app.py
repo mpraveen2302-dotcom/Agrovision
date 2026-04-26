@@ -11,7 +11,7 @@ from PIL import Image
 import json
 import requests
 import plotly.graph_objects as go
-import tflite_runtime.interpreter as tflite
+import tensorflow as tf
 import time
 from deep_translator import GoogleTranslator
 
@@ -52,17 +52,16 @@ st.markdown("""
 @st.cache_resource
 def load_model():
     try:
-        interpreter = tflite.Interpreter(model_path="model.tflite")
-        interpreter.allocate_tensors()
-        return interpreter
+        model = tf.keras.models.load_model("model.h5")
+        return model
     except Exception as e:
         st.error(f"Model loading failed: {e}")
         return None
-interpreter = load_model()
 
-if interpreter is None:
+model = load_model()
+
+if model is None:
     st.stop()
-
 # =========================
 # LOAD CLASSES
 # =========================
@@ -437,9 +436,7 @@ def predict(image, city, area, language):
         img = preprocess(image)
 
         # MODEL INFERENCE
-        interpreter.set_tensor(input_details[0]['index'], img)
-        interpreter.invoke()
-        output = interpreter.get_tensor(output_details[0]['index'])
+        output = model.predict(img)[0]
 
         if len(output.shape) == 2:
             output = output[0]
