@@ -3,3 +3,4 @@ numpy
 pillow
 requests
 plotly
+tflite-runtime==2.14.0
