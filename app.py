@@ -1,5 +1,4 @@
-import os
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+
 import io
 import streamlit as st
 import numpy as np
@@ -11,8 +10,6 @@ import tflite_runtime.interpreter as tflite
 import time
 
 
-interpreter = tf.lite.Interpreter(model_path="model.tflite")
-interpreter.allocate_tensors()
 
 # -----------------------
 # PAGE CONFIG
@@ -44,7 +41,7 @@ st.markdown("""
 # -----------------------
 @st.cache_resource
 def load_model():
-    interpreter = tf.lite.Interpreter(model_path="model.tflite")
+    interpreter = tflite.Interpreter(model_path="model.tflite")
     interpreter.allocate_tensors()
     return interpreter
 
