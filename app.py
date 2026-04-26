@@ -422,7 +422,7 @@ if camera_image is not None:
 # =========================
 def predict(image, city, area, language):
 
-    if interpreter is None:
+    if model is None:
         st.error("Model not loaded")
         return None
 
