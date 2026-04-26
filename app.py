@@ -19,6 +19,92 @@ from deep_translator import GoogleTranslator
 # PAGE CONFIG
 # =========================
 st.set_page_config(page_title="AgroVision AI", layout="wide")
+st.markdown("""
+<style>
+
+/* ===== BACKGROUND ===== */
+.stApp {
+    background: linear-gradient(135deg, #d4fc79, #96e6a1);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* ===== SIDEBAR ===== */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #2e7d32, #1b5e20);
+    color: white;
+}
+
+/* Sidebar text */
+section[data-testid="stSidebar"] * {
+    color: white !important;
+}
+
+/* ===== BUTTON ===== */
+.stButton>button {
+    background: linear-gradient(135deg, #00c853, #64dd17);
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.stButton>button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #00e676, #76ff03);
+}
+
+/* ===== INPUT BOXES ===== */
+.stTextInput>div>div>input {
+    border-radius: 10px;
+    border: 2px solid #a5d6a7;
+}
+
+/* ===== SLIDER ===== */
+.stSlider {
+    color: green;
+}
+
+/* ===== CARD STYLE ===== */
+.card {
+    padding: 20px;
+    border-radius: 18px;
+    color: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    text-align: center;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+}
+
+/* INDIVIDUAL COLORS */
+.card1 {
+    background: linear-gradient(135deg, #43cea2, #185a9d);
+}
+
+.card2 {
+    background: linear-gradient(135deg, #2193b0, #6dd5ed);
+}
+
+.card3 {
+    background: linear-gradient(135deg, #ff8008, #ffc837);
+}
+
+/* ===== PROGRESS BAR ===== */
+.stProgress > div > div {
+    background-color: #00c853;
+}
+
+/* ===== HEADINGS ===== */
+h1, h2, h3 {
+    color: #1b5e20;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 st.markdown("""
 <h1 style='text-align:center; color:#2E8B57;'>
@@ -503,21 +589,36 @@ if uploaded_file is not None:
             result = predict(uploaded_file, city, area, language)
 
         if result:
+            col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown(f"""
+    <div class="card card1">
+        <h2>{prediction_label}</h2>
+        <p>Disease</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown(f"""
+    <div class="card card2">
+        <h2>{confidence:.2f}</h2>
+        <p>Confidence</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown(f"""
+    <div class="card card3">
+        <h2>{severity}</h2>
+        <p>Severity</p>
+    </div>
+    """, unsafe_allow_html=True)
 
             # =========================
             # DASHBOARD CARDS
             # =========================
-            col1, col2, col3 = st.columns(3)
-
-            with col1:
-                st.markdown(f"<div class='card'><h3>{result['label']}</h3>Disease</div>", unsafe_allow_html=True)
-
-            with col2:
-                st.markdown(f"<div class='card'><h3>{result['confidence']:.2f}</h3>Confidence</div>", unsafe_allow_html=True)
-
-            with col3:
-                st.markdown(f"<div class='card {result['color']}'><h3>{result['level']}</h3>Severity</div>", unsafe_allow_html=True)
-
+           
             # =========================
             # CONFIDENCE PROGRESS BAR
             # =========================
