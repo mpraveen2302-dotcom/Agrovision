@@ -62,6 +62,9 @@ section[data-testid="stSidebar"] * {
     border: 2px solid #a5d6a7;
 }
 
+st.markdown("""
+<style>
+
 /* ===== CARD BASE ===== */
 .card {
     padding: 22px;
@@ -73,6 +76,8 @@ section[data-testid="stSidebar"] * {
     transition: 0.2s;
 }
 
+</style>
+""", unsafe_allow_html=True)
 .card:hover {
     transform: translateY(-4px);
 }
