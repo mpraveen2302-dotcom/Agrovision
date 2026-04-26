@@ -59,7 +59,22 @@ section[data-testid="stSidebar"] * {
     border-radius: 10px;
     border: 2px solid #a5d6a7;
 }
+/* FIX INPUT TEXT VISIBILITY */
+.stTextInput input,
+.stNumberInput input {
+    color: black !important;
+    background-color: #ffffff !important;
+}
 
+/* FIX DROPDOWN TEXT */
+.stSelectbox div[data-baseweb="select"] {
+    color: black !important;
+}
+
+/* PLACEHOLDER TEXT */
+::placeholder {
+    color: #666 !important;
+}
 /* ===== CARD ===== */
 .card {
     padding: 22px;
