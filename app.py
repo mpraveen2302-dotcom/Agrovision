@@ -21,7 +21,7 @@ from deep_translator import GoogleTranslator
 st.set_page_config(page_title="AgroVision AI", layout="wide")
 
 # =========================
-# CSS STYLING (ONLY ONE BLOCK)
+# CSS (ONLY ONE BLOCK - FIXED)
 # =========================
 st.markdown("""
 <style>
@@ -36,7 +36,6 @@ st.markdown("""
 section[data-testid="stSidebar"] {
     background: linear-gradient(180deg, #2e7d32, #1b5e20);
 }
-
 section[data-testid="stSidebar"] * {
     color: white !important;
 }
@@ -51,21 +50,17 @@ section[data-testid="stSidebar"] * {
     font-weight: bold;
     transition: 0.3s;
 }
-
 .stButton>button:hover {
     transform: scale(1.05);
 }
 
-/* ===== INPUT BOX ===== */
+/* ===== INPUT ===== */
 .stTextInput>div>div>input {
     border-radius: 10px;
     border: 2px solid #a5d6a7;
 }
 
-st.markdown("""
-<style>
-
-/* ===== CARD BASE ===== */
+/* ===== CARD ===== */
 .card {
     padding: 22px;
     border-radius: 16px;
@@ -75,9 +70,6 @@ st.markdown("""
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     transition: 0.2s;
 }
-
-</style>
-""", unsafe_allow_html=True)
 .card:hover {
     transform: translateY(-4px);
 }
@@ -88,28 +80,15 @@ st.markdown("""
     font-weight: 700;
     color: #111827;
 }
-
 .card p {
     font-size: 14px;
     color: #6b7280;
 }
 
 /* ===== CARD ACCENTS ===== */
-.card1 {
-    border-left: 6px solid #22c55e; /* green */
-}
-
-.card2 {
-    border-left: 6px solid #3b82f6; /* blue */
-}
-
-.card3 {
-    border-left: 6px solid #ef4444; /* red */
-}
-
-</style>
-""", unsafe_allow_html=True)
-
+.card1 { border-left: 6px solid #22c55e; }   /* green */
+.card2 { border-left: 6px solid #3b82f6; }   /* blue */
+.card3 { border-left: 6px solid #ef4444; }   /* red */
 
 /* ===== PROGRESS BAR ===== */
 .stProgress > div > div {
@@ -124,32 +103,10 @@ h1, h2, h3 {
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-<h1 style='text-align:center; color:#2E8B57;'>
 # =========================
 # TITLE
 # =========================
 st.title("🌱 AgroVision AI — Smart Agriculture System")
-</h1>
-""", unsafe_allow_html=True)
-
-# =========================
-# UI STYLE (UPGRADED)
-# =========================
-st.markdown("""
-<style>
-.card {
-    padding: 20px;
-    border-radius: 15px;
-    background: linear-gradient(135deg,#f0fff4,#ccf2e0);
-    box-shadow: 0px 6px 15px rgba(0,0,0,0.15);
-    text-align: center;
-}
-.high {background-color:#ffdddd;}
-.medium {background-color:#fff4cc;}
-.low {background-color:#ddffdd;}
-</style>
-""", unsafe_allow_html=True)
 
 # =========================
 # LOAD MODEL
