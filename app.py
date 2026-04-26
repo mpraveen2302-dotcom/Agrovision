@@ -82,6 +82,7 @@ st.markdown("""
 
     color: #1f2937;
     background: #ffffff;
+}
 
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     transition: 0.2s;
