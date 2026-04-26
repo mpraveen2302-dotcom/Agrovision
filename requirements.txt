@@ -3,4 +3,3 @@ numpy
 pillow
 requests
 plotly
-tensorflow==2.12.0
