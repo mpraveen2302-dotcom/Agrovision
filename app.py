@@ -1,3 +1,6 @@
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+import io
 import streamlit as st
 import numpy as np
 from PIL import Image
@@ -6,6 +9,10 @@ import requests
 import plotly.graph_objects as go
 import tensorflow as tf
 import time
+
+
+interpreter = tf.lite.Interpreter(model_path="model.tflite")
+interpreter.allocate_tensors()
 
 # -----------------------
 # PAGE CONFIG
@@ -58,12 +65,14 @@ class_names = load_classes()
 # IMAGE PREPROCESSING
 # -----------------------
 def preprocess(image):
-    image = Image.open(image).convert("RGB").resize((224, 224))
+
+    image = Image.open(image).convert("RGB")
+    image = image.resize((224, 224))
+
     img = np.array(image) / 255.0
     img = np.expand_dims(img, axis=0).astype(np.float32)
+
     return img
-
-
 # -----------------------
 # KNOWLEDGE BASE (DETAILED FARMER ADVICE)
 # -----------------------
@@ -414,11 +423,22 @@ K: {int(total_K)} kg
 # -----------------------
 def predict(image, city, area, language):
 
-    img = preprocess(image)
+    try:
+        if image is None:
+            return "❌ No image uploaded", None, None, None, None, None
 
-    interpreter.set_tensor(input_details[0]['index'], img)
-    interpreter.invoke()
-    output = interpreter.get_tensor(output_details[0]['index'])
+        # 👇 ADD THIS LINE HERE
+        image.seek(0)
+
+        # 👇 THEN THIS
+        img = preprocess(image)
+
+        # MODEL INFERENCE
+        interpreter.set_tensor(input_details[0]['index'], img)
+        interpreter.invoke()
+        output = interpreter.get_tensor(output_details[0]['index'])
+
+        # rest of your code...
 
     if len(output.shape) == 2:
         output = output[0]
@@ -480,36 +500,33 @@ area = st.sidebar.number_input("🌾 Farm Area (acres)", value=1.0)
 
 farmer_mode = st.sidebar.checkbox("👨‍🌾 Farmer Mode", True)
 
-
 # -----------------------
 # IMAGE UPLOAD
 # -----------------------
-uploaded_file = st.file_uploader("📷 Upload Leaf Image", type=["jpg", "png", "jpeg"])
+uploaded_file = st.file_uploader(
+    "Upload Leaf Image",
+    type=["jpg", "jpeg", "png"]
+)
+camera_image = st.camera_input("📸 Or Take Photo")
 
+# Priority logic
+if camera_image is not None:
+    uploaded_file = camera_image
+if uploaded_file is not None:
 
-# -----------------------
-# MAIN BUTTON
-# -----------------------
-if st.button("🚀 Analyze Crop"):
+    st.image(uploaded_file, caption="Uploaded Leaf", use_column_width=True)
 
-    if uploaded_file is not None:
+    if st.button("🚀 Analyze Crop"):
 
-        # Spinner
         with st.spinner("Analyzing crop..."):
+
             result = predict(uploaded_file, city, area, language)
 
-        # -----------------------
-        # IMAGE PREVIEW
-        # -----------------------
-        st.image(uploaded_file, caption="Uploaded Leaf", use_column_width=True)
-
-        # -----------------------
-        # DASHBOARD CARDS
-        # -----------------------
+        # DASHBOARD
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            st.markdown(f"<div class='card'><h3>🌿 {result['label']}</h3>Disease</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='card'><h3>{result['label']}</h3>Disease</div>", unsafe_allow_html=True)
 
         with col2:
             st.markdown(f"<div class='card'><h3>{result['confidence']:.2f}</h3>Confidence</div>", unsafe_allow_html=True)
@@ -517,19 +534,9 @@ if st.button("🚀 Analyze Crop"):
         with col3:
             st.markdown(f"<div class='card {result['color']}'><h3>{result['level']}</h3>Severity</div>", unsafe_allow_html=True)
 
-        # -----------------------
-        # WEATHER PANEL
-        # -----------------------
         show_weather_ui(result["temp"], result["humidity"])
-
-        # -----------------------
-        # ALERT
-        # -----------------------
         show_risk_alert(result["level"], result["confidence"])
 
-        # -----------------------
-        # TABS
-        # -----------------------
         tab1, tab2, tab3, tab4 = st.tabs([
             "🔬 Prediction",
             "👨‍🌾 Advice",
@@ -537,33 +544,26 @@ if st.button("🚀 Analyze Crop"):
             "🧮 Farm Tools"
         ])
 
-        # TAB 1
         with tab1:
             show_severity_card(result["level"], result["color"], result["message"])
-
             for note in result["notes"]:
                 st.info(note)
-
             st.write(f"💊 Spray Interval: {result['spray']} days")
 
-        # TAB 2
         with tab2:
             st.markdown(result["advice"])
 
-        # TAB 3
         with tab3:
-            st.plotly_chart(result["fig_bar"], use_container_width=True)
-
-            if result["fig_trend"] is not None:
+            if result["fig_bar"]:
+                st.plotly_chart(result["fig_bar"], use_container_width=True)
+            if result["fig_trend"]:
                 st.plotly_chart(result["fig_trend"], use_container_width=True)
 
-        # TAB 4
         with tab4:
             st.markdown(result["farm"])
 
-        # Farmer mode
         if farmer_mode:
             st.success("👨‍🌾 Farmer Mode Enabled")
 
-    else:
-        st.error("Please upload an image")
+else:
+    st.warning("Please upload an image")
