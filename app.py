@@ -75,6 +75,22 @@ section[data-testid="stSidebar"] * {
 ::placeholder {
     color: #666 !important;
 }
+
+/* FIX SELECTBOX (LANGUAGE DROPDOWN) */
+div[data-baseweb="select"] * {
+    color: black !important;
+}
+
+/* Fix selected value */
+div[data-baseweb="select"] span {
+    color: black !important;
+}
+
+/* Fix dropdown menu items */
+ul[role="listbox"] li {
+    color: black !important;
+    background-color: white !important;
+}
 /* ===== CARD ===== */
 .card {
     padding: 22px;
