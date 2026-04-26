@@ -93,6 +93,7 @@ knowledge_base = {
     }
 }
 
+st.write(label)
 
 # -----------------------
 # SAFE TRANSLATION (HEADINGS ONLY)
@@ -151,9 +152,14 @@ def t(key, lang):
 # -----------------------
 def get_advice(label, language):
 
-    info = knowledge_base.get(label)
+    # normalize label
+    clean_label = label.replace("_", " ").lower()
 
-    if not info:
+    for key in knowledge_base:
+        if key.lower() in clean_label:
+            info = knowledge_base[key]
+            break
+    else:
         return "No detailed advice available."
 
     return f"""
