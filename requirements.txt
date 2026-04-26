@@ -1,7 +1,7 @@
+tensorflow
 streamlit
 numpy
 pillow
 requests
 plotly
-tflite-runtime
 deep-translator
