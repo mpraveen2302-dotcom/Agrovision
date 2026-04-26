@@ -68,31 +68,40 @@ section[data-testid="stSidebar"] * {
 
 /* ===== CARD STYLE ===== */
 .card {
-    padding: 20px;
-    border-radius: 18px;
+    padding: 22px;
+    border-radius: 20px;
     color: white;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     text-align: center;
-    transition: 0.3s;
+    
+    /* Glass effect */
+    backdrop-filter: blur(10px);
+    
+    /* Soft shadow */
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    
+    /* Smooth animation */
+    transition: all 0.3s ease;
 }
 
 .card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-8px) scale(1.02);
 }
 
 /* INDIVIDUAL COLORS */
+/* 🌿 Disease — Emerald Glass */
 .card1 {
-    background: linear-gradient(135deg, #43cea2, #185a9d);
+    background: linear-gradient(135deg, #11998e, #38ef7d);
 }
 
+/* 🔵 Confidence — Royal Blue */
 .card2 {
-    background: linear-gradient(135deg, #2193b0, #6dd5ed);
+    background: linear-gradient(135deg, #396afc, #2948ff);
 }
 
+/* 🔥 Severity — Sunset Orange/Red */
 .card3 {
-    background: linear-gradient(135deg, #ff8008, #ffc837);
+    background: linear-gradient(135deg, #ff512f, #dd2476);
 }
-
 /* ===== PROGRESS BAR ===== */
 .stProgress > div > div {
     background-color: #00c853;
