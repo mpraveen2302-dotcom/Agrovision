@@ -7,7 +7,7 @@ from PIL import Image
 import json
 import requests
 import plotly.graph_objects as go
-import tensorflow as tf
+import tflite_runtime.interpreter as tflite
 import time
 
 
