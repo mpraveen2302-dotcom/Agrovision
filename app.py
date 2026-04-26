@@ -69,7 +69,7 @@ section[data-testid="stSidebar"] * {
 st.markdown("""
 <style>
 
-/* ===== BACKGROUND (soft, not flashy) ===== */
+/* ===== BACKGROUND ===== */
 .stApp {
     background: #f4f7f6;
 }
@@ -79,11 +79,8 @@ st.markdown("""
     padding: 22px;
     border-radius: 16px;
     text-align: center;
-    
-    /* KEY FIX: DARK TEXT */
-    color: #1f2937;
 
-    /* CLEAN WHITE CARD */
+    color: #1f2937;
     background: #ffffff;
 
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
@@ -94,31 +91,27 @@ st.markdown("""
     transform: translateY(-4px);
 }
 
-/* ===== TEXT FIX ===== */
+/* TEXT */
 .card h2 {
     font-size: 26px;
     font-weight: 700;
-    color: #111827;   /* DARK TEXT */
+    color: #111827;
 }
 
 .card p {
     font-size: 14px;
-    color: #6b7280;   /* SOFT GREY */
+    color: #6b7280;
 }
 
-/* ===== COLOR STRIP (instead of full gradient) ===== */
-
-/* Disease */
+/* COLOR ACCENTS */
 .card1 {
     border-left: 6px solid #22c55e;
 }
 
-/* Confidence */
 .card2 {
     border-left: 6px solid #3b82f6;
 }
 
-/* Severity */
 .card3 {
     border-left: 6px solid #ef4444;
 }
