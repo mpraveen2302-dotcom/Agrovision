@@ -1,6 +1,6 @@
 streamlit==1.32.0
 numpy
-pillow
+pillow==10.2.0
 requests
 plotly
 tflite-runtime==2.14.0
