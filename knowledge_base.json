@@ -1,42 +1,510 @@
 {
-  "tomato_early_blight": {
-    "Symptoms": "Dark concentric spots on leaves.",
-    "Causes": "Fungus Alternaria.",
-    "Prevention": "Crop rotation and avoid wet leaves.",
-    "Cure": "Use fungicides like mancozeb.",
+  "apple_apple_scab": {
+    "Symptoms": "Olive-green to dark spots on leaves and fruits.",
+    "Causes": "Fungal pathogen Venturia inaequalis.",
+    "Prevention": "Prune trees, improve airflow, remove fallen leaves.",
+    "Cure": "Apply fungicides like captan or myclobutanil.",
+    "Impact": "Reduced fruit quality and yield.",
+    "Best Practices": "Regular orchard sanitation and monitoring."
+  },
+
+  "apple_black_rot": {
+    "Symptoms": "Brown leaf spots and rotting fruit.",
+    "Causes": "Fungus Botryosphaeria obtusa.",
+    "Prevention": "Remove infected fruits and branches.",
+    "Cure": "Apply fungicides during growing season.",
+    "Impact": "Fruit loss and reduced productivity.",
+    "Best Practices": "Maintain tree hygiene."
+  },
+
+  "apple_cedar_apple_rust": {
+    "Symptoms": "Yellow-orange spots on leaves.",
+    "Causes": "Fungal infection from cedar trees.",
+    "Prevention": "Remove nearby cedar trees.",
+    "Cure": "Use fungicides in early season.",
+    "Impact": "Leaf damage and yield loss.",
+    "Best Practices": "Monitor seasonal spread."
+  },
+
+  "bean_angular_leaf_spot": {
+    "Symptoms": "Angular brown lesions on leaves.",
+    "Causes": "Fungus Phaeoisariopsis griseola.",
+    "Prevention": "Use resistant varieties.",
+    "Cure": "Fungicide spray.",
+    "Impact": "Reduced photosynthesis.",
+    "Best Practices": "Avoid overhead irrigation."
+  },
+
+  "bean_rust": {
+    "Symptoms": "Reddish pustules on leaves.",
+    "Causes": "Uromyces appendiculatus fungus.",
+    "Prevention": "Use resistant seeds.",
+    "Cure": "Apply sulfur-based fungicides.",
     "Impact": "Leaf drop and yield reduction.",
-    "Best Practices": "Remove infected leaves."
+    "Best Practices": "Field sanitation."
   },
 
-  "tomato_late_blight": {
-    "Symptoms": "Water-soaked lesions with white mold.",
-    "Causes": "Phytophthora infestans.",
-    "Prevention": "Avoid high humidity.",
-    "Cure": "Systemic fungicides.",
-    "Impact": "Rapid crop destruction.",
-    "Best Practices": "Immediate removal of infected plants."
-  },
-
-  "tomato_bacterial_spot": {
-    "Symptoms": "Small dark spots on leaves.",
-    "Causes": "Bacteria.",
-    "Prevention": "Use clean seeds.",
+  "bell_pepper_bacterial_spot": {
+    "Symptoms": "Dark water-soaked spots on leaves.",
+    "Causes": "Bacterial infection.",
+    "Prevention": "Use certified seeds.",
     "Cure": "Copper sprays.",
-    "Impact": "Reduced yield.",
-    "Best Practices": "Avoid overhead watering."
+    "Impact": "Reduced fruit quality.",
+    "Best Practices": "Avoid leaf wetness."
   },
 
-  "potato_early_blight": {
-    "Symptoms": "Dark spots with rings.",
+  "cherry_powdery_mildew": {
+    "Symptoms": "White powder on leaves.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Ensure air circulation.",
+    "Cure": "Apply fungicides.",
+    "Impact": "Reduced growth.",
+    "Best Practices": "Prune regularly."
+  },
+
+    "corn_cercospora_leaf_spot": {
+    "Symptoms": "Small elongated gray spots on leaves.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Crop rotation and resistant varieties.",
+    "Cure": "Apply fungicides.",
+    "Impact": "Reduced photosynthesis and yield.",
+    "Best Practices": "Avoid high humidity conditions."
+  },
+
+  "corn_common_rust": {
+    "Symptoms": "Reddish-brown pustules on leaves.",
+    "Causes": "Fungal pathogen Puccinia sorghi.",
+    "Prevention": "Use resistant hybrids.",
+    "Cure": "Fungicide sprays if severe.",
+    "Impact": "Yield reduction.",
+    "Best Practices": "Monitor field regularly."
+  },
+
+  "corn_gray_leaf_spot": {
+    "Symptoms": "Rectangular gray lesions.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Crop rotation.",
+    "Cure": "Fungicide application.",
+    "Impact": "Reduced grain production.",
+    "Best Practices": "Field sanitation."
+  },
+
+  "corn_northern_leaf_blight": {
+    "Symptoms": "Long cigar-shaped lesions.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Use resistant varieties.",
+    "Cure": "Fungicides.",
+    "Impact": "Severe yield loss.",
+    "Best Practices": "Early detection."
+  },
+
+  "cotton_aphids": {
+    "Symptoms": "Sticky leaves with small insects.",
+    "Causes": "Aphid infestation.",
+    "Prevention": "Encourage natural predators.",
+    "Cure": "Insecticide sprays.",
+    "Impact": "Reduced plant vigor.",
+    "Best Practices": "Regular monitoring."
+  },
+
+  "cotton_army_worm": {
+    "Symptoms": "Leaves eaten by caterpillars.",
+    "Causes": "Armyworm infestation.",
+    "Prevention": "Use pheromone traps.",
+    "Cure": "Apply insecticides.",
+    "Impact": "Severe leaf damage.",
+    "Best Practices": "Early pest control."
+  },
+
+  "cotton_bacterial_blight": {
+    "Symptoms": "Water-soaked lesions on leaves.",
+    "Causes": "Bacterial infection.",
+    "Prevention": "Use disease-free seeds.",
+    "Cure": "Copper-based sprays.",
+    "Impact": "Reduced yield.",
+    "Best Practices": "Avoid overhead irrigation."
+  },
+
+  "cotton_powdery_mildew": {
+    "Symptoms": "White powder on leaves.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Proper spacing.",
+    "Cure": "Fungicides.",
+    "Impact": "Reduced photosynthesis.",
+    "Best Practices": "Improve air circulation."
+  },
+
+  "cotton_target_spot": {
+    "Symptoms": "Circular spots with concentric rings.",
     "Causes": "Fungal infection.",
     "Prevention": "Crop rotation.",
     "Cure": "Fungicides.",
-    "Impact": "Reduced tuber size.",
+    "Impact": "Leaf drop.",
+    "Best Practices": "Field hygiene."
+  },
+
+  "diseased_cucumber": {
+    "Symptoms": "Yellowing and spots on leaves.",
+    "Causes": "Mixed infections.",
+    "Prevention": "Use resistant seeds.",
+    "Cure": "Fungicide/bactericide.",
+    "Impact": "Reduced fruit production.",
+    "Best Practices": "Maintain soil health."
+  },
+
+  "diseased_rice": {
+    "Symptoms": "Leaf discoloration and stunted growth.",
+    "Causes": "Fungal or bacterial infections.",
+    "Prevention": "Use certified seeds.",
+    "Cure": "Appropriate pesticides.",
+    "Impact": "Yield loss.",
+    "Best Practices": "Water management."
+  },
+
+    "grape_black_rot": {
+    "Symptoms": "Brown spots on leaves and black shriveled grapes.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Prune vines and remove infected parts.",
+    "Cure": "Fungicide sprays.",
+    "Impact": "Fruit loss.",
+    "Best Practices": "Ensure good airflow."
+  },
+
+  "grape_esca_black_measles": {
+    "Symptoms": "Dark streaks on leaves and fruit spots.",
+    "Causes": "Fungal disease.",
+    "Prevention": "Avoid pruning wounds.",
+    "Cure": "No effective cure, remove infected plants.",
+    "Impact": "Reduced vine lifespan.",
+    "Best Practices": "Sanitize tools."
+  },
+
+  "grape_leaf_blight": {
+    "Symptoms": "Yellowing and browning of leaves.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Use resistant varieties.",
+    "Cure": "Fungicide application.",
+    "Impact": "Reduced photosynthesis.",
+    "Best Practices": "Field monitoring."
+  },
+
+  "groundnut_early_leaf_spot": {
+    "Symptoms": "Small brown spots with yellow halo.",
+    "Causes": "Fungus Cercospora.",
+    "Prevention": "Crop rotation.",
+    "Cure": "Fungicides.",
+    "Impact": "Leaf drop.",
+    "Best Practices": "Timely spraying."
+  },
+
+  "groundnut_late_leaf_spot": {
+    "Symptoms": "Dark spots on leaves.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Use resistant seeds.",
+    "Cure": "Fungicide sprays.",
+    "Impact": "Yield loss.",
+    "Best Practices": "Field sanitation."
+  },
+
+  "groundnut_nutrition_deficiency": {
+    "Symptoms": "Yellowing leaves and stunted growth.",
+    "Causes": "Lack of nutrients.",
+    "Prevention": "Balanced fertilization.",
+    "Cure": "Apply NPK fertilizers.",
+    "Impact": "Reduced yield.",
+    "Best Practices": "Soil testing."
+  },
+
+  "groundnut_rust": {
+    "Symptoms": "Rust-colored pustules.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Resistant varieties.",
+    "Cure": "Fungicide sprays.",
+    "Impact": "Leaf drop.",
+    "Best Practices": "Monitor regularly."
+  },
+
+  "guava_anthracnose": {
+    "Symptoms": "Dark lesions on fruits.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Avoid moisture buildup.",
+    "Cure": "Fungicides.",
+    "Impact": "Fruit rot.",
+    "Best Practices": "Prune infected parts."
+  },
+
+  "guava_fruit_fly": {
+    "Symptoms": "Maggots inside fruits.",
+    "Causes": "Fruit fly infestation.",
+    "Prevention": "Use traps.",
+    "Cure": "Insecticide sprays.",
+    "Impact": "Fruit damage.",
+    "Best Practices": "Field sanitation."
+  },
+
+  "healthy_apple": {
+    "Symptoms": "Green leaves, no damage.",
+    "Causes": "Healthy growth.",
+    "Prevention": "Maintain good practices.",
+    "Cure": "None required.",
+    "Impact": "Optimal yield.",
+    "Best Practices": "Continue care."
+  },
+
+  "healthy_bean": {
+    "Symptoms": "Healthy green leaves.",
+    "Causes": "Proper conditions.",
+    "Prevention": "Maintain nutrients.",
+    "Cure": "None.",
+    "Impact": "High yield.",
+    "Best Practices": "Regular monitoring."
+  },
+
+  "healthy_bell_pepper": {
+    "Symptoms": "Bright green leaves.",
+    "Causes": "Healthy plant.",
+    "Prevention": "Proper irrigation.",
+    "Cure": "None.",
+    "Impact": "Good productivity.",
+    "Best Practices": "Continue care."
+  },
+
+  "healthy_cherry": {
+    "Symptoms": "Healthy foliage.",
+    "Causes": "Good growth.",
+    "Prevention": "Maintain orchard.",
+    "Cure": "None.",
+    "Impact": "High yield.",
+    "Best Practices": "Routine care."
+  },
+
+  "healthy_corn": {
+    "Symptoms": "Green leaves.",
+    "Causes": "Healthy conditions.",
+    "Prevention": "Balanced fertilization.",
+    "Cure": "None.",
+    "Impact": "Optimal yield.",
+    "Best Practices": "Monitor regularly."
+  },
+
+    "healthy_cotton": {
+    "Symptoms": "Healthy green leaves.",
+    "Causes": "Proper growth conditions.",
+    "Prevention": "Maintain irrigation and nutrients.",
+    "Cure": "None.",
+    "Impact": "Optimal yield.",
+    "Best Practices": "Continue good practices."
+  },
+
+  "healthy_cucumber": {
+    "Symptoms": "Green healthy leaves.",
+    "Causes": "Healthy plant.",
+    "Prevention": "Proper watering.",
+    "Cure": "None.",
+    "Impact": "Good yield.",
+    "Best Practices": "Maintain care."
+  },
+
+  "healthy_grape": {
+    "Symptoms": "Healthy vines.",
+    "Causes": "Good conditions.",
+    "Prevention": "Prune regularly.",
+    "Cure": "None.",
+    "Impact": "High yield.",
+    "Best Practices": "Routine monitoring."
+  },
+
+  "healthy_groundnut": {
+    "Symptoms": "Healthy foliage.",
+    "Causes": "Balanced nutrients.",
+    "Prevention": "Soil management.",
+    "Cure": "None.",
+    "Impact": "Optimal production.",
+    "Best Practices": "Maintain soil health."
+  },
+
+  "healthy_guava": {
+    "Symptoms": "Healthy leaves and fruits.",
+    "Causes": "Proper care.",
+    "Prevention": "Maintain hygiene.",
+    "Cure": "None.",
+    "Impact": "Good yield.",
+    "Best Practices": "Routine care."
+  },
+
+  "healthy_lemon": {
+    "Symptoms": "Green leaves and healthy fruit.",
+    "Causes": "Good growth conditions.",
+    "Prevention": "Proper irrigation.",
+    "Cure": "None.",
+    "Impact": "Optimal yield.",
+    "Best Practices": "Maintain nutrients."
+  },
+
+  "healthy_peach": {
+    "Symptoms": "Healthy foliage.",
+    "Causes": "Balanced growth.",
+    "Prevention": "Prune regularly.",
+    "Cure": "None.",
+    "Impact": "Good yield.",
+    "Best Practices": "Routine care."
+  },
+
+  "healthy_potato": {
+    "Symptoms": "Healthy leaves.",
+    "Causes": "Good conditions.",
+    "Prevention": "Proper soil management.",
+    "Cure": "None.",
+    "Impact": "High productivity.",
+    "Best Practices": "Monitor regularly."
+  },
+
+  "healthy_pumpkin": {
+    "Symptoms": "Healthy vines.",
+    "Causes": "Good environment.",
+    "Prevention": "Maintain soil moisture.",
+    "Cure": "None.",
+    "Impact": "Good yield.",
+    "Best Practices": "Regular care."
+  },
+
+  "healthy_rice": {
+    "Symptoms": "Green leaves.",
+    "Causes": "Healthy growth.",
+    "Prevention": "Balanced irrigation.",
+    "Cure": "None.",
+    "Impact": "High yield.",
+    "Best Practices": "Water management."
+  },
+
+  "healthy_strawberry": {
+    "Symptoms": "Healthy leaves and fruits.",
+    "Causes": "Good growth conditions.",
+    "Prevention": "Maintain soil health.",
+    "Cure": "None.",
+    "Impact": "Optimal yield.",
+    "Best Practices": "Regular monitoring."
+  },
+
+  "healthy_sugarcane": {
+    "Symptoms": "Healthy stalks.",
+    "Causes": "Proper growth.",
+    "Prevention": "Balanced nutrients.",
+    "Cure": "None.",
+    "Impact": "Good production.",
+    "Best Practices": "Field care."
+  },
+
+  "healthy_tomato": {
+    "Symptoms": "Green leaves.",
+    "Causes": "Healthy plant.",
+    "Prevention": "Proper irrigation.",
+    "Cure": "None.",
+    "Impact": "High yield.",
+    "Best Practices": "Routine monitoring."
+  },
+
+  "healthy_wheat": {
+    "Symptoms": "Healthy crop.",
+    "Causes": "Good conditions.",
+    "Prevention": "Balanced fertilization.",
+    "Cure": "None.",
+    "Impact": "Optimal yield.",
+    "Best Practices": "Regular monitoring."
+  },
+
+  "lemon_anthracnose": {
+    "Symptoms": "Dark sunken spots on fruit.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Avoid moisture accumulation.",
+    "Cure": "Fungicide sprays.",
+    "Impact": "Fruit rot.",
+    "Best Practices": "Prune infected parts."
+  },
+
+  "lemon_bacterial_blight": {
+    "Symptoms": "Water-soaked lesions.",
+    "Causes": "Bacterial infection.",
+    "Prevention": "Use clean planting material.",
+    "Cure": "Copper sprays.",
+    "Impact": "Leaf drop.",
+    "Best Practices": "Avoid overhead watering."
+  },
+
+  "lemon_citrus_canker": {
+    "Symptoms": "Raised lesions on leaves.",
+    "Causes": "Bacterial infection.",
+    "Prevention": "Use resistant varieties.",
+    "Cure": "Copper-based sprays.",
+    "Impact": "Fruit drop.",
+    "Best Practices": "Sanitation."
+  },
+
+  "lemon_curl_virus": {
+    "Symptoms": "Leaf curling and distortion.",
+    "Causes": "Viral infection.",
+    "Prevention": "Control vectors.",
+    "Cure": "No cure.",
+    "Impact": "Reduced yield.",
+    "Best Practices": "Remove infected plants."
+  },
+
+  "lemon_deficiency": {
+    "Symptoms": "Yellow leaves.",
+    "Causes": "Nutrient deficiency.",
+    "Prevention": "Balanced fertilization.",
+    "Cure": "Apply nutrients.",
+    "Impact": "Poor growth.",
+    "Best Practices": "Soil testing."
+  },
+
+  "lemon_dry_leaf": {
+    "Symptoms": "Dry leaves.",
+    "Causes": "Water stress.",
+    "Prevention": "Proper irrigation.",
+    "Cure": "Water management.",
+    "Impact": "Reduced growth.",
+    "Best Practices": "Maintain moisture."
+  },
+
+  "lemon_sooty_mould": {
+    "Symptoms": "Black coating on leaves.",
+    "Causes": "Fungal growth on honeydew.",
+    "Prevention": "Control pests.",
+    "Cure": "Wash leaves and use fungicides.",
+    "Impact": "Reduced photosynthesis.",
+    "Best Practices": "Pest control."
+  },
+
+  "lemon_spider_mites": {
+    "Symptoms": "Yellow speckles on leaves.",
+    "Causes": "Mite infestation.",
+    "Prevention": "Maintain humidity.",
+    "Cure": "Miticides.",
+    "Impact": "Leaf damage.",
+    "Best Practices": "Regular monitoring."
+  },
+
+  "peach_bacterial_spot": {
+    "Symptoms": "Dark spots on leaves and fruit.",
+    "Causes": "Bacterial infection.",
+    "Prevention": "Use resistant varieties.",
+    "Cure": "Copper sprays.",
+    "Impact": "Fruit damage.",
+    "Best Practices": "Field sanitation."
+  },
+
+  "potato_early_blight": {
+    "Symptoms": "Dark concentric spots.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Crop rotation.",
+    "Cure": "Fungicides.",
+    "Impact": "Reduced yield.",
     "Best Practices": "Remove infected leaves."
   },
 
   "potato_late_blight": {
-    "Symptoms": "Rapid leaf decay.",
+    "Symptoms": "Water-soaked lesions.",
     "Causes": "Phytophthora.",
     "Prevention": "Avoid moisture.",
     "Cure": "Systemic fungicides.",
@@ -44,48 +512,264 @@
     "Best Practices": "Early detection."
   },
 
-  "corn_common_rust": {
-    "Symptoms": "Reddish-brown pustules.",
+  "pumpkin_bacterial_leaf_spot": {
+    "Symptoms": "Water-soaked spots.",
+    "Causes": "Bacteria.",
+    "Prevention": "Use clean seeds.",
+    "Cure": "Copper sprays.",
+    "Impact": "Leaf damage.",
+    "Best Practices": "Avoid wet leaves."
+  },
+
+  "pumpkin_downy_mildew": {
+    "Symptoms": "Yellow spots on leaves.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Air circulation.",
+    "Cure": "Fungicides.",
+    "Impact": "Reduced yield.",
+    "Best Practices": "Monitor humidity."
+  },
+
+  "pumpkin_mosaic_disease": {
+    "Symptoms": "Mosaic pattern on leaves.",
+    "Causes": "Viral infection.",
+    "Prevention": "Control insects.",
+    "Cure": "No cure.",
+    "Impact": "Stunted growth.",
+    "Best Practices": "Remove infected plants."
+  },
+
+  "pumpkin_powdery_mildew": {
+    "Symptoms": "White powder on leaves.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Spacing.",
+    "Cure": "Fungicides.",
+    "Impact": "Reduced photosynthesis.",
+    "Best Practices": "Air circulation."
+  },
+
+    "strawberry_leaf_scorch": {
+    "Symptoms": "Purple or red spots on leaves.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Proper spacing and airflow.",
+    "Cure": "Fungicide sprays.",
+    "Impact": "Reduced yield.",
+    "Best Practices": "Remove infected leaves."
+  },
+
+  "sugarcane_bacterial_blight": {
+    "Symptoms": "Yellow streaks on leaves.",
+    "Causes": "Bacterial infection.",
+    "Prevention": "Use disease-free seeds.",
+    "Cure": "Copper sprays.",
+    "Impact": "Reduced growth.",
+    "Best Practices": "Field sanitation."
+  },
+
+  "sugarcane_mosaic": {
+    "Symptoms": "Mosaic patterns on leaves.",
+    "Causes": "Viral infection.",
+    "Prevention": "Use resistant varieties.",
+    "Cure": "No cure.",
+    "Impact": "Reduced yield.",
+    "Best Practices": "Remove infected plants."
+  },
+
+  "sugarcane_red_rot": {
+    "Symptoms": "Red discoloration inside stem.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Crop rotation.",
+    "Cure": "Use resistant varieties.",
+    "Impact": "Severe yield loss.",
+    "Best Practices": "Field hygiene."
+  },
+
+  "sugarcane_rust": {
+    "Symptoms": "Brown pustules on leaves.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Resistant varieties.",
+    "Cure": "Fungicides.",
+    "Impact": "Leaf damage.",
+    "Best Practices": "Regular monitoring."
+  },
+
+  "sugarcane_yellow_leaf_disease": {
+    "Symptoms": "Yellowing of leaves.",
+    "Causes": "Viral infection.",
+    "Prevention": "Use healthy planting material.",
+    "Cure": "No cure.",
+    "Impact": "Reduced growth.",
+    "Best Practices": "Remove infected plants."
+  },
+
+  "tomato_bacterial_spot": {
+    "Symptoms": "Dark spots on leaves and fruits.",
+    "Causes": "Bacterial infection.",
+    "Prevention": "Use certified seeds.",
+    "Cure": "Copper sprays.",
+    "Impact": "Reduced yield.",
+    "Best Practices": "Avoid overhead irrigation."
+  },
+
+  "tomato_early_blight": {
+    "Symptoms": "Concentric rings on leaves.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Crop rotation.",
+    "Cure": "Fungicides.",
+    "Impact": "Leaf drop.",
+    "Best Practices": "Remove infected leaves."
+  },
+
+  "tomato_late_blight": {
+    "Symptoms": "Water-soaked lesions.",
+    "Causes": "Phytophthora.",
+    "Prevention": "Avoid humidity.",
+    "Cure": "Systemic fungicides.",
+    "Impact": "Severe crop loss.",
+    "Best Practices": "Early detection."
+  },
+
+  "tomato_septoria_leaf_spot": {
+    "Symptoms": "Small circular spots.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Avoid wet leaves.",
+    "Cure": "Fungicides.",
+    "Impact": "Reduced yield.",
+    "Best Practices": "Field sanitation."
+  },
+
+  "tomato_yellow_leaf_curl_virus": {
+    "Symptoms": "Leaf curling and yellowing.",
+    "Causes": "Viral infection.",
+    "Prevention": "Control whiteflies.",
+    "Cure": "No cure.",
+    "Impact": "Stunted growth.",
+    "Best Practices": "Remove infected plants."
+  },
+
+  "wheat_aphid": {
+    "Symptoms": "Small insects sucking sap.",
+    "Causes": "Aphid infestation.",
+    "Prevention": "Encourage predators.",
+    "Cure": "Insecticides.",
+    "Impact": "Reduced growth.",
+    "Best Practices": "Regular monitoring."
+  },
+
+  "wheat_black_rust": {
+    "Symptoms": "Black pustules on stems.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Resistant varieties.",
+    "Cure": "Fungicides.",
+    "Impact": "Severe yield loss.",
+    "Best Practices": "Early detection."
+  },
+
+  "wheat_blast": {
+    "Symptoms": "Bleached spikelets.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Avoid excess nitrogen.",
+    "Cure": "Fungicides.",
+    "Impact": "Yield loss.",
+    "Best Practices": "Field monitoring."
+  },
+
+  "wheat_brown_rust": {
+    "Symptoms": "Brown pustules on leaves.",
     "Causes": "Fungal infection.",
     "Prevention": "Resistant varieties.",
     "Cure": "Fungicides.",
     "Impact": "Reduced yield.",
-    "Best Practices": "Monitor regularly."
+    "Best Practices": "Regular inspection."
   },
 
-  "apple_apple_scab": {
-    "Symptoms": "Olive-green spots on leaves.",
+  "wheat_common_root_rot": {
+    "Symptoms": "Root decay.",
     "Causes": "Fungal infection.",
-    "Prevention": "Pruning and airflow.",
+    "Prevention": "Crop rotation.",
+    "Cure": "Soil treatment.",
+    "Impact": "Reduced plant growth.",
+    "Best Practices": "Healthy soil practices."
+  },
+
+  "wheat_fusarium_head_blight": {
+    "Symptoms": "Bleached heads.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Resistant varieties.",
     "Cure": "Fungicides.",
-    "Impact": "Fruit damage.",
-    "Best Practices": "Remove fallen leaves."
+    "Impact": "Grain contamination.",
+    "Best Practices": "Timely spraying."
   },
 
-  "healthy_tomato": {
-    "Symptoms": "Healthy green leaves.",
-    "Causes": "Proper conditions.",
-    "Prevention": "Maintain care.",
-    "Cure": "None.",
-    "Impact": "High yield.",
-    "Best Practices": "Continue same practices."
+  "wheat_leaf_blight": {
+    "Symptoms": "Brown lesions.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Proper spacing.",
+    "Cure": "Fungicides.",
+    "Impact": "Reduced yield.",
+    "Best Practices": "Field sanitation."
   },
 
-  "healthy_potato": {
-    "Symptoms": "Healthy plant.",
-    "Causes": "Good conditions.",
-    "Prevention": "Balanced nutrients.",
-    "Cure": "None.",
-    "Impact": "Optimal yield.",
-    "Best Practices": "Monitor regularly."
+  "wheat_mildew": {
+    "Symptoms": "White powdery growth.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Avoid overcrowding.",
+    "Cure": "Fungicides.",
+    "Impact": "Reduced photosynthesis.",
+    "Best Practices": "Air circulation."
   },
 
-  "healthy_corn": {
-    "Symptoms": "Green leaves.",
-    "Causes": "Healthy growth.",
-    "Prevention": "Maintain nutrients.",
-    "Cure": "None.",
-    "Impact": "High yield.",
+  "wheat_mite": {
+    "Symptoms": "Yellow streaks.",
+    "Causes": "Mite infestation.",
+    "Prevention": "Field hygiene.",
+    "Cure": "Miticides.",
+    "Impact": "Reduced growth.",
     "Best Practices": "Regular monitoring."
+  },
+
+  "wheat_septoria": {
+    "Symptoms": "Small brown spots.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Crop rotation.",
+    "Cure": "Fungicides.",
+    "Impact": "Yield reduction.",
+    "Best Practices": "Remove infected leaves."
+  },
+
+  "wheat_smut": {
+    "Symptoms": "Black powder in grains.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Seed treatment.",
+    "Cure": "Fungicides.",
+    "Impact": "Grain loss.",
+    "Best Practices": "Use certified seeds."
+  },
+
+  "wheat_stem_fly": {
+    "Symptoms": "Dead heart in plants.",
+    "Causes": "Insect infestation.",
+    "Prevention": "Timely sowing.",
+    "Cure": "Insecticides.",
+    "Impact": "Reduced yield.",
+    "Best Practices": "Field monitoring."
+  },
+
+  "wheat_tan_spot": {
+    "Symptoms": "Tan lesions on leaves.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Crop rotation.",
+    "Cure": "Fungicides.",
+    "Impact": "Reduced yield.",
+    "Best Practices": "Field hygiene."
+  },
+
+  "wheat_yellow_rust": {
+    "Symptoms": "Yellow stripes on leaves.",
+    "Causes": "Fungal infection.",
+    "Prevention": "Resistant varieties.",
+    "Cure": "Fungicides.",
+    "Impact": "Severe yield loss.",
+    "Best Practices": "Early detection."
   }
 }
