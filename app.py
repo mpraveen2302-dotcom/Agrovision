@@ -573,8 +573,6 @@ def predict(image, city, area, language):
     except Exception as e:
         st.error(f"Error: {e}")
         return None
-
-
 # =========================
 # MAIN EXECUTION
 # =========================
@@ -589,10 +587,24 @@ if uploaded_file is not None:
 
         if result:
 
-            # 🔥 Extract values from your result
-            prediction_label = result["disease"]
-            confidence = result["confidence"]
-            severity = result["severity"]
+            # ✅ SAFE EXTRACTION (handles all formats)
+            if isinstance(result, dict):
+                prediction_label = result.get("disease") or result.get("label") or "Unknown"
+                confidence = float(result.get("confidence", 0))
+                severity = result.get("severity", "Unknown")
+
+            elif isinstance(result, (list, tuple)) and len(result) >= 3:
+                prediction_label, confidence, severity = result
+                confidence = float(confidence)
+
+            elif isinstance(result, str):
+                prediction_label = result
+                confidence = 0.0
+                severity = "Unknown"
+
+            else:
+                st.error("❌ Unexpected prediction output format")
+                st.stop()
 
             st.markdown("<br>", unsafe_allow_html=True)
 
@@ -625,9 +637,9 @@ if uploaded_file is not None:
 
             st.markdown("<br>", unsafe_allow_html=True)
 
-            # 📊 Progress bar
+            # 📊 Confidence bar
             st.subheader("📊 Confidence Level")
-            st.progress(float(confidence))
+            st.progress(min(max(float(confidence), 0.0), 1.0))
           
             # =========================
             # DASHBOARD CARDS
