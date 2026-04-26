@@ -105,10 +105,7 @@ section[data-testid="stSidebar"] * {
 </style>
 """, unsafe_allow_html=True)
 
-# =========================
-# TITLE
-# =========================
-st.title("🌱 AgroVision AI — Smart Agriculture System")
+
 /* ===== PROGRESS BAR ===== */
 .stProgress > div > div {
     background-color: #00c853;
@@ -124,7 +121,10 @@ h1, h2, h3 {
 
 st.markdown("""
 <h1 style='text-align:center; color:#2E8B57;'>
-🌱 AgroVision AI — Smart Agriculture System
+# =========================
+# TITLE
+# =========================
+st.title("🌱 AgroVision AI — Smart Agriculture System")
 </h1>
 """, unsafe_allow_html=True)
 
