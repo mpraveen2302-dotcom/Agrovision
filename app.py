@@ -56,6 +56,10 @@ def load_model():
     except Exception as e:
         st.error(f"Model loading failed: {e}")
         return None
+interpreter = load_model()
+
+if interpreter is None:
+    st.stop()
 
 # =========================
 # LOAD CLASSES
@@ -418,6 +422,10 @@ if camera_image is not None:
 # PREDICTION FUNCTION
 # =========================
 def predict(image, city, area, language):
+
+    if interpreter is None:
+        st.error("Model not loaded")
+        return None
 
     try:
         if image is None:
