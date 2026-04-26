@@ -24,7 +24,7 @@ st.markdown("""
 
 /* ===== BACKGROUND ===== */
 .stApp {
-    background: linear-gradient(135deg, #d4fc79, #96e6a1);
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     font-family: 'Segoe UI', sans-serif;
 }
 
@@ -70,37 +70,50 @@ section[data-testid="stSidebar"] * {
 .card {
     padding: 22px;
     border-radius: 20px;
-    color: white;
     text-align: center;
-    
-    /* Glass effect */
-    backdrop-filter: blur(10px);
-    
-    /* Soft shadow */
-    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-    
-    /* Smooth animation */
-    transition: all 0.3s ease;
+
+    /* DARKER BACKGROUND */
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+
+    /* TEXT MUST BE DARK/WHITE CONTRAST */
+    color: #ffffff;
+
+    /* STRONG SHADOW */
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+
+    transition: 0.3s;
+}
+
+.card h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.card p {
+    font-size: 14px;
+    color: #e0e0e0;
 }
 
 .card:hover {
-    transform: translateY(-8px) scale(1.02);
+    transform: translateY(-6px);
 }
 
 /* INDIVIDUAL COLORS */
 /* 🌿 Disease — Emerald Glass */
+/* 🌿 Disease */
 .card1 {
-    background: linear-gradient(135deg, #11998e, #38ef7d);
+    background: linear-gradient(135deg, #134e5e, #71b280);
 }
 
-/* 🔵 Confidence — Royal Blue */
+/* 🔵 Confidence */
 .card2 {
-    background: linear-gradient(135deg, #396afc, #2948ff);
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
 }
 
-/* 🔥 Severity — Sunset Orange/Red */
+/* 🔥 Severity */
 .card3 {
-    background: linear-gradient(135deg, #ff512f, #dd2476);
+    background: linear-gradient(135deg, #c31432, #240b36);
 }
 /* ===== PROGRESS BAR ===== */
 .stProgress > div > div {
