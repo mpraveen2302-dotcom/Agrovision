@@ -24,7 +24,7 @@ st.markdown("""
 
 /* ===== BACKGROUND ===== */
 .stApp {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
     font-family: 'Segoe UI', sans-serif;
 }
 
@@ -69,51 +69,46 @@ section[data-testid="stSidebar"] * {
 /* ===== CARD STYLE ===== */
 .card {
     padding: 22px;
-    border-radius: 20px;
+    border-radius: 18px;
     text-align: center;
 
-    /* DARKER BACKGROUND */
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-
-    /* TEXT MUST BE DARK/WHITE CONTRAST */
+    /* Strong readable text */
     color: #ffffff;
 
-    /* STRONG SHADOW */
-    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    /* Better shadow */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
 
     transition: 0.3s;
 }
 
 .card h2 {
     font-size: 28px;
-    font-weight: bold;
+    font-weight: 700;
     color: #ffffff;
 }
 
 .card p {
     font-size: 14px;
-    color: #e0e0e0;
+    color: #f1f5f9;  /* slightly softer but still visible */
 }
 
 .card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-5px);
 }
-
 /* INDIVIDUAL COLORS */
-/* 🌿 Disease — Emerald Glass */
-/* 🌿 Disease */
+/* 🌿 Disease — Rich Green */
 .card1 {
-    background: linear-gradient(135deg, #134e5e, #71b280);
+    background: linear-gradient(135deg, #14532d, #22c55e);
 }
 
-/* 🔵 Confidence */
+/* 🌾 Confidence — Soft Gold */
 .card2 {
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    background: linear-gradient(135deg, #92400e, #facc15);
 }
 
-/* 🔥 Severity */
+/* 🔥 Severity — Deep Red */
 .card3 {
-    background: linear-gradient(135deg, #c31432, #240b36);
+    background: linear-gradient(135deg, #7f1d1d, #ef4444);
 }
 /* ===== PROGRESS BAR ===== */
 .stProgress > div > div {
