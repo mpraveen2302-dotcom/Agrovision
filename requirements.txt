@@ -1,6 +1,7 @@
-streamlit==1.32.0
-numpy==1.26.4
-pillow==10.2.0
-tflite-runtime==2.14.0
+streamlit
+numpy
+pillow
 requests
 plotly
+tflite-runtime
+deep-translator
