@@ -69,30 +69,14 @@ section[data-testid="stSidebar"] * {
 st.markdown("""
 <style>
 
-/* ===== BACKGROUND ===== */
-.stApp {
-    background: #f4f7f6;
-}
-
-/* ===== CARD BASE ===== */
 .card {
     padding: 22px;
     border-radius: 16px;
     text-align: center;
-
     color: #1f2937;
     background: #ffffff;
 }
 
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    transition: 0.2s;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-}
-
-/* TEXT */
 .card h2 {
     font-size: 26px;
     font-weight: 700;
@@ -104,7 +88,6 @@ st.markdown("""
     color: #6b7280;
 }
 
-/* COLOR ACCENTS */
 .card1 {
     border-left: 6px solid #22c55e;
 }
