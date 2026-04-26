@@ -19,6 +19,10 @@ from deep_translator import GoogleTranslator
 # PAGE CONFIG
 # =========================
 st.set_page_config(page_title="AgroVision AI", layout="wide")
+
+# =========================
+# CSS STYLING (ONLY ONE BLOCK)
+# =========================
 st.markdown("""
 <style>
 
@@ -31,10 +35,8 @@ st.markdown("""
 /* ===== SIDEBAR ===== */
 section[data-testid="stSidebar"] {
     background: linear-gradient(180deg, #2e7d32, #1b5e20);
-    color: white;
 }
 
-/* Sidebar text */
 section[data-testid="stSidebar"] * {
     color: white !important;
 }
@@ -52,31 +54,30 @@ section[data-testid="stSidebar"] * {
 
 .stButton>button:hover {
     transform: scale(1.05);
-    background: linear-gradient(135deg, #00e676, #76ff03);
 }
 
-/* ===== INPUT BOXES ===== */
+/* ===== INPUT BOX ===== */
 .stTextInput>div>div>input {
     border-radius: 10px;
     border: 2px solid #a5d6a7;
 }
 
-/* ===== SLIDER ===== */
-.stSlider {
-    color: brown;
-}
-
-st.markdown("""
-<style>
-
+/* ===== CARD BASE ===== */
 .card {
     padding: 22px;
     border-radius: 16px;
     text-align: center;
-    color: #1f2937;
     background: #ffffff;
+    color: #1f2937;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: 0.2s;
 }
 
+.card:hover {
+    transform: translateY(-4px);
+}
+
+/* ===== CARD TEXT ===== */
 .card h2 {
     font-size: 26px;
     font-weight: 700;
@@ -88,20 +89,26 @@ st.markdown("""
     color: #6b7280;
 }
 
+/* ===== CARD ACCENTS ===== */
 .card1 {
-    border-left: 6px solid #22c55e;
+    border-left: 6px solid #22c55e; /* green */
 }
 
 .card2 {
-    border-left: 6px solid #3b82f6;
+    border-left: 6px solid #3b82f6; /* blue */
 }
 
 .card3 {
-    border-left: 6px solid #ef4444;
+    border-left: 6px solid #ef4444; /* red */
 }
 
 </style>
 """, unsafe_allow_html=True)
+
+# =========================
+# TITLE
+# =========================
+st.title("🌱 AgroVision AI — Smart Agriculture System")
 /* ===== PROGRESS BAR ===== */
 .stProgress > div > div {
     background-color: #00c853;
