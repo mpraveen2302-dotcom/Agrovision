@@ -66,50 +66,65 @@ section[data-testid="stSidebar"] * {
     color: green;
 }
 
-/* ===== CARD STYLE ===== */
-.card {
-    padding: 22px;
-    border-radius: 18px;
-    text-align: center;
+st.markdown("""
+<style>
 
-    /* Strong readable text */
-    color: #ffffff;
-
-    /* Better shadow */
-    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-
-    transition: 0.3s;
+/* ===== BACKGROUND (soft, not flashy) ===== */
+.stApp {
+    background: #f4f7f6;
 }
 
+/* ===== CARD BASE ===== */
+.card {
+    padding: 22px;
+    border-radius: 16px;
+    text-align: center;
+    
+    /* KEY FIX: DARK TEXT */
+    color: #1f2937;
+
+    /* CLEAN WHITE CARD */
+    background: #ffffff;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+/* ===== TEXT FIX ===== */
 .card h2 {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
-    color: #ffffff;
+    color: #111827;   /* DARK TEXT */
 }
 
 .card p {
     font-size: 14px;
-    color: #f1f5f9;  /* slightly softer but still visible */
+    color: #6b7280;   /* SOFT GREY */
 }
 
-.card:hover {
-    transform: translateY(-5px);
-}
-/* INDIVIDUAL COLORS */
-/* 🌿 Disease — Rich Green */
+/* ===== COLOR STRIP (instead of full gradient) ===== */
+
+/* Disease */
 .card1 {
-    background: linear-gradient(135deg, #14532d, #22c55e);
+    border-left: 6px solid #22c55e;
 }
 
-/* 🌾 Confidence — Soft Gold */
+/* Confidence */
 .card2 {
-    background: linear-gradient(135deg, #92400e, #facc15);
+    border-left: 6px solid #3b82f6;
 }
 
-/* 🔥 Severity — Deep Red */
+/* Severity */
 .card3 {
-    background: linear-gradient(135deg, #7f1d1d, #ef4444);
+    border-left: 6px solid #ef4444;
 }
+
+</style>
+""", unsafe_allow_html=True)
 /* ===== PROGRESS BAR ===== */
 .stProgress > div > div {
     background-color: #00c853;
