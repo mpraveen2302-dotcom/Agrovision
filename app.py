@@ -681,15 +681,15 @@ if uploaded_file is not None:
             # DOWNLOAD REPORT
             # =========================
             report = f"""
-AgroVision Report
+            AgroVision Report
 
-Disease: {result['label']}
-Confidence: {result['confidence']:.2f}
-Severity: {result['level']}
+            Disease: {result['label']}
+            Confidence: {result['confidence']:.2f}
+            Severity: {result['level']}
 
-Advice:
-{result['advice']}
-"""
+            Advice:
+                {result['advice']}
+                """
             st.download_button("📄 Download Report", report, file_name="agrovision_report.txt")
 
             # =========================
