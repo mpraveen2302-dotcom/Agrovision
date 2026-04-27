@@ -45,7 +45,10 @@ st.markdown(f"""
 
 
 
-/* NORMAL SIDEBAR TEXT */
+st.markdown(f"""
+<style>
+
+/* ===== NORMAL SIDEBAR TEXT ===== */
 section[data-testid="stSidebar"] label,
 section[data-testid="stSidebar"] p,
 section[data-testid="stSidebar"] h1,
@@ -57,43 +60,41 @@ section[data-testid="stSidebar"] h3 {{
 /* ===== DROPDOWN FIX ===== */
 
 /* Selected text */
-section[data-testid="stSidebar"] div[data-baseweb="select"] span {
+section[data-testid="stSidebar"] div[data-baseweb="select"] span {{
     color: black !important;
-}
+}}
 
 /* Dropdown box */
-section[data-testid="stSidebar"] div[data-baseweb="select"] {
+section[data-testid="stSidebar"] div[data-baseweb="select"] {{
     background-color: white !important;
     border-radius: 8px;
-}
+}}
 
 /* Dropdown options */
-section[data-testid="stSidebar"] ul[role="listbox"] li {
+section[data-testid="stSidebar"] ul[role="listbox"] li {{
     color: black !important;
     background-color: white !important;
-}
+}}
 
 /* Hover */
-section[data-testid="stSidebar"] ul[role="listbox"] li:hover {
+section[data-testid="stSidebar"] ul[role="listbox"] li:hover {{
     background-color: #e8f5e9 !important;
-}
+}}
 
 /* Strong override */
-section[data-testid="stSidebar"] div[data-baseweb="select"] * {
+section[data-testid="stSidebar"] div[data-baseweb="select"] * {{
     color: black !important;
-}
+}}
 
-
-/* ===== SIDEBAR BASE (KEEP GREEN) ===== */
-section[data-testid="stSidebar"] {
+/* ===== SIDEBAR BASE ===== */
+section[data-testid="stSidebar"] {{
     background: linear-gradient(180deg,#1b5e20,#2e7d32);
     position: relative;
     overflow: hidden;
-}
+}}
 
-
-/* ===== FARM VECTOR IMAGE (BOTTOM, BLENDED) ===== */
-section[data-testid="stSidebar"]::after {
+/* ===== FARM IMAGE (BOTTOM) ===== */
+section[data-testid="stSidebar"]::after {{
     content: "";
     position: absolute;
     bottom: 0;
@@ -103,13 +104,16 @@ section[data-testid="stSidebar"]::after {
 
     background:
         linear-gradient(rgba(27,94,32,0.4), rgba(27,94,32,0.7)),
-        url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
+        url("https://cdn.pixabay.com/photo/2017/01/31/13/14/farm-2022304_1280.png");
 
     background-size: cover;
     background-position: bottom;
 
     pointer-events: none;
-}
+}}
+
+</style>
+""", unsafe_allow_html=True)
 
 /* ===== INPUT FIX ===== */
 .stTextInput input,
