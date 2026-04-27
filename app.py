@@ -25,7 +25,7 @@ st.set_page_config(page_title="AgroVision AI PRO", layout="wide")
 # =========================
 dark_mode = st.sidebar.toggle("🌙 Dark Mode", value=False)
 # =========================
-# 🎨 PRO CSS (FINAL FIXED)
+# 🎨 PRO CSS (FINAL CLEAN)
 # =========================
 st.markdown(f"""
 <style>
@@ -43,12 +43,7 @@ st.markdown(f"""
     100% {{background-position: 0% 50%;}}
 }}
 
-
-
-st.markdown(f"""
-<style>
-
-/* ===== NORMAL SIDEBAR TEXT ===== */
+/* ===== SIDEBAR TEXT ===== */
 section[data-testid="stSidebar"] label,
 section[data-testid="stSidebar"] p,
 section[data-testid="stSidebar"] h1,
@@ -58,30 +53,24 @@ section[data-testid="stSidebar"] h3 {{
 }}
 
 /* ===== DROPDOWN FIX ===== */
-
-/* Selected text */
 section[data-testid="stSidebar"] div[data-baseweb="select"] span {{
     color: black !important;
 }}
 
-/* Dropdown box */
 section[data-testid="stSidebar"] div[data-baseweb="select"] {{
     background-color: white !important;
     border-radius: 8px;
 }}
 
-/* Dropdown options */
 section[data-testid="stSidebar"] ul[role="listbox"] li {{
     color: black !important;
     background-color: white !important;
 }}
 
-/* Hover */
 section[data-testid="stSidebar"] ul[role="listbox"] li:hover {{
     background-color: #e8f5e9 !important;
 }}
 
-/* Strong override */
 section[data-testid="stSidebar"] div[data-baseweb="select"] * {{
     color: black !important;
 }}
@@ -93,7 +82,7 @@ section[data-testid="stSidebar"] {{
     overflow: hidden;
 }}
 
-/* ===== FARM IMAGE (BOTTOM) ===== */
+/* ===== FARM IMAGE (YOUR LINK) ===== */
 section[data-testid="stSidebar"]::after {{
     content: "";
     position: absolute;
@@ -104,16 +93,13 @@ section[data-testid="stSidebar"]::after {{
 
     background:
         linear-gradient(rgba(27,94,32,0.4), rgba(27,94,32,0.7)),
-        url("https://cdn.pixabay.com/photo/2017/01/31/13/14/farm-2022304_1280.png");
+        url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
 
     background-size: cover;
     background-position: bottom;
 
     pointer-events: none;
 }}
-
-</style>
-""", unsafe_allow_html=True)
 
 /* ===== INPUT FIX ===== */
 .stTextInput input,
