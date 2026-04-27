@@ -43,18 +43,7 @@ st.markdown(f"""
     100% {{background-position: 0% 50%;}}
 }}
 
-/* ===== SIDEBAR ===== */
-section[data-testid="stSidebar"] {{
-    background: linear-gradient(
-        rgba(46,125,50,0.85),
-        rgba(27,94,32,0.9)
-    ),
-    url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}}
 
 /* NORMAL SIDEBAR TEXT */
 section[data-testid="stSidebar"] label,
