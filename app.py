@@ -172,14 +172,15 @@ def load_classes():
 
 class_names = load_classes()
 # =========================
-# ENSURE KNOWLEDGE BASE LOAD (FIX)
+# LOAD KNOWLEDGE BASE (SAFE)
 # =========================
 @st.cache_data
 def load_kb_safe():
     try:
         with open("knowledge_base.json") as f:
             return json.load(f)
-    except:
+    except Exception as e:
+        st.warning(f"Knowledge base not loaded: {e}")
         return {}
 
 knowledge_base = load_kb_safe()
