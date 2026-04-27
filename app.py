@@ -75,7 +75,7 @@ section[data-testid="stSidebar"] ul[role="listbox"] li {{
 
 /* Hover */
 section[data-testid="stSidebar"] ul[role="listbox"] li:hover {{
-    background-color: #e8f5e9 !important;
+    background-color: green !important;
 }}
 /* FORCE language dropdown text to black */
 section[data-testid="stSidebar"] div[data-baseweb="select"] * {{
