@@ -93,6 +93,23 @@ section[data-testid="stSidebar"] div[data-baseweb="select"] * {{
     color: black !important;
 }}
 
+/* ===== FARM IMAGE AT SIDEBAR BOTTOM ===== */
+section[data-testid="stSidebar"]::after {{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 220px;
+
+    background: url("https://cdn.pixabay.com/photo/2016/11/29/04/17/agriculture-1868261_1280.jpg");
+    background-size: cover;
+    background-position: center;
+
+    opacity: 0.9;
+    pointer-events: none;
+}}
+
 /* ===== INPUT FIX ===== */
 .stTextInput input,
 .stNumberInput input,
