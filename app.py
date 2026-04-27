@@ -563,11 +563,13 @@ if uploaded_file is not None:
 
         if result:
 
-            # ✅ SAFE EXTRACTION (handles all formats)
+            # =========================
+            # SAFE EXTRACTION
+            # =========================
             if isinstance(result, dict):
                 prediction_label = result.get("disease") or result.get("label") or "Unknown"
                 confidence = float(result.get("confidence", 0))
-                severity = result.get("severity", "Unknown")
+                severity = result.get("level") or result.get("severity", "Unknown")
 
             elif isinstance(result, (list, tuple)) and len(result) >= 3:
                 prediction_label, confidence, severity = result
@@ -584,7 +586,9 @@ if uploaded_file is not None:
 
             st.markdown("<br>", unsafe_allow_html=True)
 
+            # =========================
             # 🎨 CARDS UI
+            # =========================
             col1, col2, col3 = st.columns(3)
 
             with col1:
@@ -597,8 +601,8 @@ if uploaded_file is not None:
 
             with col2:
                 st.markdown(f"""
-                <div class='card card2'>
-                    <h2>{result['confidence']:.2f}</h2>
+                <div class="card card2">
+                    <h2>{confidence:.2f}</h2>
                     <p>Confidence</p>
                 </div>
                 """, unsafe_allow_html=True)
@@ -613,30 +617,22 @@ if uploaded_file is not None:
 
             st.markdown("<br>", unsafe_allow_html=True)
 
-            # 📊 Confidence bar
+            # =========================
+            # 📊 CONFIDENCE BAR
+            # =========================
             st.subheader("📊 Confidence Level")
-            st.progress(min(max(float(confidence), 0.0), 1.0))
-          
-            # =========================
-            # DASHBOARD CARDS
-            # =========================
-           
-            # =========================
-            # CONFIDENCE PROGRESS BAR
-            # =========================
-            st.subheader("🔋 Confidence Level")
-            st.progress(int(result["confidence"] * 100))
+            st.progress(min(max(confidence, 0.0), 1.0))
 
             # =========================
             # GAUGE CHART
             # =========================
-            show_gauge(result["confidence"])
+            show_gauge(confidence)
 
             # =========================
             # WEATHER + ALERT
             # =========================
-            show_weather_ui(result["temp"], result["humidity"])
-            show_risk_alert(result["level"], result["confidence"])
+            show_weather_ui(result.get("temp", 25), result.get("humidity", 60))
+            show_risk_alert(result.get("level", "LOW"), confidence)
 
             # =========================
             # TABS
@@ -648,35 +644,47 @@ if uploaded_file is not None:
                 "🧮 Farm Tools"
             ])
 
+            # =========================
             # TAB 1 — Prediction
+            # =========================
             with tab1:
-                show_severity_card(result["level"], result["color"], result["message"])
+                show_severity_card(
+                    result.get("level", "LOW"),
+                    result.get("color", "card3"),
+                    result.get("message", "")
+                )
 
-                for note in result["notes"]:
+                for note in result.get("notes", []):
                     st.info(note)
 
-                st.write(f"💊 Spray Interval: {result['spray']} days")
+                st.write(f"💊 Spray Interval: {result.get('spray', '-')} days")
 
-            # TAB 2 — Expandable Advice
+            # =========================
+            # TAB 2 — Advice
+            # =========================
             with tab2:
                 with st.expander("📖 Detailed Farmer Advice", expanded=True):
-                    st.markdown(result["advice"])
+                    st.markdown(result.get("advice", "No advice available"))
 
+            # =========================
             # TAB 3 — Analytics
+            # =========================
             with tab3:
-                if result["fig_bar"]:
+                if result.get("fig_bar"):
                     st.plotly_chart(result["fig_bar"], use_container_width=True)
 
-                if result["fig_trend"]:
+                if result.get("fig_trend"):
                     st.plotly_chart(result["fig_trend"], use_container_width=True)
 
                 st.subheader("📈 Confidence History")
-                st.line_chart(st.session_state.session_conf)
+                if "session_conf" in st.session_state:
+                    st.line_chart(st.session_state.session_conf)
 
+            # =========================
             # TAB 4 — Farm Tools
+            # =========================
             with tab4:
-                st.markdown(result["farm"])
-
+                st.markdown(result.get("farm", "No farm data available"))
             # =========================
             # DOWNLOAD REPORT
             # =========================
