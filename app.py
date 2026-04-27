@@ -171,14 +171,19 @@ def load_classes():
         return json.load(f)
 
 class_names = load_classes()
-
 # =========================
-# LOAD KNOWLEDGE BASE
+# ENSURE KNOWLEDGE BASE LOAD (FIX)
 # =========================
 @st.cache_data
-def load_kb():
-    with open("knowledge_base.json") as f:
-        return json.load(f)
+def load_kb_safe():
+    try:
+        with open("knowledge_base.json") as f:
+            return json.load(f)
+    except:
+        return {}
+
+knowledge_base = load_kb_safe()
+
 
 # =========================
 # IMAGE PREPROCESSING
