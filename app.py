@@ -696,4 +696,4 @@ Advice:
 else:
     st.warning("Please upload or capture an image")
 
-knowledge_base = load_kb()
+
