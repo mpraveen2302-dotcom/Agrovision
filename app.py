@@ -681,15 +681,14 @@ if uploaded_file is not None:
             # =========================
             # DOWNLOAD REPORT
             # =========================
-            report = f"""AgroVision Report
-
-            Disease: {result.get('label', 'Unknown')}
-            Confidence: {float(result.get('confidence', 0)):.2f}
-            Severity: {result.get('level', 'Unknown')}
-
-            Advice:
-                {result.get('advice', 'No advice available')}
-                """
+            report = (
+            "AgroVision Report\n\n"
+            f"Disease: {result.get('label', 'Unknown')}\n"
+            f"Confidence: {float(result.get('confidence', 0)):.2f}\n"
+            f"Severity: {result.get('level', 'Unknown')}\n\n"
+            "Advice:\n"
+            f"{result.get('advice', 'No advice available')}\n"
+            )
 
             st.download_button(
             "📄 Download Report",
