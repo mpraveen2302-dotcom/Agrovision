@@ -90,8 +90,7 @@ section[data-testid="stSidebar"]::after {{
     left: 0;
     width: 100%;
     height: 220px;
-
-    background: url("https://cdn.pixabay.com/photo/2016/11/29/04/17/agriculture-1868261_1280.jpg");
+    background: url("https://img.freepik.com/free-vector/organic-farming-concept_23-2148573957.jpg");
     background-size: cover;
     background-position: center;
 
