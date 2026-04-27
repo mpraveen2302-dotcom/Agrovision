@@ -25,10 +25,12 @@ st.set_page_config(page_title="AgroVision AI PRO", layout="wide")
 # =========================
 dark_mode = st.sidebar.toggle("🌙 Dark Mode", value=False)
 # =========================
-# 🎨 PRO CSS
+# 🎨 PRO CSS (FINAL FIXED)
 # =========================
 st.markdown(f"""
 <style>
+
+/* ===== BACKGROUND ===== */
 .stApp {{
     {"background: linear-gradient(-45deg,#0f2027,#203a43,#000000);" if dark_mode else "background: linear-gradient(-45deg,#ecfdf5,#d1fae5,#bbf7d0);"}
     background-size: 400% 400%;
@@ -41,25 +43,31 @@ st.markdown(f"""
     100% {{background-position: 0% 50%;}}
 }}
 
+/* ===== SIDEBAR ===== */
 section[data-testid="stSidebar"] {{
     background: linear-gradient(180deg,#2e7d32,#1b5e20);
 }}
 
-/* KEEP SIDEBAR WHITE TEXT */
-section[data-testid="stSidebar"] * {{
+/* NORMAL SIDEBAR TEXT */
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3 {{
     color: white !important;
 }}
 
-/* ===== 🔥 CRITICAL FIX FOR DROPDOWN ===== */
+/* ===== 🔥 DROPDOWN FIX (FINAL) ===== */
 
-/* Selected value (inside box) */
+/* Selected text inside dropdown */
 section[data-testid="stSidebar"] div[data-baseweb="select"] span {{
     color: black !important;
 }}
 
-/* Dropdown container */
+/* Dropdown box */
 section[data-testid="stSidebar"] div[data-baseweb="select"] {{
     background-color: white !important;
+    border-radius: 8px;
 }}
 
 /* Dropdown options */
@@ -73,6 +81,15 @@ section[data-testid="stSidebar"] ul[role="listbox"] li:hover {{
     background-color: #e8f5e9 !important;
 }}
 
+/* ===== INPUT FIX ===== */
+.stTextInput input,
+.stNumberInput input,
+textarea {{
+    background-color: {"#222" if dark_mode else "#ffffff"} !important;
+    color: {"white" if dark_mode else "black"} !important;
+    border-radius: 10px !important;
+}}
+
 /* ===== GLASS UI ===== */
 .glass {{
     background: rgba(255,255,255,0.15);
@@ -81,27 +98,29 @@ section[data-testid="stSidebar"] ul[role="listbox"] li:hover {{
     backdrop-filter: blur(14px);
     box-shadow: 0 10px 40px rgba(0,0,0,0.3);
     margin-bottom: 20px;
+    transition: 0.3s;
 }}
 
+.glass:hover {{
+    transform: translateY(-8px);
+}}
+
+/* ===== CARDS ===== */
 .card {{
-    padding:22px;
-    border-radius:18px;
-    text-align:center;
+    padding: 22px;
+    border-radius: 18px;
+    text-align: center;
     backdrop-filter: blur(12px);
     background: rgba(255,255,255,0.2);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }}
 
 .card1 {{ border-left:6px solid #22c55e; }}
 .card2 {{ border-left:6px solid #3b82f6; }}
 .card3 {{ border-left:6px solid #f97316; }}
 
-.stTextInput input,
-.stNumberInput input {{
-    background-color: {"#222" if dark_mode else "#ffffff"} !important;
-    color: {"white" if dark_mode else "black"} !important;
-}}
-
-h1,h2,h3 {{
+/* ===== HEADINGS ===== */
+h1, h2, h3 {{
     color: {"#ffffff" if dark_mode else "#1b5e20"};
 }}
 
