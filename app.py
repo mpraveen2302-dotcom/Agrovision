@@ -24,7 +24,6 @@ st.set_page_config(page_title="AgroVision AI PRO", layout="wide")
 # 🌙 DARK MODE TOGGLE
 # =========================
 dark_mode = st.sidebar.toggle("🌙 Dark Mode", value=False)
-
 # =========================
 # 🎨 PRO CSS
 # =========================
@@ -79,6 +78,30 @@ section[data-testid="stSidebar"] * {{
 h1,h2,h3 {{
     color: {"#ffffff" if dark_mode else "#1b5e20"};
 }}
+
+/* ===== SELECTBOX FIX (FINAL) ===== */
+
+/* Selected text */
+div[data-baseweb="select"] span {{
+    color: black !important;
+}}
+
+/* Dropdown background */
+div[data-baseweb="select"] {{
+    background-color: white !important;
+}}
+
+/* Dropdown options */
+ul[role="listbox"] li {{
+    color: black !important;
+    background-color: white !important;
+}}
+
+/* Hover effect */
+ul[role="listbox"] li:hover {{
+    background-color: #e8f5e9 !important;
+}}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -107,7 +130,6 @@ with c3:
 
 with c4:
     st.markdown(f'<div class="card card1"><h3>{d.get("humidity","--")}%</h3><p>Humidity</p></div>', unsafe_allow_html=True)
-
 # =========================
 # LOAD MODEL
 # =========================
