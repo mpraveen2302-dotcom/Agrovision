@@ -256,7 +256,7 @@ st.title(t("title"))
 # =========================
 # 🌾 DASHBOARD
 # =========================
-st.markdown('<div class="glass"><h2>{t("dashboard")}</h2></div>', unsafe_allow_html=True)
+st.markdown(f'<div class="glass"><h2>{t("dashboard")}</h2></div>', unsafe_allow_html=True)
 
 d = st.session_state.get("last_result", {})
 
