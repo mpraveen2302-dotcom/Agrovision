@@ -393,7 +393,6 @@ def plot_top_predictions(output, labels):
 
     return fig, top_idx
 
-
 # =========================
 # SMART FARM CALCULATOR
 # =========================
@@ -422,10 +421,8 @@ def farm_calculator(area, humidity, temp, soil_moisture=25):
     total_N = N * area
     total_P = P * area
     total_K = K * area
-# -*- coding: utf-8 -*-
 
-return f"""
-Smart Farm Plan
+    return f"""Smart Farm Plan
 
 Area: {area} acres  
 
@@ -437,7 +434,7 @@ Fertilizer:
 N: {int(total_N)} kg  
 P: {int(total_P)} kg  
 K: {int(total_K)} kg  
-""", unsafe_allow_html=True)
+"""
 # =========================
 # GAUGE CHART (CONFIDENCE)
 # =========================
