@@ -837,7 +837,8 @@ Severity: {result['level']}
 Advice:
 {result['advice']}
 """
-            st.download_button(t("download"), report),
+            st.download_button(
+                t("download"),
                 report,
                 file_name="agrovision_report.txt"
             )
