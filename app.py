@@ -596,12 +596,12 @@ if uploaded_file is not None:
                 """, unsafe_allow_html=True)
 
             with col2:
-                st.markdown(f"""
-                <div class="card card2">
-                    <h2>{confidence:.2f}</h2>
-                    <p>Confidence</p>
-                </div>
-                """, unsafe_allow_html=True)
+               st.markdown(f"""
+               <div class='card card2'>
+                   <h2>{result['confidence']:.2f}</h2>
+                   <p>Confidence</p>
+               </div>
+               """, unsafe_allow_html=True)
 
             with col3:
                 st.markdown(f"""
