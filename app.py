@@ -44,10 +44,36 @@ st.markdown(f"""
 section[data-testid="stSidebar"] {{
     background: linear-gradient(180deg,#2e7d32,#1b5e20);
 }}
+
+/* KEEP SIDEBAR WHITE TEXT */
 section[data-testid="stSidebar"] * {{
     color: white !important;
 }}
 
+/* ===== 🔥 CRITICAL FIX FOR DROPDOWN ===== */
+
+/* Selected value (inside box) */
+section[data-testid="stSidebar"] div[data-baseweb="select"] span {{
+    color: black !important;
+}}
+
+/* Dropdown container */
+section[data-testid="stSidebar"] div[data-baseweb="select"] {{
+    background-color: white !important;
+}}
+
+/* Dropdown options */
+section[data-testid="stSidebar"] ul[role="listbox"] li {{
+    color: black !important;
+    background-color: white !important;
+}}
+
+/* Hover */
+section[data-testid="stSidebar"] ul[role="listbox"] li:hover {{
+    background-color: #e8f5e9 !important;
+}}
+
+/* ===== GLASS UI ===== */
 .glass {{
     background: rgba(255,255,255,0.15);
     border-radius: 20px;
@@ -79,29 +105,6 @@ h1,h2,h3 {{
     color: {"#ffffff" if dark_mode else "#1b5e20"};
 }}
 
-/* ===== SELECTBOX FIX (FINAL) ===== */
-
-/* Selected text */
-div[data-baseweb="select"] span {{
-    color: black !important;
-}}
-
-/* Dropdown background */
-div[data-baseweb="select"] {{
-    background-color: white !important;
-}}
-
-/* Dropdown options */
-ul[role="listbox"] li {{
-    color: black !important;
-    background-color: white !important;
-}}
-
-/* Hover effect */
-ul[role="listbox"] li:hover {{
-    background-color: #e8f5e9 !important;
-}}
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -109,7 +112,6 @@ ul[role="listbox"] li:hover {{
 # TITLE
 # =========================
 st.title("🌱 AgroVision AI — Smart Agriculture System")
-
 # =========================
 # 🌾 DASHBOARD
 # =========================
