@@ -437,7 +437,7 @@ Fertilizer:
 N: {int(total_N)} kg  
 P: {int(total_P)} kg  
 K: {int(total_K)} kg  
-"""
+""", unsafe_allow_html=True)
 # =========================
 # GAUGE CHART (CONFIDENCE)
 # =========================
