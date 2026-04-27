@@ -437,8 +437,6 @@ N: {int(total_N)} kg
 P: {int(total_P)} kg  
 K: {int(total_K)} kg  
 """
-
-
 # =========================
 # GAUGE CHART (CONFIDENCE)
 # =========================
