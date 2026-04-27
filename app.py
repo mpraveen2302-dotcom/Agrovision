@@ -533,7 +533,7 @@ def plot_trend():
 
     fig.update_layout(title=t("trend")),
     template="plotly_white"
-    )
+    ))
 
     return fig
 
