@@ -80,6 +80,10 @@ section[data-testid="stSidebar"] ul[role="listbox"] li {{
 section[data-testid="stSidebar"] ul[role="listbox"] li:hover {{
     background-color: #e8f5e9 !important;
 }}
+/* FORCE language dropdown text to black */
+section[data-testid="stSidebar"] div[data-baseweb="select"] * {{
+    color: black !important;
+}}
 
 /* ===== INPUT FIX ===== */
 .stTextInput input,
