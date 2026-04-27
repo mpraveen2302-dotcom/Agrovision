@@ -21,123 +21,92 @@ from deep_translator import GoogleTranslator
 st.set_page_config(page_title="AgroVision AI", layout="wide")
 
 # =========================
-# CSS (ONLY ONE BLOCK - FIXED)
+# DARK MODE TOGGLE
 # =========================
-st.markdown("""
+theme = st.sidebar.toggle("🌙 Dark Mode", value=False)
+
+# =========================
+# FULL UI CSS
+# =========================
+st.markdown(f"""
 <style>
 
-/* ===== BACKGROUND ===== */
-.stApp {
-    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+/* ===== ANIMATED BACKGROUND ===== */
+.stApp {{
+    background: linear-gradient(270deg, #d1fae5, #a7f3d0, #ecfdf5);
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite;
     font-family: 'Segoe UI', sans-serif;
-}
+}}
 
-/* ===== SIDEBAR ===== */
-section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #2e7d32, #1b5e20);
-}
-section[data-testid="stSidebar"] * {
+@keyframes gradientBG {{
+    0% {{background-position: 0% 50%;}}
+    50% {{background-position: 100% 50%;}}
+    100% {{background-position: 0% 50%;}}
+}}
+
+/* ===== SIDEBAR WITH FARM IMAGE ===== */
+section[data-testid="stSidebar"] {{
+    background:
+    linear-gradient(rgba(27,94,32,0.85), rgba(46,125,50,0.9)),
+    url("https://img.freepik.com/free-vector/farm-landscape-with-barn-windmill-tractor_1308-56576.jpg");
+    background-size: cover;
+    background-position: bottom;
+}}
+
+section[data-testid="stSidebar"] * {{
     color: white !important;
-}
+}}
+
+/* ===== GLASS + FLOATING CARDS ===== */
+.card {{
+    padding: 22px;
+    border-radius: 18px;
+    text-align: center;
+    backdrop-filter: blur(14px);
+    background: rgba(255,255,255,0.6);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transition: 0.3s;
+    animation: float 4s ease-in-out infinite;
+}}
+
+.card:hover {{
+    transform: translateY(-8px) scale(1.03);
+}}
+
+@keyframes float {{
+    0% {{transform: translateY(0px);}}
+    50% {{transform: translateY(-6px);}}
+    100% {{transform: translateY(0px);}}
+}}
+
+/* ===== COLORED CARDS ===== */
+.card1 {{
+    background: linear-gradient(135deg, #16a34a, #22c55e);
+    color: white;
+}}
+
+.card2 {{
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+}}
+
+.card3 {{
+    background: linear-gradient(135deg, #ff6a00, #ff3d00);
+    color: white;
+}}
+
+.card1 h2, .card2 h2, .card3 h2 {{
+    color: white;
+}}
+
+.card1 p, .card2 p, .card3 p {{
+    color: #e5e7eb;
+}}
 
 /* ===== BUTTON ===== */
-.stButton>button {
-    background: linear-gradient(135deg, #00c853, #64dd17);
-    color: white;
-    border-radius: 10px;
-    border: none;
-    padding: 10px 20px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-.stButton>button:hover {
-    transform: scale(1.05);
-}
-
-/* ===== INPUT ===== */
-.stTextInput>div>div>input {
-    border-radius: 10px;
-    border: 2px solid #a5d6a7;
-}
-/* FIX INPUT TEXT VISIBILITY */
-.stTextInput input,
-.stNumberInput input {
-    color: black !important;
-    background-color: #ffffff !important;
-}
-
-/* FIX DROPDOWN TEXT */
-.stSelectbox div[data-baseweb="select"] {
-    color: black !important;
-}
-
-/* PLACEHOLDER TEXT */
-::placeholder {
-    color: #666 !important;
-}
-
-/* FIX SELECTBOX (LANGUAGE DROPDOWN) */
-div[data-baseweb="select"] * {
-    color: black !important;
-}
-
-/* Fix selected value */
-div[data-baseweb="select"] span {
-    color: black !important;
-}
-
-/* Fix dropdown menu items */
-ul[role="listbox"] li {
-    color: black !important;
-    background-color: white !important;
-}
-/* ===== CARD ===== */
-.card {
-    padding: 22px;
-    border-radius: 16px;
-    text-align: center;
-    background: #ffffff;
-    color: #1f2937;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    transition: 0.2s;
-}
-.card:hover {
-    transform: translateY(-4px);
-}
-
-/* ===== CARD TEXT ===== */
-.card h2 {
-    font-size: 26px;
-    font-weight: 700;
-    color: #111827;
-}
-.card p {
-    font-size: 14px;
-    color: #6b7280;
-}
-
-/* ===== CARD ACCENTS ===== */
-.card1 { border-left: 6px solid #22c55e; }   /* green */
-.card2 { border-left: 6px solid #3b82f6; }   /* blue */
-.card3 { border-left: 6px solid #ef4444; }   /* red */
-
-/* ===== PROGRESS BAR ===== */
-.stProgress > div > div {
-    background-color: #00c853;
-}
-
-/* ===== HEADINGS ===== */
-h1, h2, h3 {
-    color: #1b5e20;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-# =========================
-# TITLE
-# =========================
-st.title("🌱 AgroVision AI — Smart Agriculture System")
+.stButton>button {{
+    background
 
 # =========================
 # LOAD MODEL
