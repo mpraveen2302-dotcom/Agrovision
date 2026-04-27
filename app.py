@@ -425,15 +425,15 @@ def farm_calculator(area, humidity, temp, soil_moisture=25):
 # -*- coding: utf-8 -*-
 
 return f"""
-🌾 Smart Farm Plan
+Smart Farm Plan
 
 Area: {area} acres  
 
-💧 Irrigation: {int(irrigation * area)} L  
+Irrigation: {int(irrigation * area)} L  
 
-📆 Spray Interval: {spray} days  
+Spray Interval: {spray} days  
 
-🌱 Fertilizer:
+Fertilizer:
 N: {int(total_N)} kg  
 P: {int(total_P)} kg  
 K: {int(total_K)} kg  
