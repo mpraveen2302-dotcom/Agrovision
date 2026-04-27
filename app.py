@@ -422,8 +422,9 @@ def farm_calculator(area, humidity, temp, soil_moisture=25):
     total_N = N * area
     total_P = P * area
     total_K = K * area
+# -*- coding: utf-8 -*-
 
-    return f"""
+return f"""
 🌾 Smart Farm Plan
 
 Area: {area} acres  
