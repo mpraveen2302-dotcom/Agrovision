@@ -246,12 +246,12 @@ def get_severity(conf, humidity, temp):
 # =========================
 def show_severity_card(level, color, message):
 
-    st.markdown(f"""
-    <div class="card {color}">
-    <h2>⚠️ {level}</h2>
-    <p>{message}</p>
-    </div>
-    """, unsafe_allow_html=True)
+   st.markdown(f"""
+   <div class='card card3'>
+   <h2>⚠️ {result['level']}</h2>
+   <p>Severity</p>
+   </div>
+   """, unsafe_allow_html=True)
 
 
 # =========================
