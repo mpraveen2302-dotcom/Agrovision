@@ -16,6 +16,107 @@ import time
 from deep_translator import GoogleTranslator
 
 # =========================
+# 🌐 GLOBAL TRANSLATIONS
+# =========================
+translations = {
+    "English": {
+        "title": "🌱 AgroVision AI — Smart Agriculture System",
+        "dashboard": "🌾 Smart Farm Dashboard",
+        "controls": "⚙️ Controls",
+        "language": "🌐 Language",
+        "city": "📍 City",
+        "area": "🌾 Farm Area (acres)",
+        "farmer_mode": "👨‍🌾 Farmer Mode",
+        "upload": "Upload Leaf Image",
+        "camera": "📸 Or Take Photo",
+        "analyze": "🚀 Analyze Crop",
+        "prediction": "🔬 Prediction",
+        "advice": "👨‍🌾 Advice",
+        "analytics": "📊 Analytics",
+        "farm_tools": "🧮 Farm Tools",
+        "confidence": "Confidence",
+        "severity": "Severity",
+        "temperature": "Temperature",
+        "humidity": "Humidity",
+        "download": "📄 Download Report",
+        "status": "Status",
+        "no_image": "Please upload or capture an image",
+        "processing": "Analyzing crop...",
+        "trend": "📈 Prediction Trend",
+        "top_pred": "📊 Top Predictions",
+        "confidence_level": "📊 Confidence Level",
+        "confidence_meter": "🔋 Confidence Meter",
+        "history": "📈 Confidence History",
+        "farmer_enabled": "👨‍🌾 Farmer Mode Enabled"
+    },
+
+    "Tamil": {
+        "title": "🌱 அக்ரோவிஷன் AI — ஸ்மார்ட் வேளாண்மை",
+        "dashboard": "🌾 ஸ்மார்ட் பண்ணை டாஷ்போர்டு",
+        "controls": "⚙️ கட்டுப்பாடுகள்",
+        "language": "🌐 மொழி",
+        "city": "📍 நகரம்",
+        "area": "🌾 பண்ணை பரப்பு (ஏக்கர்)",
+        "farmer_mode": "👨‍🌾 விவசாயி முறை",
+        "upload": "இலை படத்தை பதிவேற்றவும்",
+        "camera": "📸 படம் எடுக்கவும்",
+        "analyze": "🚀 பயிர் பகுப்பாய்வு",
+        "prediction": "🔬 கணிப்பு",
+        "advice": "👨‍🌾 ஆலோசனை",
+        "analytics": "📊 பகுப்பாய்வு",
+        "farm_tools": "🧮 பண்ணை கருவிகள்",
+        "confidence": "நம்பிக்கை",
+        "severity": "தீவிரம்",
+        "temperature": "வெப்பநிலை",
+        "humidity": "ஈரப்பதம்",
+        "download": "📄 அறிக்கை பதிவிறக்கம்",
+        "status": "நிலை",
+        "no_image": "படம் பதிவேற்றவும்",
+        "processing": "பகுப்பாய்வு செய்யப்படுகிறது...",
+        "trend": "📈 கணிப்பு வரலாறு",
+        "top_pred": "📊 முன்னணி கணிப்புகள்",
+        "confidence_level": "📊 நம்பிக்கை நிலை",
+        "confidence_meter": "🔋 நம்பிக்கை மீட்டர்",
+        "history": "📈 வரலாறு",
+        "farmer_enabled": "👨‍🌾 விவசாயி முறை செயல்படுத்தப்பட்டது"
+    },
+
+    "Hindi": {
+        "title": "🌱 एग्रोविजन AI — स्मार्ट कृषि",
+        "dashboard": "🌾 स्मार्ट फार्म डैशबोर्ड",
+        "controls": "⚙️ नियंत्रण",
+        "language": "🌐 भाषा",
+        "city": "📍 शहर",
+        "area": "🌾 खेत क्षेत्र (एकड़)",
+        "farmer_mode": "👨‍🌾 किसान मोड",
+        "upload": "पत्ती की छवि अपलोड करें",
+        "camera": "📸 फोटो लें",
+        "analyze": "🚀 फसल विश्लेषण",
+        "prediction": "🔬 भविष्यवाणी",
+        "advice": "👨‍🌾 सलाह",
+        "analytics": "📊 विश्लेषण",
+        "farm_tools": "🧮 फार्म टूल्स",
+        "confidence": "विश्वास",
+        "severity": "गंभीरता",
+        "temperature": "तापमान",
+        "humidity": "आर्द्रता",
+        "download": "📄 रिपोर्ट डाउनलोड",
+        "status": "स्थिति",
+        "no_image": "कृपया छवि अपलोड करें",
+        "processing": "विश्लेषण हो रहा है...",
+        "trend": "📈 भविष्यवाणी इतिहास",
+        "top_pred": "📊 शीर्ष भविष्यवाणियाँ",
+        "confidence_level": "📊 विश्वास स्तर",
+        "confidence_meter": "🔋 विश्वास मीटर",
+        "history": "📈 इतिहास",
+        "farmer_enabled": "👨‍🌾 किसान मोड सक्रिय"
+    }
+}
+
+# ✅ PUT IT HERE 👇
+def t(key):
+    return translations[language].get(key, key)
+# =========================
 # PAGE CONFIG
 # =========================
 st.set_page_config(page_title="AgroVision AI PRO", layout="wide")
@@ -150,11 +251,11 @@ h1, h2, h3 {{
 # =========================
 # TITLE
 # =========================
-st.title("🌱 AgroVision AI — Smart Agriculture System")
+st.title(t("title"))
 # =========================
 # 🌾 DASHBOARD
 # =========================
-st.markdown('<div class="glass"><h2>🌾 Smart Farm Dashboard</h2></div>', unsafe_allow_html=True)
+st.markdown('<div class="glass"><h2>{t("dashboard")}</h2></div>', unsafe_allow_html=True)
 
 d = st.session_state.get("last_result", {})
 
@@ -259,11 +360,8 @@ def show_weather_ui(temp, humidity):
 
     col1, col2 = st.columns(2)
 
-    with col1:
-        st.metric("🌡 Temperature", f"{temp}°C")
-
-    with col2:
-        st.metric("💧 Humidity", f"{humidity}%")
+    st.metric(f"🌡 {t('temperature')}", f"{temp}°C")
+    st.metric(f"💧 {t('humidity')}", f"{humidity}%")
 
     if humidity > 80:
         st.warning("⚠ High humidity → Disease risk")
@@ -433,9 +531,8 @@ def plot_trend():
         mode='lines+markers'
     ))
 
-    fig.update_layout(
-        title="📈 Prediction Trend",
-        template="plotly_white"
+    fig.update_layout(title=t("trend")),
+    template="plotly_white"
     )
 
     return fig
@@ -456,7 +553,7 @@ def plot_top_predictions(output, labels):
         orientation='h'
     ))
 
-    fig.update_layout(title="📊 Top Predictions")
+    fig.update_layout(title=t("top_pred"))
 
     return fig, top_idx
 
@@ -516,22 +613,20 @@ def show_gauge(confidence):
 # =========================
 # SIDEBAR CONTROLS
 # =========================
-st.sidebar.header("⚙️ Controls")
-
 language = st.sidebar.selectbox("🌐 Language", ["English", "Tamil", "Hindi"])
-city = st.sidebar.text_input("📍 City", "Chennai")
-area = st.sidebar.number_input("🌾 Farm Area (acres)", value=1.0)
-farmer_mode = st.sidebar.checkbox("👨‍🌾 Farmer Mode", True)
-
+st.sidebar.header(t("controls"))
+city = st.sidebar.text_input(t("city"), "Chennai")
+area = st.sidebar.number_input(t("area"), value=1.0)
+farmer_mode = st.sidebar.checkbox(t("farmer_mode"), True)
 # =========================
 # IMAGE INPUT
 # =========================
 uploaded_file = st.file_uploader(
-    "Upload Leaf Image",
+    t("upload"),
     type=["jpg", "jpeg", "png"]
 )
 
-camera_image = st.camera_input("📸 Or Take Photo")
+camera_image = st.camera_input(t("camera"))
 
 if camera_image is not None:
     uploaded_file = camera_image
@@ -604,9 +699,8 @@ if uploaded_file is not None:
 
     st.image(uploaded_file, caption="Uploaded Leaf", use_container_width=True)
 
-    if st.button("🚀 Analyze Crop"):
-
-        with st.spinner("Analyzing crop..."):
+    if st.button(t("analyze")):
+        with st.spinner(t("processing")):
             result = predict(uploaded_file, city, area, language)
 
         if result:
@@ -655,12 +749,11 @@ if uploaded_file is not None:
             # =========================
             # 📊 CONFIDENCE + GAUGE
             # =========================
-            st.subheader("📊 Confidence Level")
+            st.subheader(t("confidence_level"))
             st.progress(min(max(confidence, 0.0), 1.0))
 
-            st.subheader("🔋 Confidence Meter")
+            st.subheader(t("confidence_meter"))
             show_gauge(confidence)
-
             # =========================
             # 🌦 WEATHER + ALERT
             # =========================
@@ -671,10 +764,10 @@ if uploaded_file is not None:
             # 🧠 TABS (GLASS STYLE)
             # =========================
             tab1, tab2, tab3, tab4 = st.tabs([
-                "🔬 Prediction",
-                "👨‍🌾 Advice",
-                "📊 Analytics",
-                "🧮 Farm Tools"
+                t("prediction"),
+                t("advice"),
+                t("analytics"),
+                t("farm_tools")
             ])
 
             # =========================
@@ -743,8 +836,7 @@ Severity: {result['level']}
 Advice:
 {result['advice']}
 """
-            st.download_button(
-                "📄 Download Report",
+            st.download_button(t("download"), report),
                 report,
                 file_name="agrovision_report.txt"
             )
@@ -753,7 +845,7 @@ Advice:
             # 👨‍🌾 FARMER MODE
             # =========================
             if farmer_mode:
-                st.success("👨‍🌾 Farmer Mode Enabled")
+                st.success(t("farmer_enabled"))
                 st.info("📌 Tip: Spray during early morning or evening")
 
 else:
