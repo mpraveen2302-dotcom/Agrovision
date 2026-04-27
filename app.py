@@ -677,21 +677,25 @@ if uploaded_file is not None:
             # =========================
             with tab4:
                 st.markdown(result.get("farm", "No farm data available"))
+
             # =========================
             # DOWNLOAD REPORT
             # =========================
-            report = f"""
-            AgroVision Report
+            report = f"""AgroVision Report
 
-            Disease: {result['label']}
-            Confidence: {result['confidence']:.2f}
-            Severity: {result['level']}
+            Disease: {result.get('label', 'Unknown')}
+            Confidence: {float(result.get('confidence', 0)):.2f}
+            Severity: {result.get('level', 'Unknown')}
 
             Advice:
-                {result['advice']}
+                {result.get('advice', 'No advice available')}
                 """
-            st.download_button("📄 Download Report", report, file_name="agrovision_report.txt")
 
+            st.download_button(
+            "📄 Download Report",
+            report,
+            file_name="agrovision_report.txt"
+            )
             # =========================
             # FARMER MODE
             # =========================
