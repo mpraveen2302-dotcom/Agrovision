@@ -90,7 +90,7 @@ section[data-testid="stSidebar"]::after {{
     left: 0;
     width: 100%;
     height: 220px;
-    background: url("https://img.freepik.com/free-vector/farm-landscape-concept_23-2148573959.jpg");
+    background: url("https://cdn.pixabay.com/photo/2017/01/31/13/14/farm-2022304_1280.png");
     background-size: cover;
     background-position: center;
 
