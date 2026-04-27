@@ -26,17 +26,14 @@ st.set_page_config(page_title="AgroVision AI PRO", layout="wide")
 dark_mode = st.sidebar.toggle("🌙 Dark Mode", value=False)
 
 # =========================
-# 🎨 PRO CSS (UPGRADED)
+# 🎨 PRO CSS
 # =========================
 st.markdown(f"""
 <style>
-
-/* ===== ANIMATED BACKGROUND ===== */
 .stApp {{
     {"background: linear-gradient(-45deg,#0f2027,#203a43,#000000);" if dark_mode else "background: linear-gradient(-45deg,#ecfdf5,#d1fae5,#bbf7d0);"}
     background-size: 400% 400%;
     animation: gradientBG 12s ease infinite;
-    font-family: 'Segoe UI', sans-serif;
 }}
 
 @keyframes gradientBG {{
@@ -45,7 +42,6 @@ st.markdown(f"""
     100% {{background-position: 0% 50%;}}
 }}
 
-/* ===== SIDEBAR ===== */
 section[data-testid="stSidebar"] {{
     background: linear-gradient(180deg,#2e7d32,#1b5e20);
 }}
@@ -53,7 +49,6 @@ section[data-testid="stSidebar"] * {{
     color: white !important;
 }}
 
-/* ===== GLASS EFFECT ===== */
 .glass {{
     background: rgba(255,255,255,0.15);
     border-radius: 20px;
@@ -61,62 +56,29 @@ section[data-testid="stSidebar"] * {{
     backdrop-filter: blur(14px);
     box-shadow: 0 10px 40px rgba(0,0,0,0.3);
     margin-bottom: 20px;
-    transition: 0.3s;
-}}
-.glass:hover {{
-    transform: translateY(-8px);
 }}
 
-/* ===== BUTTON ===== */
-.stButton>button {{
-    background: linear-gradient(135deg,#00c853,#64dd17);
-    color:white;
-    border-radius:12px;
-    border:none;
-    padding:10px 20px;
-    font-weight:bold;
-}}
-.stButton>button:hover {{
-    transform:scale(1.08);
-}}
-
-/* ===== INPUT ===== */
-.stTextInput input,
-.stNumberInput input,
-textarea {{
-    background-color: {"#222" if dark_mode else "#ffffff"} !important;
-    color: {"white" if dark_mode else "black"} !important;
-    border-radius:10px !important;
-}}
-
-/* ===== SELECT ===== */
-div[data-baseweb="select"] * {{
-    color: {"white" if dark_mode else "black"} !important;
-}}
-
-/* ===== CARD ===== */
 .card {{
     padding:22px;
     border-radius:18px;
     text-align:center;
     backdrop-filter: blur(12px);
     background: rgba(255,255,255,0.2);
-    box-shadow:0 8px 25px rgba(0,0,0,0.15);
-    transition:0.3s;
-}}
-.card:hover {{
-    transform: translateY(-6px);
 }}
 
 .card1 {{ border-left:6px solid #22c55e; }}
 .card2 {{ border-left:6px solid #3b82f6; }}
 .card3 {{ border-left:6px solid #f97316; }}
 
-/* ===== HEADINGS ===== */
+.stTextInput input,
+.stNumberInput input {{
+    background-color: {"#222" if dark_mode else "#ffffff"} !important;
+    color: {"white" if dark_mode else "black"} !important;
+}}
+
 h1,h2,h3 {{
     color: {"#ffffff" if dark_mode else "#1b5e20"};
 }}
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -126,25 +88,25 @@ h1,h2,h3 {{
 st.title("🌱 AgroVision AI — Smart Agriculture System")
 
 # =========================
-# 🌾 DASHBOARD (LIVE)
+# 🌾 DASHBOARD
 # =========================
 st.markdown('<div class="glass"><h2>🌾 Smart Farm Dashboard</h2></div>', unsafe_allow_html=True)
 
 d = st.session_state.get("last_result", {})
 
-c1,c2,c3,c4 = st.columns(4)
+c1, c2, c3, c4 = st.columns(4)
 
 with c1:
-    st.markdown(f'<div class="card card1"><h3>{d.get("level","--")}</h3><p>Status</p></div>',unsafe_allow_html=True)
+    st.markdown(f'<div class="card card1"><h3>{d.get("level","--")}</h3><p>Status</p></div>', unsafe_allow_html=True)
 
 with c2:
-    st.markdown(f'<div class="card card2"><h3>{d.get("confidence",0):.2f}</h3><p>Confidence</p></div>',unsafe_allow_html=True)
+    st.markdown(f'<div class="card card2"><h3>{d.get("confidence",0):.2f}</h3><p>Confidence</p></div>', unsafe_allow_html=True)
 
 with c3:
-    st.markdown(f'<div class="card card3"><h3>{d.get("temp","--")}°C</h3><p>Temperature</p></div>',unsafe_allow_html=True)
+    st.markdown(f'<div class="card card3"><h3>{d.get("temp","--")}°C</h3><p>Temperature</p></div>', unsafe_allow_html=True)
 
 with c4:
-    st.markdown(f'<div class="card card1"><h3>{d.get("humidity","--")}%</h3><p>Humidity</p></div>',unsafe_allow_html=True)
+    st.markdown(f'<div class="card card1"><h3>{d.get("humidity","--")}%</h3><p>Humidity</p></div>', unsafe_allow_html=True)
 
 # =========================
 # LOAD MODEL
@@ -152,7 +114,8 @@ with c4:
 @st.cache_resource
 def load_model():
     try:
-        return tf.keras.models.load_model("model.h5")
+        model = tf.keras.models.load_model("model.h5")
+        return model
     except Exception as e:
         st.error(f"Model loading failed: {e}")
         return None
@@ -171,8 +134,9 @@ def load_classes():
         return json.load(f)
 
 class_names = load_classes()
+
 # =========================
-# LOAD KNOWLEDGE BASE (SAFE)
+# LOAD KNOWLEDGE BASE (FINAL FIX)
 # =========================
 @st.cache_data
 def load_kb_safe():
