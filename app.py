@@ -120,6 +120,7 @@ def t(key):
 # PAGE CONFIG
 # =========================
 st.set_page_config(page_title="AgroVision AI PRO", layout="wide")
+language = st.sidebar.selectbox("🌐 Language", ["English", "Tamil", "Hindi"])
 
 # =========================
 # 🌙 DARK MODE TOGGLE
@@ -614,7 +615,7 @@ def show_gauge(confidence):
 # =========================
 # SIDEBAR CONTROLS
 # =========================
-language = st.sidebar.selectbox("🌐 Language", ["English", "Tamil", "Hindi"])
+
 st.sidebar.header(t("controls"))
 city = st.sidebar.text_input(t("city"), "Chennai")
 area = st.sidebar.number_input(t("area"), value=1.0)
