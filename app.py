@@ -54,49 +54,62 @@ section[data-testid="stSidebar"] h3 {{
     color: white !important;
 }}
 
-/* ===== 🔥 DROPDOWN FIX (FINAL) ===== */
+/* ===== DROPDOWN FIX ===== */
 
-/* Selected text inside dropdown */
-section[data-testid="stSidebar"] div[data-baseweb="select"] span {{
+/* Selected text */
+section[data-testid="stSidebar"] div[data-baseweb="select"] span {
     color: black !important;
-}}
+}
 
 /* Dropdown box */
-section[data-testid="stSidebar"] div[data-baseweb="select"] {{
+section[data-testid="stSidebar"] div[data-baseweb="select"] {
     background-color: white !important;
     border-radius: 8px;
-}}
+}
 
 /* Dropdown options */
-section[data-testid="stSidebar"] ul[role="listbox"] li {{
+section[data-testid="stSidebar"] ul[role="listbox"] li {
     color: black !important;
     background-color: white !important;
-}}
+}
 
 /* Hover */
-section[data-testid="stSidebar"] ul[role="listbox"] li:hover {{
-    background-color: green !important;
-}}
-/* FORCE language dropdown text to black */
-section[data-testid="stSidebar"] div[data-baseweb="select"] * {{
-    color: black !important;
-}}
+section[data-testid="stSidebar"] ul[role="listbox"] li:hover {
+    background-color: #e8f5e9 !important;
+}
 
-/* ===== FARM IMAGE AT SIDEBAR BOTTOM ===== */
-section[data-testid="stSidebar"]::after {{
+/* Strong override */
+section[data-testid="stSidebar"] div[data-baseweb="select"] * {
+    color: black !important;
+}
+
+
+/* ===== SIDEBAR BASE (KEEP GREEN) ===== */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg,#1b5e20,#2e7d32);
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* ===== FARM VECTOR IMAGE (BOTTOM, BLENDED) ===== */
+section[data-testid="stSidebar"]::after {
     content: "";
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 220px;
-    background: url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
-    background-size: cover;
-    background-position: center;
+    height: 240px;
 
-    opacity: 0.9;
+    background:
+        linear-gradient(rgba(27,94,32,0.4), rgba(27,94,32,0.7)),
+        url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
+
+    background-size: cover;
+    background-position: bottom;
+
     pointer-events: none;
-}}
+}
 
 /* ===== INPUT FIX ===== */
 .stTextInput input,
