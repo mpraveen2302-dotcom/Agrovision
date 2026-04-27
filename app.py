@@ -18,22 +18,22 @@ from deep_translator import GoogleTranslator
 # =========================
 # PAGE CONFIG
 # =========================
-st.set_page_config(page_title="AgroVision AI", layout="wide")
+st.set_page_config(page_title="AgroVision AI PRO", layout="wide")
 
 # =========================
-# DARK MODE TOGGLE
+# 🌙 DARK MODE TOGGLE
 # =========================
-theme = st.sidebar.toggle("🌙 Dark Mode", value=False)
+dark_mode = st.sidebar.toggle("🌙 Dark Mode", value=False)
 
 # =========================
-# FULL UI CSS
+# 🎨 PRO CSS (UPGRADED)
 # =========================
 st.markdown(f"""
 <style>
 
 /* ===== ANIMATED BACKGROUND ===== */
 .stApp {{
-    background: linear-gradient(270deg, #d1fae5, #a7f3d0, #ecfdf5);
+    {"background: linear-gradient(-45deg,#0f2027,#203a43,#000000);" if dark_mode else "background: linear-gradient(-45deg,#ecfdf5,#d1fae5,#bbf7d0);"}
     background-size: 400% 400%;
     animation: gradientBG 12s ease infinite;
     font-family: 'Segoe UI', sans-serif;
@@ -45,68 +45,106 @@ st.markdown(f"""
     100% {{background-position: 0% 50%;}}
 }}
 
-/* ===== SIDEBAR WITH FARM IMAGE ===== */
+/* ===== SIDEBAR ===== */
 section[data-testid="stSidebar"] {{
-    background:
-    linear-gradient(rgba(27,94,32,0.85), rgba(46,125,50,0.9)),
-    url("https://img.freepik.com/free-vector/farm-landscape-with-barn-windmill-tractor_1308-56576.jpg");
-    background-size: cover;
-    background-position: bottom;
+    background: linear-gradient(180deg,#2e7d32,#1b5e20);
 }}
-
 section[data-testid="stSidebar"] * {{
     color: white !important;
 }}
 
-/* ===== GLASS + FLOATING CARDS ===== */
-.card {{
-    padding: 22px;
-    border-radius: 18px;
-    text-align: center;
+/* ===== GLASS EFFECT ===== */
+.glass {{
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 20px;
     backdrop-filter: blur(14px);
-    background: rgba(255,255,255,0.6);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    margin-bottom: 20px;
     transition: 0.3s;
-    animation: float 4s ease-in-out infinite;
 }}
-
-.card:hover {{
-    transform: translateY(-8px) scale(1.03);
-}}
-
-@keyframes float {{
-    0% {{transform: translateY(0px);}}
-    50% {{transform: translateY(-6px);}}
-    100% {{transform: translateY(0px);}}
-}}
-
-/* ===== COLORED CARDS ===== */
-.card1 {{
-    background: linear-gradient(135deg, #16a34a, #22c55e);
-    color: white;
-}}
-
-.card2 {{
-    background: linear-gradient(135deg, #2563eb, #3b82f6);
-    color: white;
-}}
-
-.card3 {{
-    background: linear-gradient(135deg, #ff6a00, #ff3d00);
-    color: white;
-}}
-
-.card1 h2, .card2 h2, .card3 h2 {{
-    color: white;
-}}
-
-.card1 p, .card2 p, .card3 p {{
-    color: #e5e7eb;
+.glass:hover {{
+    transform: translateY(-8px);
 }}
 
 /* ===== BUTTON ===== */
 .stButton>button {{
-    background
+    background: linear-gradient(135deg,#00c853,#64dd17);
+    color:white;
+    border-radius:12px;
+    border:none;
+    padding:10px 20px;
+    font-weight:bold;
+}}
+.stButton>button:hover {{
+    transform:scale(1.08);
+}}
+
+/* ===== INPUT ===== */
+.stTextInput input,
+.stNumberInput input,
+textarea {{
+    background-color: {"#222" if dark_mode else "#ffffff"} !important;
+    color: {"white" if dark_mode else "black"} !important;
+    border-radius:10px !important;
+}}
+
+/* ===== SELECT ===== */
+div[data-baseweb="select"] * {{
+    color: {"white" if dark_mode else "black"} !important;
+}}
+
+/* ===== CARD ===== */
+.card {{
+    padding:22px;
+    border-radius:18px;
+    text-align:center;
+    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.2);
+    box-shadow:0 8px 25px rgba(0,0,0,0.15);
+    transition:0.3s;
+}}
+.card:hover {{
+    transform: translateY(-6px);
+}}
+
+.card1 {{ border-left:6px solid #22c55e; }}
+.card2 {{ border-left:6px solid #3b82f6; }}
+.card3 {{ border-left:6px solid #f97316; }}
+
+/* ===== HEADINGS ===== */
+h1,h2,h3 {{
+    color: {"#ffffff" if dark_mode else "#1b5e20"};
+}}
+
+</style>
+""", unsafe_allow_html=True)
+
+# =========================
+# TITLE
+# =========================
+st.title("🌱 AgroVision AI — Smart Agriculture System")
+
+# =========================
+# 🌾 DASHBOARD (LIVE)
+# =========================
+st.markdown('<div class="glass"><h2>🌾 Smart Farm Dashboard</h2></div>', unsafe_allow_html=True)
+
+d = st.session_state.get("last_result", {})
+
+c1,c2,c3,c4 = st.columns(4)
+
+with c1:
+    st.markdown(f'<div class="card card1"><h3>{d.get("level","--")}</h3><p>Status</p></div>',unsafe_allow_html=True)
+
+with c2:
+    st.markdown(f'<div class="card card2"><h3>{d.get("confidence",0):.2f}</h3><p>Confidence</p></div>',unsafe_allow_html=True)
+
+with c3:
+    st.markdown(f'<div class="card card3"><h3>{d.get("temp","--")}°C</h3><p>Temperature</p></div>',unsafe_allow_html=True)
+
+with c4:
+    st.markdown(f'<div class="card card1"><h3>{d.get("humidity","--")}%</h3><p>Humidity</p></div>',unsafe_allow_html=True)
 
 # =========================
 # LOAD MODEL
@@ -114,8 +152,7 @@ section[data-testid="stSidebar"] * {{
 @st.cache_resource
 def load_model():
     try:
-        model = tf.keras.models.load_model("model.h5")
-        return model
+        return tf.keras.models.load_model("model.h5")
     except Exception as e:
         st.error(f"Model loading failed: {e}")
         return None
@@ -124,6 +161,7 @@ model = load_model()
 
 if model is None:
     st.stop()
+
 # =========================
 # LOAD CLASSES
 # =========================
@@ -135,14 +173,12 @@ def load_classes():
 class_names = load_classes()
 
 # =========================
-# LOAD KNOWLEDGE BASE (JSON)
+# LOAD KNOWLEDGE BASE
 # =========================
 @st.cache_data
 def load_kb():
     with open("knowledge_base.json") as f:
         return json.load(f)
-
-knowledge_base = load_kb()
 
 # =========================
 # IMAGE PREPROCESSING
@@ -156,6 +192,7 @@ def preprocess(image):
 
     return img
 
+
 # =========================
 # TRANSLATION SYSTEM
 # =========================
@@ -166,6 +203,8 @@ def translate_text(text, lang):
         return GoogleTranslator(source='auto', target=lang.lower()).translate(text)
     except:
         return text
+
+
 # =========================
 # WEATHER API
 # =========================
@@ -181,7 +220,7 @@ def get_weather(city):
 
 
 # =========================
-# WEATHER UI (UPGRADED)
+# WEATHER UI
 # =========================
 def show_weather_ui(temp, humidity):
 
@@ -225,15 +264,15 @@ def get_severity(conf, humidity, temp):
 
     if conf >= 0.7 or humidity > 80:
         level = "HIGH"
-        color = "high"
+        color = "card3"
         message = "Immediate action required!"
     elif conf >= 0.4 or humidity > 65:
         level = "MEDIUM"
-        color = "medium"
+        color = "card2"
         message = "Monitor closely"
     else:
         level = "LOW"
-        color = "low"
+        color = "card1"
         message = "Safe condition"
 
     notes = scientific_rules(humidity, temp)
@@ -245,9 +284,10 @@ def get_severity(conf, humidity, temp):
 # SEVERITY CARD
 # =========================
 def show_severity_card(level, color, message):
+
     st.markdown(f"""
-    <div class='card card3'>
-    <h2>&#9888; {level}</h2>
+    <div class="card {color}">
+    <h2>⚠️ {level}</h2>
     <p>{message}</p>
     </div>
     """, unsafe_allow_html=True)
@@ -284,7 +324,7 @@ def spray_schedule(humidity, level):
 
 
 # =========================
-# SMART AI ADVICE ENGINE (UPGRADED)
+# SMART AI ADVICE ENGINE
 # =========================
 def get_advice(label, language, humidity, temp, confidence):
 
@@ -310,14 +350,12 @@ Impact: {info['Impact']}
 Best Practices: {info['Best Practices']}
 """
 
-    # 🌦 Weather intelligence
     weather_note = ""
     if humidity > 80:
         weather_note += "\n⚠ High humidity → fungal risk"
     if temp > 35:
         weather_note += "\n🔥 Heat stress risk"
 
-    # 🎯 Confidence logic
     confidence_note = ""
     if confidence > 0.8:
         confidence_note = "\n🚨 High confidence → Act immediately"
@@ -329,8 +367,10 @@ Best Practices: {info['Best Practices']}
     final_advice = base + weather_note + confidence_note
 
     return translate_text(final_advice, language)
+
+
 # =========================
-# SESSION TRACKING (HISTORY)
+# SESSION TRACKING
 # =========================
 if "session_conf" not in st.session_state:
     st.session_state.session_conf = []
@@ -346,7 +386,7 @@ def update_session(conf):
 
 
 # =========================
-# PLOTLY TREND GRAPH
+# TREND GRAPH
 # =========================
 def plot_trend():
 
@@ -357,14 +397,11 @@ def plot_trend():
 
     fig.add_trace(go.Scatter(
         y=st.session_state.session_conf,
-        mode='lines+markers',
-        name='Confidence'
+        mode='lines+markers'
     ))
 
     fig.update_layout(
         title="📈 Prediction Trend",
-        xaxis_title="Time",
-        yaxis_title="Confidence",
         template="plotly_white"
     )
 
@@ -372,7 +409,7 @@ def plot_trend():
 
 
 # =========================
-# TOP PREDICTIONS BAR CHART
+# TOP PREDICTIONS
 # =========================
 def plot_top_predictions(output, labels):
 
@@ -386,22 +423,17 @@ def plot_top_predictions(output, labels):
         orientation='h'
     ))
 
-    fig.update_layout(
-        title="📊 Top Predictions",
-        template="plotly_white"
-    )
+    fig.update_layout(title="📊 Top Predictions")
 
     return fig, top_idx
 
+
 # =========================
-# SMART FARM CALCULATOR
+# FARM CALCULATOR
 # =========================
 def farm_calculator(area, humidity, temp, soil_moisture=25):
 
-    try:
-        area = float(area)
-    except:
-        area = 1.0
+    area = float(area)
 
     irrigation = 3000
 
@@ -418,25 +450,24 @@ def farm_calculator(area, humidity, temp, soil_moisture=25):
 
     N, P, K = 60, 40, 40
 
-    total_N = N * area
-    total_P = P * area
-    total_K = K * area
-
-    return f"""Smart Farm Plan
+    return f"""
+🌾 Smart Farm Plan
 
 Area: {area} acres  
 
-Irrigation: {int(irrigation * area)} L  
+💧 Irrigation: {int(irrigation * area)} L  
 
-Spray Interval: {spray} days  
+📆 Spray Interval: {spray} days  
 
-Fertilizer:
-N: {int(total_N)} kg  
-P: {int(total_P)} kg  
-K: {int(total_K)} kg  
+🌱 Fertilizer:
+N: {int(N * area)} kg  
+P: {int(P * area)} kg  
+K: {int(K * area)} kg  
 """
+
+
 # =========================
-# GAUGE CHART (CONFIDENCE)
+# GAUGE CHART
 # =========================
 def show_gauge(confidence):
 
@@ -444,13 +475,11 @@ def show_gauge(confidence):
         mode="gauge+number",
         value=confidence * 100,
         title={'text': "Confidence Level"},
-        gauge={
-            'axis': {'range': [0, 100]},
-            'bar': {'color': "green"}
-        }
+        gauge={'axis': {'range': [0, 100]}}
     ))
 
     st.plotly_chart(fig, use_container_width=True)
+
 # =========================
 # SIDEBAR CONTROLS
 # =========================
@@ -461,9 +490,8 @@ city = st.sidebar.text_input("📍 City", "Chennai")
 area = st.sidebar.number_input("🌾 Farm Area (acres)", value=1.0)
 farmer_mode = st.sidebar.checkbox("👨‍🌾 Farmer Mode", True)
 
-
 # =========================
-# IMAGE INPUT (UPLOAD + CAMERA)
+# IMAGE INPUT
 # =========================
 uploaded_file = st.file_uploader(
     "Upload Leaf Image",
@@ -492,7 +520,6 @@ def predict(image, city, area, language):
         image.seek(0)
         img = preprocess(image)
 
-        # MODEL INFERENCE
         output = model.predict(img)[0]
 
         if len(output.shape) == 2:
@@ -500,31 +527,20 @@ def predict(image, city, area, language):
 
         safe_classes = class_names[:len(output)]
 
-        # Prediction
         idx = int(np.argmax(output))
         confidence = float(output[idx])
         label = safe_classes[idx]
 
-        # Weather
         humidity, temp = get_weather(city)
 
-        # Severity
         level, color, message, notes = get_severity(confidence, humidity, temp)
-
-        # Spray
         spray_days = spray_schedule(humidity, level)
-
-        # Advice
         advice = get_advice(label, language, humidity, temp, confidence)
-
-        # Farm plan
         farm_info = farm_calculator(area, humidity, temp)
 
-        # Charts
         fig_bar, _ = plot_top_predictions(output, safe_classes)
         fig_trend = plot_trend()
 
-        # Update session
         update_session(confidence)
 
         return {
@@ -546,12 +562,14 @@ def predict(image, city, area, language):
     except Exception as e:
         st.error(f"Error: {e}")
         return None
+
+
 # =========================
 # MAIN EXECUTION
 # =========================
 if uploaded_file is not None:
 
-    st.image(uploaded_file, caption="Uploaded Leaf", use_column_width=True)
+    st.image(uploaded_file, caption="Uploaded Leaf", use_container_width=True)
 
     if st.button("🚀 Analyze Crop"):
 
@@ -560,71 +578,64 @@ if uploaded_file is not None:
 
         if result:
 
-            # =========================
+            # 🔥 STORE FOR DASHBOARD
+            st.session_state.last_result = result
+
             # SAFE EXTRACTION
-            # =========================
-            if isinstance(result, dict):
-                prediction_label = result.get("disease") or result.get("label") or "Unknown"
-                confidence = float(result.get("confidence", 0))
-                severity = result.get("level") or result.get("severity", "Unknown")
-
-            elif isinstance(result, (list, tuple)) and len(result) >= 3:
-                prediction_label, confidence, severity = result
-                confidence = float(confidence)
-
-            elif isinstance(result, str):
-                prediction_label = result
-                confidence = 0.0
-                severity = "Unknown"
-
-            else:
-                st.error("❌ Unexpected prediction output format")
-                st.stop()
+            prediction_label = result.get("label", "Unknown")
+            confidence = float(result.get("confidence", 0))
+            severity = result.get("level", "Unknown")
 
             st.markdown("<br>", unsafe_allow_html=True)
 
             # =========================
-            # 🎨 CARDS UI
+            # 🎨 TOP RESULT CARDS
             # =========================
             col1, col2, col3 = st.columns(3)
 
             with col1:
-                st.markdown(
-                    f"<div class='card card1'><h2>{prediction_label}</h2><p>Disease</p></div>",
-                    unsafe_allow_html=True
-                )
+                st.markdown(f"""
+                <div class="card card1">
+                    <h2>{prediction_label}</h2>
+                    <p>Disease</p>
+                </div>
+                """, unsafe_allow_html=True)
 
-           with col2:
-               st.markdown(
-                   f"<div class='card card2'><h2>{confidence:.2f}</h2><p>Confidence</p></div>",
-                   unsafe_allow_html=True
-               )
+            with col2:
+                st.markdown(f"""
+                <div class="card card2">
+                    <h2>{confidence:.2f}</h2>
+                    <p>Confidence</p>
+                </div>
+                """, unsafe_allow_html=True)
 
-           with col3:
-               st.markdown(
-                   f"<div class='card card3'><h2>{severity}</h2><p>Severity</p></div>",
-                   unsafe_allow_html=True
-               )
+            with col3:
+                st.markdown(f"""
+                <div class="card card3">
+                    <h2>{severity}</h2>
+                    <p>Severity</p>
+                </div>
+                """, unsafe_allow_html=True)
+
+            st.markdown("<br>", unsafe_allow_html=True)
 
             # =========================
-            # 📊 CONFIDENCE BAR
+            # 📊 CONFIDENCE + GAUGE
             # =========================
             st.subheader("📊 Confidence Level")
             st.progress(min(max(confidence, 0.0), 1.0))
 
-            # =========================
-            # GAUGE CHART
-            # =========================
+            st.subheader("🔋 Confidence Meter")
             show_gauge(confidence)
 
             # =========================
-            # WEATHER + ALERT
+            # 🌦 WEATHER + ALERT
             # =========================
-            show_weather_ui(result.get("temp", 25), result.get("humidity", 60))
-            show_risk_alert(result.get("level", "LOW"), confidence)
+            show_weather_ui(result["temp"], result["humidity"])
+            show_risk_alert(result["level"], confidence)
 
             # =========================
-            # TABS
+            # 🧠 TABS (GLASS STYLE)
             # =========================
             tab1, tab2, tab3, tab4 = st.tabs([
                 "🔬 Prediction",
@@ -637,63 +648,76 @@ if uploaded_file is not None:
             # TAB 1 — Prediction
             # =========================
             with tab1:
-                show_severity_card(
-                    result.get("level", "LOW"),
-                    result.get("color", "card3"),
-                    result.get("message", "")
-                )
+                st.markdown('<div class="glass">', unsafe_allow_html=True)
 
-                for note in result.get("notes", []):
+                show_severity_card(result["level"], result["color"], result["message"])
+
+                for note in result["notes"]:
                     st.info(note)
 
-                st.write(f"💊 Spray Interval: {result.get('spray', '-')} days")
+                st.write(f"💊 Spray Interval: {result['spray']} days")
+
+                st.markdown('</div>', unsafe_allow_html=True)
 
             # =========================
             # TAB 2 — Advice
             # =========================
             with tab2:
+                st.markdown('<div class="glass">', unsafe_allow_html=True)
+
                 with st.expander("📖 Detailed Farmer Advice", expanded=True):
-                    st.markdown(result.get("advice", "No advice available"))
+                    st.markdown(result["advice"])
+
+                st.markdown('</div>', unsafe_allow_html=True)
 
             # =========================
             # TAB 3 — Analytics
             # =========================
             with tab3:
-                if result.get("fig_bar"):
+                st.markdown('<div class="glass">', unsafe_allow_html=True)
+
+                if result["fig_bar"]:
                     st.plotly_chart(result["fig_bar"], use_container_width=True)
 
-                if result.get("fig_trend"):
+                if result["fig_trend"]:
                     st.plotly_chart(result["fig_trend"], use_container_width=True)
 
                 st.subheader("📈 Confidence History")
-                if "session_conf" in st.session_state:
-                    st.line_chart(st.session_state.session_conf)
+                st.line_chart(st.session_state.session_conf)
+
+                st.markdown('</div>', unsafe_allow_html=True)
 
             # =========================
             # TAB 4 — Farm Tools
             # =========================
             with tab4:
-                st.markdown(result.get("farm", "No farm data available"))
+                st.markdown('<div class="glass">', unsafe_allow_html=True)
+
+                st.markdown(result["farm"])
+
+                st.markdown('</div>', unsafe_allow_html=True)
 
             # =========================
-            # DOWNLOAD REPORT
+            # 📄 DOWNLOAD REPORT
             # =========================
-            report = (
-            "AgroVision Report\n\n"
-            f"Disease: {result.get('label', 'Unknown')}\n"
-            f"Confidence: {float(result.get('confidence', 0)):.2f}\n"
-            f"Severity: {result.get('level', 'Unknown')}\n\n"
-            "Advice:\n"
-            f"{result.get('advice', 'No advice available')}\n"
-            )
+            report = f"""
+AgroVision Report
 
+Disease: {result['label']}
+Confidence: {confidence:.2f}
+Severity: {result['level']}
+
+Advice:
+{result['advice']}
+"""
             st.download_button(
-            "📄 Download Report",
-            report,
-            file_name="agrovision_report.txt"
+                "📄 Download Report",
+                report,
+                file_name="agrovision_report.txt"
             )
+
             # =========================
-            # FARMER MODE
+            # 👨‍🌾 FARMER MODE
             # =========================
             if farmer_mode:
                 st.success("👨‍🌾 Farmer Mode Enabled")
@@ -701,3 +725,5 @@ if uploaded_file is not None:
 
 else:
     st.warning("Please upload or capture an image")
+
+knowledge_base = load_kb()
