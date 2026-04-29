@@ -250,16 +250,16 @@ h1, h2, h3 {{
 
 </style>
 """, unsafe_allow_html=True)
-.card p {
+.card p {{
     color: white !important;
-}
+}}
 
-.card h3 {
+.card h3 {{
     color: white !important;
-}
-body, div, span {
+}}
+body, div, span {{
     color: {"white" if dark_mode else "black"} !important;
-}
+}}
 
 # =========================
 # TITLE
