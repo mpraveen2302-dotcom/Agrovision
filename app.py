@@ -575,6 +575,22 @@ crop_npk = {
     "Wheat": (100, 50, 40),
     "Rice": (120, 60, 40)
 }
+crop_water = {
+    "Tomato": 3000,
+    "Potato": 3200,
+    "Corn": 3500,
+    "Maize": 3500,
+    "Apple": 2800,
+    "Grape": 2500,
+    "Pepper": 3000,
+    "Bell Pepper": 3000,
+    "Cherry": 2800,
+    "Peach": 2900,
+    "Strawberry": 2700,
+    "Soybean": 2200,
+    "Wheat": 3000,
+    "Rice": 5000
+}
 # =========================
 # FARM CALCULATOR
 # =========================
@@ -586,7 +602,7 @@ def farm_calculator(area, humidity, temp, crop, soil_moisture=25):
     N, P, K = crop_npk.get(crop, (60, 40, 40))
 
     # 💧 Irrigation logic
-    irrigation = 3000
+    irrigation = crop_water.get(crop, 3000)
 
     if temp > 32:
         irrigation += 800
