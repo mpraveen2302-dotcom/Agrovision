@@ -194,7 +194,7 @@ section[data-testid="stSidebar"]::after {{
     height: 120px;
 
     background:
-        linear-gradient(rgba(27,94,32,0.4), rgba(27,94,32,0.7)),
+        linear-gradient(rgba(27,94,32,0.85), rgba(27,94,32,0.9)),
         url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
 
     background-size: cover;
