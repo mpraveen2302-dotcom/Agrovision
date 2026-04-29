@@ -559,14 +559,33 @@ def plot_top_predictions(output, labels):
 
     return fig, top_idx
 
-
+crop_npk = {
+    "Tomato": (100, 50, 50),
+    "Potato": (180, 80, 100),
+    "Corn": (150, 70, 50),
+    "Maize": (150, 70, 50),
+    "Apple": (70, 40, 60),
+    "Grape": (100, 50, 80),
+    "Pepper": (120, 60, 60),
+    "Bell Pepper": (120, 60, 60),
+    "Cherry": (80, 40, 60),
+    "Peach": (90, 50, 70),
+    "Strawberry": (100, 50, 80),
+    "Soybean": (20, 60, 40),
+    "Wheat": (100, 50, 40),
+    "Rice": (120, 60, 40)
+}
 # =========================
 # FARM CALCULATOR
 # =========================
-def farm_calculator(area, humidity, temp, soil_moisture=25):
+def farm_calculator(area, humidity, temp, crop, soil_moisture=25):
 
     area = float(area)
 
+    # 🌱 Get crop-specific NPK
+    N, P, K = crop_npk.get(crop, (60, 40, 40))
+
+    # 💧 Irrigation logic
     irrigation = 3000
 
     if temp > 32:
@@ -578,12 +597,13 @@ def farm_calculator(area, humidity, temp, soil_moisture=25):
 
     irrigation = max(1500, irrigation)
 
+    # 📆 Spray
     spray = 7 if humidity > 80 else 10 if humidity > 60 else 14
-
-    N, P, K = 60, 40, 40
 
     return f"""
 🌾 Smart Farm Plan
+
+Crop: {crop}
 
 Area: {area} acres  
 
@@ -619,6 +639,7 @@ def show_gauge(confidence):
 st.sidebar.header(t("controls"))
 city = st.sidebar.text_input(t("city"), "Chennai")
 area = st.sidebar.number_input(t("area"), value=1.0)
+crop = st.sidebar.text_input("🌱 Enter Crop Name", "Rice")
 farmer_mode = st.sidebar.checkbox(t("farmer_mode"), True)
 # =========================
 # IMAGE INPUT
@@ -637,7 +658,7 @@ if camera_image is not None:
 # =========================
 # PREDICTION FUNCTION
 # =========================
-def predict(image, city, area, language):
+def predict(image, city, area, language, crop):
 
     if model is None:
         st.error("Model not loaded")
@@ -666,7 +687,8 @@ def predict(image, city, area, language):
         level, color, message, notes = get_severity(confidence, humidity, temp)
         spray_days = spray_schedule(humidity, level)
         advice = get_advice(label, language, humidity, temp, confidence)
-        farm_info = farm_calculator(area, humidity, temp)
+        farm_info = farm_calculator(area, humidity, temp, crop)
+    
 
         fig_bar, _ = plot_top_predictions(output, safe_classes)
         fig_trend = plot_trend()
@@ -703,7 +725,7 @@ if uploaded_file is not None:
 
     if st.button(t("analyze")):
         with st.spinner(t("processing")):
-            result = predict(uploaded_file, city, area, language)
+            result = predict(uploaded_file, city, area, language, crop)
 
         if result:
 
