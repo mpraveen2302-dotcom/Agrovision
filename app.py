@@ -126,8 +126,9 @@ language = st.sidebar.selectbox("🌐 Language", ["English", "Tamil", "Hindi"])
 # 🌙 DARK MODE TOGGLE
 # =========================
 dark_mode = st.sidebar.toggle("🌙 Dark Mode", value=False)
+
 # =========================
-# 🎨 PRO CSS (FINAL CLEAN)
+# 🎨 PRO CSS (FINAL FIXED)
 # =========================
 st.markdown(f"""
 <style>
@@ -184,7 +185,7 @@ section[data-testid="stSidebar"] {{
     overflow: hidden;
 }}
 
-/* ===== FARM IMAGE (YOUR LINK) ===== */
+/* ===== SIDEBAR IMAGE ===== */
 section[data-testid="stSidebar"]::after {{
     content: "";
     position: absolute;
@@ -200,6 +201,7 @@ section[data-testid="stSidebar"]::after {{
     background-size: cover;
     background-position: bottom;
 
+    opacity: 0.25;
     pointer-events: none;
 }}
 
@@ -213,7 +215,7 @@ textarea {{
 }}
 
 /* ===== GLASS UI ===== */
-.glass {
+.glass {{
     background: {"rgba(30,30,30,0.7)" if dark_mode else "rgba(255,255,255,0.15)"};
     color: {"white" if dark_mode else "black"};
     border-radius: 20px;
@@ -234,14 +236,27 @@ textarea {{
     border-radius: 18px;
     text-align: center;
     backdrop-filter: blur(12px);
-    background: {"rgba(40,40,40,0.8)" if dark_mode else "rgba(255,255,255,0.2)"};
+    background: {"rgba(40,40,40,0.85)" if dark_mode else "rgba(255,255,255,0.2)"};
     color: {"white" if dark_mode else "black"};
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}}
+
+.card p {{
+    color: white !important;
+}}
+
+.card h3 {{
+    color: white !important;
 }}
 
 .card1 {{ border-left:6px solid #22c55e; }}
 .card2 {{ border-left:6px solid #3b82f6; }}
 .card3 {{ border-left:6px solid #f97316; }}
+
+/* ===== TEXT VISIBILITY ===== */
+body, div, span {{
+    color: {"white" if dark_mode else "black"} !important;
+}}
 
 /* ===== HEADINGS ===== */
 h1, h2, h3 {{
@@ -250,17 +265,6 @@ h1, h2, h3 {{
 
 </style>
 """, unsafe_allow_html=True)
-.card p {{
-    color: white !important;
-}}
-
-.card h3 {{
-    color: white !important;
-}}
-body, div, span {{
-    color: {"white" if dark_mode else "black"} !important;
-}}
-
 # =========================
 # TITLE
 # =========================
