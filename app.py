@@ -194,7 +194,7 @@ section[data-testid="stSidebar"]::after {{
     height: 120px;
 
     background:
-        linear-gradient(rgba(27,94,32,0.4), rgba(27,94,32,0.7)),
+        linear-gradient(rgba(27,94,32,0.8), rgba(27,94,32,0.9)),
         url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
 
     background-size: cover;
@@ -213,8 +213,9 @@ textarea {{
 }}
 
 /* ===== GLASS UI ===== */
-.glass {{
-    background: rgba(255,255,255,0.15);
+.glass {
+    background: {"rgba(30,30,30,0.7)" if dark_mode else "rgba(255,255,255,0.15)"};
+    color: {"white" if dark_mode else "black"};
     border-radius: 20px;
     padding: 20px;
     backdrop-filter: blur(14px);
@@ -233,7 +234,8 @@ textarea {{
     border-radius: 18px;
     text-align: center;
     backdrop-filter: blur(12px);
-    background: rgba(255,255,255,0.2);
+    background: {"rgba(40,40,40,0.8)" if dark_mode else "rgba(255,255,255,0.2)"};
+    color: {"white" if dark_mode else "black"};
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }}
 
@@ -248,6 +250,16 @@ h1, h2, h3 {{
 
 </style>
 """, unsafe_allow_html=True)
+.card p {
+    color: white !important;
+}
+
+.card h3 {
+    color: white !important;
+}
+body, div, span {
+    color: {"white" if dark_mode else "black"} !important;
+}
 
 # =========================
 # TITLE
