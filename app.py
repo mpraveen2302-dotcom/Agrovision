@@ -191,7 +191,7 @@ section[data-testid="stSidebar"]::after {{
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 240px;
+    height: 120px;
 
     background:
         linear-gradient(rgba(27,94,32,0.4), rgba(27,94,32,0.7)),
