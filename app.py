@@ -818,74 +818,149 @@ def plot_top_predictions(output, labels):
     return fig, top_idx
 
 # =========================
-# NPK & WATER DATA
+# NPK, WATER & FULL AGRONOMIC DATA (55 crops)
+# Keys: (N, P, K) kg/acre | water: L/acre
+# Extra: pH, soil, temp, yield, spacing, root depth, irrigation method, spray interval, season
 # =========================
-crop_npk = {
-    "Tomato": (100, 50, 50),
-    "Potato": (180, 80, 100),
-    "Corn": (150, 70, 50),
-    "Maize": (150, 70, 50),
-    "Apple": (70, 40, 60),
-    "Grape": (100, 50, 80),
-    "Pepper": (120, 60, 60),
-    "Bell Pepper": (120, 60, 60),
-    "Cherry": (80, 40, 60),
-    "Peach": (90, 50, 70),
-    "Strawberry": (100, 50, 80),
-    "Soybean": (20, 60, 40),
-    "Wheat": (100, 50, 40),
-    "Rice": (120, 60, 40)
-}
-crop_water = {
-    "Tomato": 3000,
-    "Potato": 3200,
-    "Corn": 3500,
-    "Maize": 3500,
-    "Apple": 2800,
-    "Grape": 2500,
-    "Pepper": 3000,
-    "Bell Pepper": 3000,
-    "Cherry": 2800,
-    "Peach": 2900,
-    "Strawberry": 2700,
-    "Soybean": 2200,
-    "Wheat": 3000,
-    "Rice": 5000
+CROP_DB = {
+    # ── Vegetables ──────────────────────────────────────────────────────────
+    "Tomato":         dict(N=100,P=50, K=50, water=3000,pH="6.0–6.8",soil="Sandy loam / Loam",      temp="20–27°C",season="60–80 days",  yield_="25–35 t/acre",spacing="45×60 cm",  depth="0.5–1.5 m",method="Drip / Furrow",    spray=7),
+    "Potato":         dict(N=180,P=80, K=100,water=3200,pH="5.5–6.5",soil="Sandy loam",              temp="15–20°C",season="70–120 days", yield_="15–25 t/acre",spacing="30×60 cm",  depth="0.5–1.0 m",method="Furrow / Sprinkler",spray=7),
+    "Brinjal":        dict(N=100,P=50, K=50, water=2800,pH="5.5–6.8",soil="Loam / Clay loam",        temp="22–32°C",season="80–100 days", yield_="15–25 t/acre",spacing="60×75 cm",  depth="0.5–1.2 m",method="Drip / Furrow",    spray=10),
+    "Cabbage":        dict(N=120,P=60, K=60, water=2500,pH="6.0–7.0",soil="Loam / Clay loam",        temp="15–20°C",season="60–90 days",  yield_="20–30 t/acre",spacing="45×60 cm",  depth="0.4–0.8 m",method="Sprinkler / Furrow",spray=10),
+    "Cauliflower":    dict(N=120,P=60, K=60, water=2400,pH="6.0–7.0",soil="Loam",                    temp="15–20°C",season="65–85 days",  yield_="10–20 t/acre",spacing="45×60 cm",  depth="0.4–0.8 m",method="Sprinkler / Furrow",spray=10),
+    "Onion":          dict(N=100,P=50, K=80, water=3000,pH="6.0–7.5",soil="Sandy loam / Loam",       temp="13–24°C",season="120–150 days",yield_="10–20 t/acre",spacing="10×15 cm",  depth="0.3–0.5 m",method="Drip / Furrow",    spray=10),
+    "Garlic":         dict(N=80, P=50, K=60, water=2200,pH="6.0–7.0",soil="Sandy loam",              temp="12–24°C",season="120–150 days",yield_="6–10 t/acre", spacing="10×15 cm",  depth="0.3–0.5 m",method="Drip / Furrow",    spray=14),
+    "Carrot":         dict(N=60, P=80, K=80, water=2000,pH="6.0–6.8",soil="Sandy loam / Deep loam",  temp="15–20°C",season="70–90 days",  yield_="8–15 t/acre", spacing="5×30 cm",   depth="0.5–1.0 m",method="Sprinkler / Drip", spray=14),
+    "Spinach":        dict(N=80, P=40, K=60, water=1800,pH="6.0–7.0",soil="Loam",                    temp="10–18°C",season="40–50 days",  yield_="5–10 t/acre", spacing="20×30 cm",  depth="0.3–0.5 m",method="Sprinkler",        spray=14),
+    "Cucumber":       dict(N=100,P=50, K=80, water=3000,pH="6.0–7.0",soil="Sandy loam / Loam",       temp="18–30°C",season="50–70 days",  yield_="10–20 t/acre",spacing="45×90 cm",  depth="0.5–1.0 m",method="Drip / Furrow",    spray=7),
+    "Bitter Gourd":   dict(N=80, P=40, K=60, water=2500,pH="6.0–7.0",soil="Sandy loam",              temp="24–35°C",season="55–75 days",  yield_="5–10 t/acre", spacing="60×120 cm", depth="0.5–1.0 m",method="Drip / Furrow",    spray=10),
+    "Lady's Finger":  dict(N=100,P=50, K=50, water=2800,pH="6.0–6.8",soil="Sandy loam / Loam",       temp="25–35°C",season="50–65 days",  yield_="8–12 t/acre", spacing="45×60 cm",  depth="0.5–1.0 m",method="Drip / Furrow",    spray=7),
+    "Pepper":         dict(N=120,P=60, K=60, water=3000,pH="6.0–6.8",soil="Loam",                    temp="18–26°C",season="70–90 days",  yield_="10–15 t/acre",spacing="45×60 cm",  depth="0.5–1.0 m",method="Drip",             spray=10),
+    "Bell Pepper":    dict(N=120,P=60, K=60, water=3000,pH="6.0–6.8",soil="Loam",                    temp="18–26°C",season="70–90 days",  yield_="10–15 t/acre",spacing="45×60 cm",  depth="0.5–1.0 m",method="Drip",             spray=10),
+    "Pumpkin":        dict(N=80, P=60, K=80, water=2500,pH="6.0–7.0",soil="Sandy loam",              temp="18–30°C",season="75–100 days", yield_="15–25 t/acre",spacing="100×200 cm",depth="0.6–1.2 m",method="Furrow",           spray=14),
+    # ── Cereals ─────────────────────────────────────────────────────────────
+    "Rice":           dict(N=120,P=60, K=40, water=5000,pH="5.5–6.5",soil="Clay / Clay loam",        temp="20–35°C",season="110–150 days",yield_="3–6 t/acre",  spacing="20×15 cm",  depth="0.3–0.6 m",method="Flood / Furrow",   spray=10),
+    "Wheat":          dict(N=100,P=50, K=40, water=3000,pH="6.0–7.0",soil="Loam / Clay loam",        temp="15–22°C",season="100–130 days",yield_="2–4 t/acre",  spacing="20 cm rows",depth="1.0–1.5 m",method="Furrow / Sprinkler",spray=14),
+    "Maize":          dict(N=150,P=70, K=50, water=3500,pH="5.8–7.0",soil="Loam / Sandy loam",       temp="18–32°C",season="80–110 days", yield_="3–6 t/acre",  spacing="25×75 cm",  depth="1.0–1.5 m",method="Furrow / Sprinkler",spray=14),
+    "Corn":           dict(N=150,P=70, K=50, water=3500,pH="5.8–7.0",soil="Loam / Sandy loam",       temp="18–32°C",season="80–110 days", yield_="3–6 t/acre",  spacing="25×75 cm",  depth="1.0–1.5 m",method="Furrow / Sprinkler",spray=14),
+    "Sorghum":        dict(N=100,P=40, K=40, water=2000,pH="5.8–7.0",soil="Loam / Clay loam",        temp="25–35°C",season="90–120 days", yield_="2–4 t/acre",  spacing="20×45 cm",  depth="1.0–1.8 m",method="Furrow",           spray=14),
+    "Barley":         dict(N=80, P=40, K=30, water=2200,pH="6.0–7.5",soil="Loam / Sandy loam",       temp="12–20°C",season="80–110 days", yield_="1.5–3 t/acre",spacing="20 cm rows",depth="1.0–1.5 m",method="Furrow",           spray=14),
+    "Pearl Millet":   dict(N=60, P=30, K=30, water=1500,pH="6.0–7.5",soil="Sandy / Sandy loam",      temp="25–35°C",season="65–90 days",  yield_="1–2 t/acre",  spacing="15×45 cm",  depth="0.5–1.0 m",method="Furrow",           spray=14),
+    "Oats":           dict(N=80, P=40, K=40, water=2000,pH="6.0–7.0",soil="Loam",                    temp="10–20°C",season="80–100 days", yield_="1.5–3 t/acre",spacing="20 cm rows",depth="0.8–1.2 m",method="Sprinkler",        spray=14),
+    # ── Legumes ─────────────────────────────────────────────────────────────
+    "Soybean":        dict(N=20, P=60, K=40, water=2200,pH="6.0–7.0",soil="Loam / Sandy loam",       temp="20–30°C",season="90–120 days", yield_="1–2 t/acre",  spacing="5×45 cm",   depth="0.8–1.2 m",method="Furrow / Sprinkler",spray=14),
+    "Chickpea":       dict(N=20, P=50, K=30, water=1800,pH="6.0–7.5",soil="Sandy loam / Loam",       temp="15–25°C",season="90–110 days", yield_="0.8–1.5 t/acre",spacing="10×30 cm",depth="0.6–1.0 m",method="Furrow",           spray=14),
+    "Groundnut":      dict(N=20, P=60, K=40, water=2500,pH="6.0–7.0",soil="Sandy loam",              temp="22–30°C",season="90–120 days", yield_="1–2 t/acre",  spacing="15×30 cm",  depth="0.5–0.8 m",method="Furrow / Drip",    spray=14),
+    "Lentil":         dict(N=20, P=40, K=20, water=1500,pH="6.0–8.0",soil="Loam / Sandy loam",       temp="15–25°C",season="80–100 days", yield_="0.5–1 t/acre",spacing="5×30 cm",   depth="0.6–1.0 m",method="Furrow",           spray=14),
+    "Black Gram":     dict(N=20, P=40, K=30, water=1800,pH="6.0–7.5",soil="Loam / Clay loam",        temp="25–35°C",season="65–80 days",  yield_="0.5–1 t/acre",spacing="10×30 cm",  depth="0.5–0.8 m",method="Furrow",           spray=14),
+    "Green Gram":     dict(N=20, P=40, K=30, water=1600,pH="6.0–7.5",soil="Sandy loam",              temp="25–35°C",season="60–75 days",  yield_="0.5–1 t/acre",spacing="10×30 cm",  depth="0.5–0.8 m",method="Furrow",           spray=14),
+    "Cowpea":         dict(N=20, P=40, K=30, water=1800,pH="5.5–7.0",soil="Sandy loam",              temp="24–35°C",season="60–90 days",  yield_="0.5–1 t/acre",spacing="15×45 cm",  depth="0.6–1.0 m",method="Furrow",           spray=14),
+    # ── Fruits ──────────────────────────────────────────────────────────────
+    "Banana":         dict(N=200,P=60, K=300,water=6000,pH="6.0–7.5",soil="Loam / Clay loam",        temp="26–35°C",season="9–12 months", yield_="25–40 t/acre",spacing="180×180 cm",depth="0.5–1.5 m",method="Drip / Flood",     spray=10),
+    "Mango":          dict(N=100,P=50, K=100,water=3000,pH="5.5–7.5",soil="Sandy loam / Loam",       temp="24–35°C",season="3–5 months",  yield_="5–15 t/acre", spacing="10×10 m",   depth="1.5–3.0 m",method="Drip / Furrow",    spray=14),
+    "Papaya":         dict(N=100,P=100,K=200,water=3500,pH="6.0–7.0",soil="Sandy loam",              temp="22–32°C",season="9–11 months", yield_="30–60 t/acre",spacing="180×180 cm",depth="0.5–1.0 m",method="Drip",             spray=10),
+    "Guava":          dict(N=60, P=40, K=80, water=2500,pH="5.0–7.0",soil="Sandy loam / Loam",       temp="20–35°C",season="5–7 months",  yield_="8–20 t/acre", spacing="5×5 m",     depth="0.8–1.5 m",method="Drip / Furrow",    spray=14),
+    "Watermelon":     dict(N=80, P=50, K=80, water=3500,pH="6.0–7.5",soil="Sandy loam",              temp="22–30°C",season="70–90 days",  yield_="15–25 t/acre",spacing="100×200 cm",depth="0.5–1.0 m",method="Drip / Furrow",    spray=10),
+    "Grapes":         dict(N=100,P=50, K=80, water=2500,pH="6.0–7.0",soil="Sandy loam / Loam",       temp="15–30°C",season="6–8 months",  yield_="8–15 t/acre", spacing="3×2 m",     depth="0.8–1.5 m",method="Drip",             spray=7),
+    "Grape":          dict(N=100,P=50, K=80, water=2500,pH="6.0–7.0",soil="Sandy loam / Loam",       temp="15–30°C",season="6–8 months",  yield_="8–15 t/acre", spacing="3×2 m",     depth="0.8–1.5 m",method="Drip",             spray=7),
+    "Apple":          dict(N=70, P=40, K=60, water=2800,pH="5.5–6.5",soil="Sandy loam / Loam",       temp="15–25°C",season="5–7 months",  yield_="10–20 t/acre",spacing="6×6 m",     depth="1.0–2.0 m",method="Drip / Sprinkler", spray=10),
+    "Strawberry":     dict(N=100,P=50, K=80, water=2700,pH="5.5–6.5",soil="Sandy loam",              temp="15–22°C",season="90–120 days", yield_="3–8 t/acre",  spacing="30×60 cm",  depth="0.3–0.5 m",method="Drip",             spray=7),
+    "Pomegranate":    dict(N=80, P=50, K=80, water=2000,pH="5.5–7.0",soil="Sandy loam / Loam",       temp="20–35°C",season="5–7 months",  yield_="8–15 t/acre", spacing="5×5 m",     depth="0.8–1.5 m",method="Drip",             spray=14),
+    "Coconut":        dict(N=100,P=40, K=200,water=3000,pH="5.5–7.0",soil="Sandy loam / Laterite",   temp="27–32°C",season="Perennial",   yield_="10–15 t/acre",spacing="8×8 m",     depth="1.5–3.0 m",method="Drip / Basin",     spray=14),
+    "Cherry":         dict(N=80, P=40, K=60, water=2800,pH="6.0–7.0",soil="Sandy loam / Loam",       temp="15–22°C",season="5–7 months",  yield_="3–8 t/acre",  spacing="5×5 m",     depth="1.0–2.0 m",method="Drip / Sprinkler", spray=10),
+    "Peach":          dict(N=90, P=50, K=70, water=2900,pH="6.0–7.0",soil="Sandy loam / Loam",       temp="15–25°C",season="4–6 months",  yield_="5–12 t/acre", spacing="5×5 m",     depth="1.0–2.0 m",method="Drip / Sprinkler", spray=10),
+    # ── Cash Crops ──────────────────────────────────────────────────────────
+    "Cotton":         dict(N=120,P=60, K=60, water=4000,pH="6.0–7.5",soil="Black soil / Loam",       temp="21–30°C",season="150–180 days",yield_="0.5–1 t/acre",spacing="60×90 cm",  depth="1.0–2.0 m",method="Furrow / Drip",    spray=10),
+    "Sugarcane":      dict(N=200,P=80, K=120,water=7000,pH="6.0–8.0",soil="Loam / Clay loam",        temp="25–35°C",season="10–14 months",yield_="40–60 t/acre",spacing="90 cm rows",depth="1.0–2.0 m",method="Furrow / Drip",    spray=14),
+    "Jute":           dict(N=80, P=30, K=30, water=3500,pH="6.0–7.0",soil="Loam / Sandy loam",       temp="25–35°C",season="100–120 days",yield_="2–3 t/acre",  spacing="5×25 cm",   depth="0.6–1.2 m",method="Furrow",           spray=14),
+    "Tobacco":        dict(N=80, P=40, K=100,water=3000,pH="5.5–6.5",soil="Sandy loam",              temp="20–30°C",season="90–120 days", yield_="1–2 t/acre",  spacing="60×90 cm",  depth="0.6–1.0 m",method="Furrow / Drip",    spray=10),
+    "Tea":            dict(N=150,P=30, K=60, water=4000,pH="4.5–6.0",soil="Acidic loam",             temp="15–30°C",season="Perennial",   yield_="1–2 t/acre",  spacing="60×120 cm", depth="0.5–1.5 m",method="Sprinkler / Drip", spray=10),
+    "Coffee":         dict(N=100,P=50, K=100,water=3500,pH="5.5–6.5",soil="Loam / Clay loam",        temp="15–25°C",season="Perennial",   yield_="0.5–1 t/acre",spacing="3×3 m",     depth="0.5–1.5 m",method="Drip / Sprinkler", spray=14),
+    # ── Oilseeds ────────────────────────────────────────────────────────────
+    "Sunflower":      dict(N=80, P=40, K=40, water=2500,pH="6.0–7.5",soil="Loam / Sandy loam",       temp="20–30°C",season="80–100 days", yield_="0.8–1.5 t/acre",spacing="30×60 cm",depth="0.8–1.5 m",method="Furrow / Sprinkler",spray=14),
+    "Mustard":        dict(N=80, P=40, K=20, water=1800,pH="6.0–7.5",soil="Sandy loam / Loam",       temp="10–25°C",season="90–110 days", yield_="0.6–1 t/acre",spacing="15×30 cm",  depth="0.6–1.0 m",method="Furrow",           spray=14),
+    "Sesame":         dict(N=30, P=20, K=20, water=1500,pH="5.5–7.0",soil="Sandy loam",              temp="25–35°C",season="70–90 days",  yield_="0.3–0.6 t/acre",spacing="10×30 cm",depth="0.3–0.6 m",method="Furrow",           spray=14),
+    "Castor":         dict(N=60, P=30, K=30, water=2000,pH="5.5–7.5",soil="Sandy loam",              temp="20–35°C",season="150–180 days",yield_="0.8–1.5 t/acre",spacing="75×90 cm",depth="0.8–1.5 m",method="Furrow",           spray=14),
+    # ── Spices ──────────────────────────────────────────────────────────────
+    "Turmeric":       dict(N=80, P=40, K=80, water=3000,pH="5.5–7.0",soil="Sandy loam / Loam",       temp="20–30°C",season="8–9 months",  yield_="2–4 t/acre",  spacing="25×45 cm",  depth="0.3–0.6 m",method="Furrow / Drip",    spray=10),
+    "Ginger":         dict(N=100,P=50, K=100,water=3500,pH="5.5–6.5",soil="Sandy loam / Loam",       temp="20–30°C",season="8–10 months", yield_="2–4 t/acre",  spacing="25×30 cm",  depth="0.3–0.6 m",method="Drip / Sprinkler", spray=10),
+    "Chilli":         dict(N=120,P=60, K=60, water=2800,pH="6.0–7.0",soil="Sandy loam / Loam",       temp="20–30°C",season="90–120 days", yield_="3–6 t/acre",  spacing="45×60 cm",  depth="0.5–0.8 m",method="Drip / Furrow",    spray=7),
+    "Coriander":      dict(N=40, P=20, K=20, water=1500,pH="6.0–7.5",soil="Sandy loam",              temp="15–25°C",season="45–60 days",  yield_="0.3–0.8 t/acre",spacing="10×30 cm",depth="0.3–0.5 m",method="Sprinkler",        spray=14),
+    "Cardamom":       dict(N=60, P=30, K=60, water=2000,pH="5.0–6.5",soil="Loam / Forest loam",      temp="15–25°C",season="Perennial",   yield_="0.1–0.2 t/acre",spacing="180×180 cm",depth="0.5–1.0 m",method="Drip / Sprinkler",spray=10),
 }
 
+# Convenience dicts for backward compatibility
+crop_npk   = {k: (v["N"], v["P"], v["K"])  for k, v in CROP_DB.items()}
+crop_water = {k: v["water"]                for k, v in CROP_DB.items()}
+
 # =========================
-# FARM CALCULATOR
+# FARM CALCULATOR (FULL CROP DB)
 # =========================
 def farm_calculator(area, humidity, temp, crop, soil_moisture=25):
     area = float(area)
-    N, P, K = crop_npk.get(crop, (60, 40, 40))
-    irrigation = crop_water.get(crop, 3000)
 
+    # Match crop name case-insensitively
+    crop_key = next((k for k in CROP_DB if k.lower() == crop.strip().lower()), None)
+    info = CROP_DB.get(crop_key) if crop_key else None
+
+    if info:
+        N, P, K   = info["N"], info["P"], info["K"]
+        irrigation = info["water"]
+        spray_base = info["spray"]
+        ph         = info["pH"]
+        soil       = info["soil"]
+        opt_temp   = info["temp"]
+        season     = info["season"]
+        exp_yield  = info["yield_"]
+        spacing    = info["spacing"]
+        depth      = info["depth"]
+        method     = info["method"]
+        display_crop = crop_key
+    else:
+        N, P, K    = 60, 40, 40
+        irrigation = 3000
+        spray_base = 10
+        ph = soil = opt_temp = season = exp_yield = spacing = depth = method = "N/A"
+        display_crop = crop
+
+    # Dynamic irrigation adjustment
     if temp > 32:
         irrigation += 800
     if humidity < 40:
         irrigation += 500
     if soil_moisture > 35:
         irrigation -= 700
-
     irrigation = max(1500, irrigation)
-    spray = 7 if humidity > 80 else 10 if humidity > 60 else 14
+
+    # Dynamic spray interval
+    spray = 7 if humidity > 80 else (spray_base if humidity > 60 else min(spray_base + 4, 14))
 
     return f"""
 {t('smart_farm_plan')}
 
-{t('crop_label')}: {crop}
-
+{t('crop_label')}: {display_crop}
 {t('area_label')}: {area} {t('acres')}
 
-{t('irrigation_label')}: {int(irrigation * area)} {t('liters')}
+── {t('fertilizer_label')} ──
+N : {int(N * area)} {t('kg')}
+P : {int(P * area)} {t('kg')}
+K : {int(K * area)} {t('kg')}
 
-{t('spray_label')}: {spray} {t('days')}
+── {t('irrigation_label')} ──
+{int(irrigation * area)} {t('liters')}  ({method})
 
-{t('fertilizer_label')}:
-N: {int(N * area)} {t('kg')}
-P: {int(P * area)} {t('kg')}
-K: {int(K * area)} {t('kg')}
+── {t('spray_label')} ──
+{spray} {t('days')}
+
+── Agronomic Details ──
+Soil pH       : {ph}
+Soil Type     : {soil}
+Optimal Temp  : {opt_temp}
+Season        : {season}
+Expected Yield: {exp_yield}
+Spacing       : {spacing}
+Root Depth    : {depth}
 """
 
 # =========================
