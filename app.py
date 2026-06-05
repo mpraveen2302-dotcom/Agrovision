@@ -429,20 +429,16 @@ with c4:
 @st.cache_resource(show_spinner="Loading AI model…")
 def load_model():
     try:
-        interpreter = tf.lite.Interpreter(
-            model_path="model.tflite"
+        model = tf.keras.models.load_model(
+            "model.keras",
+            compile=False
         )
 
-        interpreter.allocate_tensors()
-
-        input_details = interpreter.get_input_details()
-        output_details = interpreter.get_output_details()
-
-        return interpreter, input_details, output_details
+        return model
 
     except Exception as e:
         st.error(f"Model loading failed: {e}")
-        return None, None, None
+        return None
 
 
 @st.cache_data(show_spinner=False)
@@ -459,15 +455,13 @@ def load_knowledge_base() -> dict:
     except Exception:
         return {}
 
-
-interpreter, input_details, output_details = load_model()
+model = load_model()
 
 class_names = load_classes()
 knowledge_base = load_knowledge_base()
 
-if interpreter is None:
+if model is None:
     st.stop()
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # WEATHER
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -903,26 +897,13 @@ def run_full_pipeline(image_file, city, area, lang, crop):
     
     # ── 5. Inference ───────────────────────────────────────────────────────────
 
-    interpreter.set_tensor(
-        input_details[0]["index"],
-        img_array.astype(np.float32)
-    )
-
-    interpreter.invoke()
-
-    raw_output = interpreter.get_tensor(
-        output_details[0]["index"]
+    raw_output = model.predict(
+        img_array,
+        verbose=0
     )[0]
 
     idx = int(np.argmax(raw_output))
-    st.write("Predicted Class Name:", class_names[idx])
-    for i in [61,17,22,8,73]:
-        st.write(i, class_names[i])
     confidence = float(raw_output[idx])
-    st.write("Predicted Index:", idx)
-    st.write("Raw Top 10 Indices:", np.argsort(raw_output)[-10:][::-1])
-    st.write("Raw Top 10 Scores:", np.sort(raw_output)[-10:][::-1])
-
     safe_names = class_names[:len(raw_output)]
 
     label = (
@@ -950,12 +931,11 @@ def run_full_pipeline(image_file, city, area, lang, crop):
     farm_info = farm_calculator(area, humidity, temp, crop)
 
     # ── 11. Grad-CAM ──────────────────────────────────────────────────────────
-    gc = {
-        "overlay_image": cleaned_image,
-        "heatmap_image": cleaned_image,
-        "hotspot_pct": 0,
-        "error": "Grad-CAM disabled for TFLite model"
-    }
+    gc = generate_gradcam(
+        cleaned_image,
+        model,
+        pred_index=idx
+    )
 
     # ── 12. Analytics ─────────────────────────────────────────────────────────
     update_session(confidence, label)
