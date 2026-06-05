@@ -428,100 +428,20 @@ with c4:
 # ═══════════════════════════════════════════════════════════════════════════════
 @st.cache_resource(show_spinner="Loading AI model…")
 def load_model():
-    """
-    Version-compatible model loader.
-
-    Handles the common TF version mismatch where a model saved with TF ≥ 2.9
-    includes 'groups': 1 in DepthwiseConv2D / Conv2D configs, but the current
-    environment's Keras doesn't recognise that keyword yet.
-
-    Strategy (tried in order):
-      1. Direct load — works when TF versions match.
-      2. Custom-object shim that silently drops unknown kwargs — handles the
-         'groups' / 'batch_shape' mismatch without re-saving the model.
-      3. h5py patch — rewrites the offending config string in memory and
-         reloads from the patched bytes; last resort, no disk writes.
-    """
-    import h5py, io, re
-
-    # ── Strategy 1: plain load ────────────────────────────────────────────────
-    try:
-        model = tf.keras.models.load_model("model.h5")
-        _warmup(model)
-        return model
-    except Exception as e1:
-        pass   # fall through to shim
-
-    # ── Strategy 2: custom-object shim ───────────────────────────────────────
-    # Subclass the offending layers to accept (and ignore) unknown kwargs.
-    class CompatDepthwiseConv2D(tf.keras.layers.DepthwiseConv2D):
-        def __init__(self, *args, **kwargs):
-            kwargs.pop("groups", None)          # strip 'groups'
-            kwargs.pop("batch_shape", None)     # strip 'batch_shape' if present
-            super().__init__(*args, **kwargs)
-
-    class CompatConv2D(tf.keras.layers.Conv2D):
-        def __init__(self, *args, **kwargs):
-            kwargs.pop("groups", None)
-            kwargs.pop("batch_shape", None)
-            super().__init__(*args, **kwargs)
-
     try:
         model = tf.keras.models.load_model(
             "model.h5",
-            custom_objects={
-                "DepthwiseConv2D": CompatDepthwiseConv2D,
-                "Conv2D":          CompatConv2D,
-            },
+            compile=False
         )
-        _warmup(model)
+
+        dummy = np.zeros((1, 224, 224, 3), dtype=np.float32)
+        model.predict(dummy, verbose=0)
+
         return model
-    except Exception as e2:
-        pass   # fall through to h5py patch
 
-    # ── Strategy 3: in-memory h5py patch ─────────────────────────────────────
-    # Read the raw HDF5 bytes, strip the offending JSON key from the model
-    # config string, then reload from a BytesIO buffer.
-    try:
-        with open("model.h5", "rb") as f:
-            raw = bytearray(f.read())
-
-        # The model config is stored as a JSON string inside the HDF5 attrs.
-        # We can safely strip '"groups": 1,' or ', "groups": 1' occurrences.
-        patched = re.sub(rb',?\s*"groups":\s*\d+', b"", raw)
-
-        buf   = io.BytesIO(bytes(patched))
-        model = tf.keras.models.load_model(buf)
-        _warmup(model)
-        return model
-    except Exception as e3:
-        st.error(
-            "Model loading failed after three attempts.\n\n"
-            "**Root cause:** TensorFlow version mismatch — your `model.h5` was "
-            "saved with a newer TF that embeds `'groups': 1` in `DepthwiseConv2D` "
-            "configs, but your current environment does not support that argument.\n\n"
-            "**Quick fix options:**\n"
-            "1. `pip install --upgrade tensorflow` (match the version used for training)\n"
-            "2. Re-save the model in your training environment:\n"
-            "   ```python\n"
-            "   model.save('model.h5', save_format='h5')   # TF ≥ 2.12\n"
-            "   # or\n"
-            "   model.save('model_v2', save_format='tf')   # SavedModel format\n"
-            "   ```\n"
-            "3. Use the patched loader script below to convert once:\n"
-            "   ```python\n"
-            "   python fix_model.py\n"
-            "   ```"
-        )
+    except Exception as e:
+        st.error(f"Model loading failed: {e}")
         return None
-
-
-def _warmup(model):
-    """Single dummy inference to initialise GPU/CPU kernels."""
-    dummy = np.zeros((1, 224, 224, 3), dtype=np.float32)
-    model.predict(dummy, verbose=0)
-
-
 @st.cache_data(show_spinner=False)
 def load_classes() -> list:
     with open("class_names.json") as f:
