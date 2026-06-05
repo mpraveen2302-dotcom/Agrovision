@@ -13,9 +13,6 @@ import cv2
 
 
 # ─── Advanced Preprocessing ───────────────────────────────────────────────────
-from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
-
-
 def preprocess_image(source, target_size=(224, 224)):
 
     if isinstance(source, Image.Image):
@@ -29,10 +26,7 @@ def preprocess_image(source, target_size=(224, 224)):
 
     img = img.resize(target_size)
 
-    arr = np.array(img).astype(np.float32)
-
-    # MobileNetV2 preprocessing
-    arr = preprocess_input(arr)
+    arr = np.array(img).astype(np.float32) / 255.0
 
     arr = np.expand_dims(arr, axis=0)
 
