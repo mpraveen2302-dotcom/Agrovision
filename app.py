@@ -880,6 +880,8 @@ def run_full_pipeline(image_file, city, area, lang, crop):
 
     # ── 3. Leaf coverage + background removal ──────────────────────────────────
     seg = segment_leaf(pil_original, use_grabcut=True)
+    st.image(pil_original, caption="Original")
+    st.image(cleaned_image, caption="Segmented")
     if not seg["ok"]:
         return dict(error=True, error_type="leaf_coverage",
                     errors=[seg["message"]],
