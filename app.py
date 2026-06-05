@@ -437,7 +437,10 @@ def load_model():
 
         input_details = interpreter.get_input_details()
         output_details = interpreter.get_output_details()
-
+        st.write("INPUT DETAILS")
+        st.write(input_details)
+        st.write("OUTPUT DETAILS")
+        st.write(output_details)
         return interpreter, input_details, output_details
 
     except Exception as e:
