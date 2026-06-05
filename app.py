@@ -915,6 +915,9 @@ def run_full_pipeline(image_file, city, area, lang, crop):
     )[0]
 
     idx = int(np.argmax(raw_output))
+    st.write("Predicted Class Name:", class_names[idx])
+    for i in [61,17,22,8,73]:
+    st.write(i, class_names[i])
     confidence = float(raw_output[idx])
     st.write("Predicted Index:", idx)
     st.write("Raw Top 10 Indices:", np.argsort(raw_output)[-10:][::-1])
