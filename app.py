@@ -430,17 +430,14 @@ with c4:
 def load_model():
     try:
         model = tf.keras.models.load_model(
-            "model.keras",
+            "best_model.h5",
             compile=False
         )
-
         return model
 
     except Exception as e:
         st.error(f"Model loading failed: {e}")
         return None
-
-
 @st.cache_data(show_spinner=False)
 def load_classes() -> list:
     with open("class_names.json") as f:
