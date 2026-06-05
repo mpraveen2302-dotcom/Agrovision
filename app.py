@@ -19,6 +19,8 @@ import numpy as np
 import streamlit as st
 import plotly.graph_objects as go
 import tensorflow as tf
+st.write("TensorFlow Version:", tf.__version__)
+st.write("Keras Version:", tf.keras.__version__)
 from PIL import Image
 
 # ─── local modules ────────────────────────────────────────────────────────────
