@@ -1,7 +1,0 @@
-streamlit
-numpy
-pillow
-requests
-plotly
-deep-translator
-tensorflow==2.13.0
