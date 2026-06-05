@@ -902,19 +902,28 @@ def run_full_pipeline(image_file, city, area, lang, crop):
     img_array = preprocess_image(cleaned_image, target_size=(224, 224))
 
     # ── 5. Inference ───────────────────────────────────────────────────────────
-   interpreter.set_tensor(
-    input_details[0]["index"],
-    img_array.astype(np.float32)
-   )
-   interpreter.invoke()
 
-   raw_output = interpreter.get_tensor(
-    output_details[0]["index"]
-   )[0]
-    idx        = int(np.argmax(raw_output))
+    interpreter.set_tensor(
+        input_details[0]["index"],
+        img_array.astype(np.float32)
+    )
+
+    interpreter.invoke()
+
+    raw_output = interpreter.get_tensor(
+        output_details[0]["index"]
+    )[0]
+
+    idx = int(np.argmax(raw_output))
     confidence = float(raw_output[idx])
+
     safe_names = class_names[:len(raw_output)]
-    label      = safe_names[idx] if idx < len(safe_names) else f"Class_{idx}"
+
+    label = (
+        safe_names[idx]
+        if idx < len(safe_names)
+        else f"Class_{idx}"
+    )
 
     # ── 6. Confidence gate ─────────────────────────────────────────────────────
     uncertain = confidence < CONFIDENCE_THRESHOLD
@@ -926,7 +935,7 @@ def run_full_pipeline(image_file, city, area, lang, crop):
     humidity, temp, weather_source = get_weather(city)
 
     # ── 9. Severity ───────────────────────────────────────────────────────────
-    level, color, message, notes = get_severity(confidence, humidity, temp)
+    level, color, message, notes = get_severity(confidence, humidity, temp) 
     sev_info = estimate_severity_from_mask(leaf_mask, confidence)
     spray    = spray_schedule(humidity, level)
 
