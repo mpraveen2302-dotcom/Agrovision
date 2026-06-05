@@ -903,7 +903,7 @@ def run_full_pipeline(image_file, city, area, lang, crop):
 
     # ── 4. Advanced preprocessing ──────────────────────────────────────────────
     img_array = preprocess_image(cleaned_image, target_size=(224, 224))
-    img_array = (img_array * 2.0) - 1.0
+    
     # ── 5. Inference ───────────────────────────────────────────────────────────
 
     interpreter.set_tensor(
