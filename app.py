@@ -19,8 +19,6 @@ import numpy as np
 import streamlit as st
 import plotly.graph_objects as go
 import tensorflow as tf
-st.write("TensorFlow Version:", tf.__version__)
-st.write("Keras Version:", tf.keras.__version__)
 from PIL import Image
 
 # ─── local modules ────────────────────────────────────────────────────────────
@@ -431,19 +429,22 @@ with c4:
 @st.cache_resource(show_spinner="Loading AI model…")
 def load_model():
     try:
-        model = tf.keras.models.load_model(
-            "model.tflite",
-            compile=False
+        interpreter = tf.lite.Interpreter(
+            model_path="model.tflite"
         )
 
-        dummy = np.zeros((1, 224, 224, 3), dtype=np.float32)
-        model.predict(dummy, verbose=0)
+        interpreter.allocate_tensors()
 
-        return model
+        input_details = interpreter.get_input_details()
+        output_details = interpreter.get_output_details()
+
+        return interpreter, input_details, output_details
 
     except Exception as e:
         st.error(f"Model loading failed: {e}")
-        return None
+        return None, None, None
+
+
 @st.cache_data(show_spinner=False)
 def load_classes() -> list:
     with open("class_names.json") as f:
@@ -459,11 +460,12 @@ def load_knowledge_base() -> dict:
         return {}
 
 
-model        = load_model()
-class_names  = load_classes()
+interpreter, input_details, output_details = load_model()
+
+class_names = load_classes()
 knowledge_base = load_knowledge_base()
 
-if model is None:
+if interpreter is None:
     st.stop()
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -900,7 +902,15 @@ def run_full_pipeline(image_file, city, area, lang, crop):
     img_array = preprocess_image(cleaned_image, target_size=(224, 224))
 
     # ── 5. Inference ───────────────────────────────────────────────────────────
-    raw_output = model.predict(img_array, verbose=0)[0]
+   interpreter.set_tensor(
+    input_details[0]["index"],
+    img_array.astype(np.float32)
+   )
+   interpreter.invoke()
+
+   raw_output = interpreter.get_tensor(
+    output_details[0]["index"]
+   )[0]
     idx        = int(np.argmax(raw_output))
     confidence = float(raw_output[idx])
     safe_names = class_names[:len(raw_output)]
@@ -925,7 +935,12 @@ def run_full_pipeline(image_file, city, area, lang, crop):
     farm_info = farm_calculator(area, humidity, temp, crop)
 
     # ── 11. Grad-CAM ──────────────────────────────────────────────────────────
-    gc = generate_gradcam(cleaned_image, model, pred_index=idx)
+    gc = {
+        "overlay_image": cleaned_image,
+        "heatmap_image": cleaned_image,
+        "hotspot_pct": 0,
+        "error": "Grad-CAM disabled for TFLite model"
+    }
 
     # ── 12. Analytics ─────────────────────────────────────────────────────────
     update_session(confidence, label)
