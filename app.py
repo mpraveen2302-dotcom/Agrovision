@@ -890,7 +890,10 @@ def run_full_pipeline(image_file, city, area, lang, crop):
     leaf_mask     = seg["mask"]
 
     # ── 4. Advanced preprocessing ──────────────────────────────────────────────
-    img_array = preprocess_image(cleaned_image, target_size=(224, 224))
+    img_array = preprocess_image(
+    pil_original,
+    target_size=(224,224)
+)
     
     # ── 5. Inference ───────────────────────────────────────────────────────────
 
@@ -900,6 +903,12 @@ def run_full_pipeline(image_file, city, area, lang, crop):
     )[0]
 
     idx = int(np.argmax(raw_output))
+    top5_idx = np.argsort(raw_output)[-5:][::-1]
+
+    for i in top5_idx:
+        st.write(
+            f"{i} | {class_names[i]} | {float(raw_output[i]):.4f}"
+        )
     confidence = float(raw_output[idx])
     safe_names = class_names[:len(raw_output)]
 
