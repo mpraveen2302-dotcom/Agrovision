@@ -880,23 +880,36 @@ def run_full_pipeline(image_file, city, area, lang, crop):
 
     # ── 3. Leaf coverage + background removal ──────────────────────────────────
     seg = segment_leaf(pil_original, use_grabcut=True)
-    st.image(pil_original, caption="Original")
-    st.image(cleaned_image, caption="Segmented")
     if not seg["ok"]:
-        return dict(error=True, error_type="leaf_coverage",
-                    errors=[seg["message"]],
-                    quality=val["quality"],
-                    coverage_pct=seg["coverage_pct"])
+        return dict(
+            error=True,
+            error_type="leaf_coverage",
+            errors=[seg["message"]],
+            quality=val["quality"],
+            coverage_pct=seg["coverage_pct"]
+        )
 
     cleaned_image = seg["cleaned_image"]
-    leaf_mask     = seg["mask"]
+    leaf_mask = seg["mask"]
 
-    # ── 4. Advanced preprocessing ──────────────────────────────────────────────
+    # DEBUG IMAGES
+    st.image(
+        pil_original,
+        caption="Original Image",
+        use_container_width=True
+    )
+
+    st.image(
+        cleaned_image,
+        caption="Segmented Image",
+        use_container_width=True
+    )
+
+# ── 4. Advanced preprocessing ──────────────────────────────────────────────
     img_array = preprocess_image(
-    pil_original,
-    target_size=(224,224)
-)
-    
+        pil_original,
+        target_size=(224, 224)
+    )
     # ── 5. Inference ───────────────────────────────────────────────────────────
 
     raw_output = model.predict(
