@@ -13,76 +13,23 @@ import cv2
 
 
 # ─── Advanced Preprocessing ───────────────────────────────────────────────────
-def preprocess_image(source, target_size: tuple[int, int] = (224, 224)) -> np.ndarray:
-    """
-    Production-ready preprocessing pipeline.
+def preprocess_image(source, target_size=(224, 224)):
 
-    Steps:
-      1. Open + convert to RGB
-      2. CLAHE (contrast limited adaptive histogram equalisation)
-      3. Gaussian noise reduction
-      4. Colour normalisation (mean/std)
-      5. Unsharp mask sharpening
-      6. Resize to target_size
-      7. Normalise to [0, 1] + expand batch dim
-
-    Parameters
-    ----------
-    source      : file-like, PIL.Image, or np.ndarray
-    target_size : (H, W)
-
-    Returns
-    -------
-    np.ndarray  : shape (1, H, W, 3), dtype float32, values 0–1
-    """
-    # ── Load ────────────────────────────────────────────────────────────────
     if isinstance(source, Image.Image):
-        pil_img = source.convert("RGB")
+        img = source.convert("RGB")
     elif isinstance(source, np.ndarray):
-        pil_img = Image.fromarray(source).convert("RGB")
+        img = Image.fromarray(source).convert("RGB")
     else:
         if hasattr(source, "seek"):
             source.seek(0)
-        pil_img = Image.open(source).convert("RGB")
+        img = Image.open(source).convert("RGB")
 
-    # ── Convert to OpenCV BGR ────────────────────────────────────────────────
-    cv_img = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR)
+    img = img.resize(target_size)
 
-    # ── CLAHE on L-channel (LAB colour space) ───────────────────────────────
-    lab         = cv2.cvtColor(cv_img, cv2.COLOR_BGR2LAB)
-    l, a, b     = cv2.split(lab)
-    clahe       = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-    l_clahe     = clahe.apply(l)
-    lab_clahe   = cv2.merge([l_clahe, a, b])
-    cv_img      = cv2.cvtColor(lab_clahe, cv2.COLOR_LAB2BGR)
+    arr = np.array(img).astype(np.float32) / 255.0
 
-    # ── Gaussian noise reduction ─────────────────────────────────────────────
-    cv_img = cv2.GaussianBlur(cv_img, (3, 3), 0)
-
-    # ── Colour normalisation (per-channel mean/std) ──────────────────────────
-    cv_f   = cv_img.astype(np.float32)
-    for ch in range(3):
-        m, s        = cv_f[:, :, ch].mean(), cv_f[:, :, ch].std()
-        if s > 0:
-            cv_f[:, :, ch] = (cv_f[:, :, ch] - m) / s
-            # Rescale to 0–255
-            mn, mx = cv_f[:, :, ch].min(), cv_f[:, :, ch].max()
-            if mx > mn:
-                cv_f[:, :, ch] = (cv_f[:, :, ch] - mn) / (mx - mn) * 255
-    cv_img = np.clip(cv_f, 0, 255).astype(np.uint8)
-
-    # ── Unsharp mask sharpening ──────────────────────────────────────────────
-    blurred  = cv2.GaussianBlur(cv_img, (5, 5), 0)
-    cv_img   = cv2.addWeighted(cv_img, 1.5, blurred, -0.5, 0)
-    cv_img   = np.clip(cv_img, 0, 255).astype(np.uint8)
-
-    # ── Resize ───────────────────────────────────────────────────────────────
-    h, w = target_size
-    cv_img = cv2.resize(cv_img, (w, h), interpolation=cv2.INTER_LANCZOS4)
-
-    # ── Normalise + batch dim ─────────────────────────────────────────────────
-    arr = cv_img.astype(np.float32) / 255.0
     arr = np.expand_dims(arr, axis=0)
+
     return arr
 
 
