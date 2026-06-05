@@ -1,0 +1,10 @@
+# AgroVision Pro — Requirements
+# Pin minor versions for reproducibility; patch updates are safe
+
+streamlit>=1.35.0
+tensorflow>=2.15.0,<2.17.0
+numpy>=1.24.0,<2.0.0
+Pillow>=10.0.0
+opencv-python-headless>=4.9.0   # headless for server/cloud deployment
+plotly>=5.20.0
+requests>=2.31.0
