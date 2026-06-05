@@ -432,7 +432,7 @@ with c4:
 def load_model():
     try:
         model = tf.keras.models.load_model(
-            "model.h5",
+            "agrovision_model_final.h5",
             compile=False
         )
 
