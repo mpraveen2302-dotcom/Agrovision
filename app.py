@@ -845,7 +845,7 @@ if camera_image is not None:
 # ═══════════════════════════════════════════════════════════════════════════════
 # PREDICTION + FULL PIPELINE
 # ═══════════════════════════════════════════════════════════════════════════════
-CONFIDENCE_THRESHOLD = 0.85   # Phase 6: reject below this
+CONFIDENCE_THRESHOLD = 0.65   # Phase 6: reject below this
 
 
 def run_full_pipeline(image_file, city, area, lang, crop):
