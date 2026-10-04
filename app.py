@@ -40,7 +40,7 @@ from utils             import (
 # ═══════════════════════════════════════════════════════════════════════════════
 translations = {
     "English": {
-        "title": "🌱 AgroVision Pro — Smart Agriculture System",
+        "title": "🌱 AgroTech — Smart Agriculture System",
         "dashboard": "🌾 Smart Farm Dashboard",
         "controls": "⚙️ Controls",
         "language": "🌐 Language",
